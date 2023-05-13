@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import inputImage from "../../Picture/activity/AddPicture.svg";
-import { submitData } from "./function/handleSubmit";
 import "./Css/Walking.css";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -25,7 +24,7 @@ const formSchema = Joi.object({
     }),
   distance: Joi.number().integer().required().label("distance(km)"),
   duration: Joi.number().integer().required().label("duration(min)"),
-  location: Joi.string().allow('').optional().label("location"),
+  location: Joi.string().allow("").optional().label("location"),
   date: Joi.date().iso().optional().label("date"),
   description: Joi.string().max(150).optional().label("description"),
   feeling: Joi.string()
@@ -34,7 +33,6 @@ const formSchema = Joi.object({
     .label("feeling"),
   img: Joi.optional().label("img"),
 });
-
 
 const AddActivity = () => {
   const [errors, setErrors] = useState({});
@@ -61,39 +59,41 @@ const AddActivity = () => {
   };
 
   const handleSubmit = async (event) => {
-  event.preventDefault();
+    event.preventDefault();
 
-  // Exclude empty fields from validation
-  const fieldsToValidate = Object.keys(activity).reduce((acc, key) => {
-    if (activity[key] !== "") {
-      acc[key] = activity[key];
+    // ส้ร้าง obj ใหม่ชื่อ fieldToValide เพื่อลดข้อมูลไม่ได้กรอกทิ้งเพื่อจะได้ไม่รกที่ฝั่ง DB สร้างจากการ iterate activity
+    // ใช้ reduce เพื่อที่ว่าจะได้ใช้ค่าเดิม(acc) กับค่าตัวถัดไป(key) ซึ่งถ้าค่าที่เอามาวนลูปไม่ใช่ "" ก็จะเพิ่มค่าเข้าไปใน fieldToValide
+    const fieldsToValidate = Object.keys(activity).reduce((acc, key) => {
+      // เช็คว่าเป็น "" ไหมถ้าไม่ใช่ก็เพิ่มค่า
+      if (activity[key] !== "") {
+        // เพิ่มค่าด้วย key และ value ที่ตรงกับ activity
+        acc[key] = activity[key];
+      }
+      return acc;
+    }, {});
+
+    const { error, value } = formSchema.validate(fieldsToValidate);
+
+    if (!error) {
+      try {
+        const result = await axios.post(
+          `${import.meta.env.VITE_APP_KEY}/activities/create`,
+          value
+        );
+        console.log(result.data.message);
+        navigate("/dashboard");
+        return; // Exit the function after successful submission
+      } catch (error) {
+        console.log(error.response.data.message);
+      }
     }
-    return acc;
-  }, {});
 
-  const { error, value } = formSchema.validate(fieldsToValidate);
+    // Handle validation errors
+    error.details.forEach((item) => {
+      Swal.fire("Error", item.message, "error");
+    });
+  };
 
-  if (!error) {
-    try {
-      const result = await axios.post(
-        `${import.meta.env.VITE_APP_KEY}/activities/create`,
-        value
-      );
-      console.log(result.data.message);
-      navigate("/dashboard");
-      return; // Exit the function after successful submission
-    } catch (error) {
-      console.log(error.response.data.message);
-    }
-  }
-
-  // Handle validation errors
-  error.details.forEach((item) => {
-    Swal.fire("Error", item.message, "error");
-  });
-};
-
-  
   return (
     <div className="addActivity-form">
       <h2>Walking</h2>

@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import Walking from "../Activity/Walking";
-import EditActivity from "../EditActivity/EditActivity";
+import React, { useEffect, useState } from "react";
 import LayoutSignin from "../Layout/LayoutSignin";
 import settingLogo from "../../Picture/dashboard/SettingIcon.svg";
 import account from "../../Picture/dashboard/account.svg";
@@ -12,85 +10,26 @@ import "./Card.css";
 import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
-  const navigate = useNavigate()
-  const [toggleAdd, setToggleAdd] = useState(false);
-  const [toggleEdit, setToggleEdit] = useState(false);
-  const [editCardId, seteditCardId] = useState("false");
+  const navigate = useNavigate();
+  const [activityCard, setActivityCard] = useState([]);
 
-  const addActivity = (activity) => {
-    // หา id ของการ์ดใบสุดท้ายเพื่อมาสร้าง id ใหม่
-    const lastId = Math.max(...activityCard.map((ele) => ele.id));
-    const newId = lastId === -Infinity ? 0 : lastId + 1;
-    //นำ object ของ activityCard แล้วนำไป set id แล้ว concat ค่าใน object ที่เหลือ
-    const newActivity = { id: newId, ...activity };
-    const newActivities = [...activityCard, newActivity];
-    setActivityCard(newActivities);
-    setToggleOption(false);
-  };
+  const getData = async() => {
+    try{
+      const returnData = await axios.get(`${import.meta.env.VITE_APP_KEY}/activities`)
+      if (returnData) {
+        setBlogs(returnData.data);
+      }
+    }
+    catch{}
 
-  const deleteActivity = (id) => {
-    // filter การ์ดให้แสดงผลการ์ดที่เลข id ที่ไม่มีเลข id ที่กำหนดไว้
-    setActivityCard((prevActivities) =>
-      prevActivities.filter((activity) => activity.id !== id)
-    );
-  };
+  }
 
-  const [editActivityList, setEditActivityList] = useState({
-    id: "",
-    title: "",
-    distance: "",
-    duration: "",
-    location: "",
-    date: "",
-    description: "",
-    feeling: "",
-    img: "",
-  });
+  useEffect(()=>{
+    getData()
+  },[])
 
-  const editActivity = (id) => {
-    setToggleEdit(true);
-    seteditCardId(id);
-    setEditActivityList(activityCard[--id]);
-  };
-
-  const [activityCard, setActivityCard] = useState([
-    {
-      id: 1,
-      title: "อยากเหนื่อย card1",
-      distance: "10",
-      duration: "10",
-      location: "lumpini park",
-      date: "2023-04-01",
-      description: "เหนื่อยจังไม่ไหวแล้ววว",
-      feeling: "",
-      img: "",
-    },
-    {
-      id: 2,
-      title: "อยากเหนื่อย card2",
-      distance: "20",
-      duration: "20",
-      location: "Suan dok park",
-      date: "2023-04-02",
-      description: "เหนื่อยจังไม่ไหวแล้ววว",
-      feeling: "",
-      img: "",
-    },
-    {
-      id: 3,
-      title: "อยากเหนื่อย card3",
-      distance: "30",
-      duration: "30",
-      location: "lumpini park",
-      date: "2023-04-03",
-      description: "เหนื่อยจังไม่ไหวแล้ววว",
-      feeling: "",
-      img: "",
-    },
-  ]);
-
-  const handleToggleAdd = () => {
-    navigate('/AddActivity')
+  const handleToAddActivity = () => {
+    navigate("/AddActivity");
   };
 
   const cards = activityCard.map((card) => (
@@ -106,7 +45,7 @@ const Dashboard = () => {
         </div>
 
         <div className="status-card feeling">
-          <img src={card.feeling} />
+          <img src={card.feeling} alt="" />
         </div>
 
         <div className="status-card card-option">
@@ -114,13 +53,13 @@ const Dashboard = () => {
             <img
               src={EditIcon}
               alt="Edit button"
-              onClick={() => editActivity(card.id)}
+              onClick={() => console.log("add edit functions")}
               className="edit-btn"
             />
             <img
               src={deleteIcon}
               alt="delete button"
-              onClick={() => deleteActivity(card.id)}
+              onClick={() => console.log("add delete functions")}
               className="delete-btn"
             />
           </div>
@@ -151,7 +90,7 @@ const Dashboard = () => {
       </div>
 
       <div>
-        <img src={card.img} />
+        <img src={card.img} alt="" />
       </div>
     </div>
   ));
@@ -171,23 +110,8 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <button onClick={handleToggleAdd}>Add Activity</button>
+          <button onClick={handleToAddActivity}>Add Activity</button>
         </aside>
-
-        {toggleAdd && (
-          <Walking onAdd={addActivity} setToggleAdd={setToggleAdd} />
-        )}
-
-        {toggleEdit && (
-          <EditActivity
-            editActivityList={editActivityList}
-            setToggleEdit={setToggleEdit}
-            setEditActivityList={setEditActivityList}
-            activityCard={activityCard}
-            setActivityCard={setActivityCard}
-            editCardId={editCardId}
-          />
-        )}
 
         <section>
           <h4 className="quote">
