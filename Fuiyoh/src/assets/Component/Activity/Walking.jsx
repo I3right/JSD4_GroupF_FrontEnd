@@ -3,11 +3,45 @@ import inputImage from "../../Picture/activity/AddPicture.svg";
 import { submitData } from "./function/handleSubmit";
 import "./Css/Walking.css";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Joi from "joi";
+
+const formSchema = Joi.object({
+  type: Joi.string()
+    .valid("walking", "running", "cycling", "hiking", "swimming")
+    .required()
+    .label("type"),
+  title: Joi.string()
+    .regex(/^[A-Za-z\s]+$/)
+    .min(1)
+    .max(20)
+    .required()
+    .label("title")
+    .messages({
+      "string.pattern.base":
+        "The title must contain only alphabetic characters (a-z)",
+    }),
+  distance: Joi.number().integer().required().label("distance(km)"),
+  duration: Joi.number().integer().required().label("duration(min)"),
+  location: Joi.string().allow('').optional().label("location"),
+  date: Joi.date().iso().optional().label("date"),
+  description: Joi.string().max(150).optional().label("description"),
+  feeling: Joi.string()
+    .valid("best", "good", "normal", "bad", "worst")
+    .optional()
+    .label("feeling"),
+  img: Joi.optional().label("img"),
+});
+
 
 const AddActivity = () => {
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
   //เก็บข้อมูล activity เป็น object ถ้าเก็บ state ทีละตัวมันจัดการยาก
   const [activity, setActivity] = useState({
-    activity_type: "walking",
+    type: "walking",
     title: "",
     distance: "",
     duration: "",
@@ -18,37 +52,48 @@ const AddActivity = () => {
     img: "",
   });
 
-  //นำค่าที่กรอกใน input มาใส่เข้าไปใน state
   const handleChange = (event) => {
-    // เอา name กับ value มาเก็บ object แล้วนำไปใป่ setState Activity
     const { name, value } = event.target;
     setActivity((prevActivity) => ({
       ...prevActivity,
-      [name]: value,
+      [name]: value === "" ? undefined : value,
     }));
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    
-    
-    await submitData(activity);
-    
-    // เซ็ต state เป็นค่าว่างเวลากด submit แล้วค่าใน input จะหายไป
-    setActivity({
-      activity_type: "walking",
-      title: "",
-      distance: "",
-      duration: "",
-      location: "",
-      date: "",
-      description: "",
-      feeling: "",
-      img: "",
-    });
-  };
-  
+  event.preventDefault();
 
+  // Exclude empty fields from validation
+  const fieldsToValidate = Object.keys(activity).reduce((acc, key) => {
+    if (activity[key] !== "") {
+      acc[key] = activity[key];
+    }
+    return acc;
+  }, {});
+
+  const { error, value } = formSchema.validate(fieldsToValidate);
+
+  if (!error) {
+    try {
+      const result = await axios.post(
+        `${import.meta.env.VITE_APP_KEY}/activities/create`,
+        value
+      );
+      console.log(result.data.message);
+      navigate("/dashboard");
+      return; // Exit the function after successful submission
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
+  }
+
+  // Handle validation errors
+  error.details.forEach((item) => {
+    Swal.fire("Error", item.message, "error");
+  });
+};
+
+  
   return (
     <div className="addActivity-form">
       <h2>Walking</h2>
@@ -179,7 +224,11 @@ const AddActivity = () => {
         <button type="submit" className="addActivity-btn addAct-btn">
           Add Activity
         </button>
-        <Link to={'/dashboard'} type='button' className="cancleActivity-btn  addAct-btn">
+        <Link
+          to={"/dashboard"}
+          type="button"
+          className="cancleActivity-btn  addAct-btn"
+        >
           Cancel
         </Link>
       </form>
