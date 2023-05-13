@@ -24,9 +24,10 @@ const start = async () => {
     .then(() => console.log("Connected"))
     .catch((error) => console.log(error));
 
-  app.listen(process.env.PORT, () => {
-    console.log(`SERVER is running`);
-  });
+    app.listen(process.env.PORT, () => {
+      console.log(`SERVER is running`);
+    });
 };
+
 
 start();
