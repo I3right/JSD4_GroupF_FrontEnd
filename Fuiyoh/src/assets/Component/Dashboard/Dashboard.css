@@ -1,0 +1,59 @@
+.dashboard {
+    display: flex;
+    height: 100%;
+}
+
+.dashboard-profile {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.dashboard>aside {
+    padding: 40px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.dashboard-profile img {
+    width: 100%;
+}
+
+.dashboard-profile>figure {
+    width: 90px;
+}
+
+.dashboard-profile>div {
+    display: flex;
+}
+
+.dashboard-profile>div>div {
+    width: 30px;
+}
+
+aside button {
+    height: 50px;
+    border-radius: 50px;
+    background-color: #7773F0;
+    border: transparent;
+    color: white;
+}
+
+.dashboard>section {
+    flex: 1;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F6F8FC;
+    padding: 0 40px;
+}
+
+.quote {
+    margin: 40px 0;
+    padding: 20px 0;
+    border: 1rem double white;
+    width: 100%;
+    text-align: center;
+}

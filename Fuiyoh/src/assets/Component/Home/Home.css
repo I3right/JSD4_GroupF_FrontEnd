@@ -1,0 +1,154 @@
+@import url("https://fonts.googleapis.com/css2?family=Mitr:wght@400;500;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+span,
+button,
+div {
+  font-family: "Mitr", sans-serif;
+}
+
+a:hover {
+  color: black;
+  font-size: 105%;
+}
+
+/* Section main content */
+#maincontent {
+  background-image: url(../../Picture/icon/Home/content_main.png);
+  margin: 0 auto;
+  height: 800px;
+  width: 1320px;
+  background-repeat: no-repeat, repeat;
+  position: relative;
+  margin-bottom: 70px;
+}
+#textcontent {
+  display: flex;
+  flex-direction: row;
+}
+#textcontent1 {
+  padding-top: 120px;
+}
+
+#textcontent1 h5 {
+  text-align: center;
+  color: #5854b0;
+  font-size: 3rem;
+  padding-bottom: 1.5rem;
+}
+
+.button {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  align-items: center;
+}
+
+#buttonGetStart {
+  border: 0;
+  display: flex;
+  color: white;
+  background-color: #5854b0;
+  padding: 10px 16px;
+  border-radius: 100px;
+  transition: all 0.4s ease;
+  font-weight: bold;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  width: 400px;
+  text-decoration: none;
+}
+
+#buttonGetStart:hover {
+  background-color: #1e1a69;
+  color: #fff;
+  font-size: 105%;
+}
+
+#buttonRegister {
+  border: 2px solid #5854b0 !important;
+  display: flex;
+  color: #5854b0 !important;
+  background-color: transparent !important;
+  padding: 10px 16px;
+  border-radius: 100px;
+  transition: all 0.4s ease;
+  font-weight: bold;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  width: 400px;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+#buttonRegister:hover {
+  background-color: #1e1a69;
+  color: #fff;
+  font-size: 105%;
+}
+
+/* card section */
+
+.card-container {
+  background-color: #f6f8fc;
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+/* contect section */
+
+#contact {
+  width: 1320px;
+  /* border: 10px solid red; */
+  margin: 0 auto;
+  display: flex;
+}
+
+.map {
+  border: 0;
+  width: 450px;
+  height: 400px;
+  padding: 80px 50px 50px 50px;
+}
+
+.contact {
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* border: 10px solid red; */
+}
+
+.contact div {
+  margin-top: 70px;
+  width: 70%;
+  /* border: 5px solid rgba(236, 255, 70, 0.75); */
+}
+
+/* Footer section */
+
+.footer {
+  margin: 0 auto;
+  width: 1320px;
+  text-align: right;
+  padding: 25px;
+}

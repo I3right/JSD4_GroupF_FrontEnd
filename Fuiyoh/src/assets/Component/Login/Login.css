@@ -1,0 +1,185 @@
+.body-login {
+  height: 100vh;
+  width: auto;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #5854b0;
+  font-family: "Mitr", sans-serif;
+  /* border: 2px solid yellow; */
+}
+
+.main-container {
+  height: 100vh;
+  width: auto;
+  display: flex;
+  align-items: center;
+  /* border: 10px solid yellow; */
+}
+
+.main-container-form {
+  margin: 0 auto;
+  /* margin-top: 30px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 750px;
+  width: 1200px;
+  border-radius: 10px;
+  /* border: 10px solid rgba(43, 255, 106, 0.674); */
+}
+
+.left-side {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 750px;
+  width: 60vw;
+  background-color: #7773f0;
+  border-radius: 10px;
+  /* border: 5px solid rgba(161, 0, 0, 0.674); */
+}
+
+.right-side {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  height: 750px;
+  width: 60vw;
+  background-color: white;
+  border-radius: 10px;
+  /* border: 5px solid rgba(134, 97, 246, 0.674); */
+}
+
+.right-side h1 {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding-top: 40px;
+  padding-bottom: 25px;
+  color: #2f2c35;
+}
+
+.logoLogin {
+  padding-bottom: 40px;
+}
+
+.right-side img {
+  height: 150px;
+  width: 150px;
+}
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* height: 750px;
+    width: 60vw; */
+  /* border: 5px solid rgba(161, 0, 0, 0.674); */
+}
+
+#buttonLogin {
+  border: 0;
+  display: flex;
+  color: white;
+  background-color: #5854b0;
+  padding: 10px 16px;
+  border-radius: 100px;
+  transition: all 0.4s ease;
+  font-weight: bold;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  width: 400px;
+}
+
+#buttonLogin:hover {
+  background-color: #1e1a69;
+  color: #fff;
+  font-size: 110%;
+}
+
+/* source : https://www.youtube.com/watch?v=57JeRBZMbiE */
+.or-text {
+  text-align: center;
+  width: 100%;
+  color: grey;
+  margin-bottom: rem;
+  position: relative;
+}
+/* .or-text p {
+    z-index: 2;
+    background: white;
+  } */
+.or-text p:before {
+  content: "";
+  display: block;
+  width: 40%;
+  height: 1px;
+  background: lightgrey;
+  position: absolute;
+  left: 0;
+  top: 30%;
+  /* z-index: -2; */
+}
+.or-text p:after {
+  content: "";
+  display: block;
+  width: 40%;
+  height: 1px;
+  background: lightgrey;
+  position: absolute;
+  right: 0;
+  top: 30%;
+  /* z-index: -2; */
+}
+
+.login-box {
+  width: 500px;
+  margin: auto;
+}
+
+.login-box .user-box {
+  position: relative;
+}
+
+.login-box .user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #2f2c35;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #2f2c35;
+  outline: none;
+  background: transparent;
+}
+
+.login-box .user-box label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #2f2c35;
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: #5854b0;
+  font-size: 12px;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}

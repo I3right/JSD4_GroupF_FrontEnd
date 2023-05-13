@@ -1,0 +1,93 @@
+.addActivity h2,
+.addActivity-form h3 {
+  text-align: center;
+}
+
+.addActivity h3 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 0 0 8px 0;
+}
+
+.addActivity-form {
+  background-color: white;
+  width: 600px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
+  padding: 2rem 0;
+}
+
+form.addActivty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+form.addActivty h3 {
+  color: #5854b0;
+  text-align: unset;
+}
+
+form input {
+  width: 400px;
+  border: transparent;
+  font-size: 0.8rem;
+}
+
+form input:focus{
+  outline: none;
+}
+
+div.distance-preset{
+  display: flex;
+  gap: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+div.distance-preset button {
+  border: transparent;
+  background-color: transparent;
+  color: #5854b0;
+}
+
+form input:not(input[type="file"]) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+input[type="file"] {
+  visibility: hidden;
+}
+
+.image div {
+  width: 400px;
+}
+
+.addActivty label {
+  margin-bottom: 10px;
+}
+
+.addAct-btn{
+  width: 400px;
+  margin-bottom:0.5rem ;
+  padding: 5px 16px;
+  border-radius: 100px;
+  font-weight: bold;
+  cursor: pointer;
+  border: transparent;
+  text-align: center;
+}
+
+button.addActivity-btn{
+  background-color: #5854b0;
+  color: white;
+}
+
+.cancleActivity-btn{
+  background-color: white;
+  color: #5854b0;
+  border: 2px solid #5854b0;
+  text-decoration: none;
+}
+
+.cancleActivity-btn:hover{
+  color: #5854b0;
+}

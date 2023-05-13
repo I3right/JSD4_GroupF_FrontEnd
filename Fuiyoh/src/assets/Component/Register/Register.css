@@ -1,0 +1,143 @@
+.body-register {
+  height: 100vh;
+  width: auto;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #5854b0;
+  font-family: "Mitr", sans-serif;
+  /* border: 2px solid yellow; */
+}
+
+.container {
+  margin: 0 auto;
+  /* margin-top: 30px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 1200px;
+  /* border: 50px solid rgba(36, 225, 90, 0.674); */
+}
+
+.from-container {
+  /* border: 10px solid red; */
+  margin: 0 auto;
+  width: 580px;
+  height: 800px;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.from-container h1 {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding-top: 30px;
+  padding-bottom: 40px;
+  color: #2f2c35;
+}
+
+.login-box {
+  width: 500px;
+  margin: auto;
+}
+
+.login-box .user-box {
+  position: relative;
+}
+
+.login-box .user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #2f2c35;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #2f2c35;
+  outline: none;
+  background: transparent;
+}
+
+.login-box .user-box label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #2f2c35;
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: #5854b0;
+  font-size: 12px;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+.button {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  align-items: center;
+  margin-top: 30px;
+}
+
+#buttonRegister-register {
+  border: 0;
+  display: flex;
+  color: white;
+  background-color: #5854b0;
+  padding: 10px 16px;
+  border-radius: 100px;
+  transition: all 0.4s ease;
+  font-weight: bold;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  width: 400px;
+  text-decoration: none;
+}
+
+#buttonRegister-register:hover {
+  background-color: #1e1a69;
+  color: #fff;
+  font-size: 110%;
+}
+
+#buttonBack {
+  border: 2px solid #5854b0;
+  display: flex;
+  color: #5854b0;
+  /* background-color: #5854b0; */
+  padding: 10px 16px;
+  border-radius: 100px;
+  transition: all 0.4s ease;
+  font-weight: bold;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  width: 400px;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+#buttonBack:hover {
+  /* background-color: #1e1a69; */
+  color: #1e1a69;
+  border: 2px solid #1e1a69;
+  font-size: 110%;
+}

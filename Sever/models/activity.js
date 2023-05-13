@@ -1,0 +1,38 @@
+const mongoose = require("mongoose");
+const { Schema, model } = mongoose;
+
+const activitySchema = new Schema({
+  type: {
+    type: String,
+    lowercase:true,
+    enum: ["walking","running", "cycling", "hiking", "swimming"],
+    required: true,
+  },
+  title: {
+    type: String,
+    required: true,
+  },
+  distance: {
+    type: Number,
+    required: true,
+  },
+  duration: {
+    type: Number,
+    required: true,
+  },
+  date: {
+    type: Date,
+  },
+  description: {
+    type: String,
+  },
+  feeling: {
+    type: String,
+    enum: ["Walking","Running", "Cycling", "Hiking", "Swimming"]
+  },
+  picture: {
+    type: String,
+  },
+});
+
+module.exports = mongoose.model("Activity", activitySchema);

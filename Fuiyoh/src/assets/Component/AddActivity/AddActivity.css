@@ -1,0 +1,34 @@
+.addActivity{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F6F8FC;
+}
+
+input[type='radio']{
+    display: none;
+}
+
+img{
+    width: 100%;
+}
+
+.activity-selecter label>div{
+    width: 60px;
+}
+
+
+.activity-selecter{
+    width: 500px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem ;
+}
+
+.activity-selecter label:hover img {
+    border:2px solid gray;
+    border-radius: 50%;
+}
+
