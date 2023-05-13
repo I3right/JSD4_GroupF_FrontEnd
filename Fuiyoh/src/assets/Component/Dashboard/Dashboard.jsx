@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Walking from "../Activity/Walking";
 import EditActivity from "../EditActivity/EditActivity";
 import LayoutSignin from "../Layout/LayoutSignin";
@@ -10,6 +10,9 @@ import EditIcon from "../../Picture/dashboard/Edit.svg";
 import "./Dashboard.css";
 import "./Card.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
+
 
 const Dashboard = () => {
   const navigate = useNavigate()
@@ -28,15 +31,9 @@ const Dashboard = () => {
     setToggleOption(false);
   };
 
-  const deleteActivity = (id) => {
-    // filter การ์ดให้แสดงผลการ์ดที่เลข id ที่ไม่มีเลข id ที่กำหนดไว้
-    setActivityCard((prevActivities) =>
-      prevActivities.filter((activity) => activity.id !== id)
-    );
-  };
-
   const [editActivityList, setEditActivityList] = useState({
-    id: "",
+    _id: "",
+    type: "",
     title: "",
     distance: "",
     duration: "",
@@ -53,44 +50,65 @@ const Dashboard = () => {
     setEditActivityList(activityCard[--id]);
   };
 
-  const [activityCard, setActivityCard] = useState([
-    {
-      id: 1,
-      title: "อยากเหนื่อย card1",
-      distance: "10",
-      duration: "10",
-      location: "lumpini park",
-      date: "2023-04-01",
-      description: "เหนื่อยจังไม่ไหวแล้ววว",
-      feeling: "",
-      img: "",
-    },
-    {
-      id: 2,
-      title: "อยากเหนื่อย card2",
-      distance: "20",
-      duration: "20",
-      location: "Suan dok park",
-      date: "2023-04-02",
-      description: "เหนื่อยจังไม่ไหวแล้ววว",
-      feeling: "",
-      img: "",
-    },
-    {
-      id: 3,
-      title: "อยากเหนื่อย card3",
-      distance: "30",
-      duration: "30",
-      location: "lumpini park",
-      date: "2023-04-03",
-      description: "เหนื่อยจังไม่ไหวแล้ววว",
-      feeling: "",
-      img: "",
-    },
-  ]);
+  const [activityCard, setActivityCard] = useState([]);
 
   const handleToggleAdd = () => {
     navigate('/AddActivity')
+  };
+
+  useEffect(() => {
+    //ดึงข้อมูลจาก database เพื่อนำมาโชว์ในหน้า dashboard
+    const getData = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_APP_KEY}/activities/all`);
+        const data = response.data;
+        setActivityCard(data);
+        console.log(data)
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getData();
+  }, []);
+
+  // delete ข้อมูลใน database
+  const confirmDelete = (id) => {
+    Swal.fire({
+      title: "คุณต้องการลบการ์ดเหี้ยนี่ใช่หรือไม่",
+      icon: "warning",
+      showCancelButton: true,
+    }).then((result) => {
+      // ยืนยันการลบข้อมูล
+      if (result.isConfirmed) {
+        // เรียกฟังกชันเพื่อลบข้อความ
+        deleteData(id);
+      }
+    });
+  };
+
+  const deleteData = async (id) => {
+    try {
+      const response = await axios.delete(`${import.meta.env.VITE_APP_KEY}/activities/delete/${id}`);
+      console.log(response.data);
+      setActivityCard(selectedActivity => selectedActivity.filter(activity => activity._id !== id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // add mockdata
+  
+  const addMockData = async () => {
+    try {
+      const mockData = 
+        { type: "walking", title: "soodlhor", distance: Math.floor(Math.random()*100), duration: Math.floor(Math.random()*100), location: "bkk", description: "test krub pom" };
+      const response = await axios.post( `${import.meta.env.VITE_APP_KEY}/activities/create`, mockData);
+      console.log(response.data);
+      getData(); 
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   const cards = activityCard.map((card) => (
@@ -120,7 +138,7 @@ const Dashboard = () => {
             <img
               src={deleteIcon}
               alt="delete button"
-              onClick={() => deleteActivity(card.id)}
+              onClick={() => confirmDelete(card._id)}
               className="delete-btn"
             />
           </div>
@@ -144,7 +162,7 @@ const Dashboard = () => {
           </div>
           <div>
             <h6>pace</h6>
-            <h3>{card.duration / card.distance}</h3>
+            <h3>{(card.duration / card.distance) % 1 === 0 ? (card.duration / card.distance) : (card.duration / card.distance).toFixed(2)}</h3>
             <small>km/mins</small>
           </div>
         </div>
@@ -154,10 +172,14 @@ const Dashboard = () => {
         <img src={card.img} />
       </div>
     </div>
+
   ));
 
   return (
     <LayoutSignin>
+
+      {/* add mockdata */}
+      <button onClick={addMockData}>Add Mock Data</button>
       <div className="dashboard container-xl">
         <aside>
           <div className="dashboard-profile">
