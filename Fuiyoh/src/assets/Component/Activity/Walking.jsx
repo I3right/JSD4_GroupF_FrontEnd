@@ -76,11 +76,16 @@ const AddActivity = () => {
 
     if (!error) {
       try {
-        const result = await axios.post(
+        await axios.post(
           `${import.meta.env.VITE_APP_KEY}/activities/create`,
           value
         );
-        console.log(result.data.message);
+        await Swal.fire({
+          icon: "success",
+          title: "Activity Created!",
+          showConfirmButton: false,
+          timer: 1000,
+        });
         navigate("/dashboard");
         return; // Exit the function after successful submission
       } catch (error) {

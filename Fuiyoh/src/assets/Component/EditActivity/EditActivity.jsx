@@ -1,49 +1,37 @@
 import React, { useState } from "react";
 import inputImage from "../../Picture/activity/AddPicture.svg";
-// import "./Css/Walking.css";
 import { useNavigate } from "react-router-dom";
 
 // รับ props มาจาก Dashboard
-const Walking = (
-  { editActivityList,
-    setToggleEdit,
-    setEditActivityList,
-    activityCard,
-    setActivityCard,
-    editCardId
-  }) => {
+const EditActivity = (id) => {
   const navigate = useNavigate();
 
+  // const handleUpdate = (event) => {
+  //   event.preventDefault();
+  //   setActivityCard(activityCard.map((card) => (card.id === editCardId) ? editActivityList : card));
+  //   setToggleEdit(false)
+  // };
 
-  const handleUpdate = (event) => {
-    event.preventDefault();
-    setActivityCard(activityCard.map((card) => (card.id === editCardId)? editActivityList: card));
-    setToggleEdit(false)
-  };
-  // 
-  
-  const handleChange = (event) => {
-    // เอา name กับ value มาเก็บ object แล้วนำไปใป่ setState Activity
-    const { name, value } = event.target;
-    setEditActivityList((prevActivity) => ({
-      ...prevActivity,
-      [name]: value,
-    }));
-  };
+  // const handleChange = (event) => {
+  //   // เอา name กับ value มาเก็บ object แล้วนำไปใป่ setState Activity
+  //   const { name, value } = event.target;
+  //   setEditActivityList((prevActivity) => ({
+  //     ...prevActivity,
+  //     [name]: value,
+  //   }));
+  // };
 
 
-  
   return (
     <div className="addActivity-form">
       <h2>Edit Activity</h2>
-      <form onSubmit={handleUpdate} className="addActivty">
+      <form className="addActivty">
         <label className="title">
           <h3>Title</h3>
           <input
             name="title"
             type="text"
-            value={editActivityList.title}
-            onChange={handleChange}
+            value='title'
             placeholder="Add Your Title"
           />
         </label>
@@ -53,8 +41,7 @@ const Walking = (
           <input
             name="distance"
             type="number"
-            value={editActivityList.distance}
-            onChange={handleChange}
+            value='distance'
             placeholder="Add Your distance(kilometer)"
           />
         </label>
@@ -64,8 +51,7 @@ const Walking = (
           <input
             name="duration"
             type="number"
-            value={editActivityList.duration}
-            onChange={handleChange}
+            value='duration'
             placeholder="Add Your duration(minutes)"
           />
         </label>
@@ -74,8 +60,7 @@ const Walking = (
           <input
             name="location"
             type="text"
-            value={editActivityList.location}
-            onChange={handleChange}
+            value='location'
             placeholder="Add Your location"
           />
         </label>
@@ -85,8 +70,7 @@ const Walking = (
           <input
             name="date"
             type="date"
-            value={editActivityList.date}
-            onChange={handleChange}
+            value='date'
             placeholder="Add Your date"
           />
         </label>
@@ -96,8 +80,7 @@ const Walking = (
           <input
             name="description"
             type="text"
-            value={editActivityList.description}
-            onChange={handleChange}
+            value='description'
             placeholder="Add Your description"
           />
         </label>
@@ -107,8 +90,7 @@ const Walking = (
           <input
             name="feeling"
             type="text"
-            value={editActivityList.feeling}
-            onChange={handleChange}
+            value='feeling'
             placeholder="Add Your feeling"
           />
         </label>
@@ -118,7 +100,7 @@ const Walking = (
           <div>
             <img src={inputImage} alt="icon input for image" />
           </div>
-          <input type="file" value={editActivityList.value} />
+          <input type="file" value='' />
         </label>
 
         <button type="submit" className="register-btn">
@@ -132,4 +114,4 @@ const Walking = (
   );
 };
 
-export default Walking;
+export default EditActivity;
