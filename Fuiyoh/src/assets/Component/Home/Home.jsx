@@ -25,7 +25,7 @@ const Home = () => {
               lifestyle!
             </p>
             <div className="button">
-              <Link to="/dashboard" id="buttonGetStart">
+              <Link to="/login" id="buttonGetStart">
                 Get Start
               </Link>
               <Link to="/Register" id="buttonRegister">
@@ -40,7 +40,7 @@ const Home = () => {
 
       <div className="row" id="contact">
         <div className="col-6">
-          <iframe
+          <iframe 
             className="map"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d50470.02846872441!2d-122.4726193946364!3d37.75776267831458!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80859a6d00690021%3A0x4a501367f076adff!2z4LiL4Liy4LiZ4Lif4Lij4Liy4LiZ4LiL4Li04Liq4LmC4LiBIOC5geC4hOC4peC4tOC4n-C4reC4o-C5jOC5gOC4meC4teC4oiDguKrguKvguKPguLHguJDguK3guYDguKHguKPguLTguIHguLI!5e0!3m2!1sth!2sth!4v1667290329668!5m2!1sth!2sth"
           ></iframe>

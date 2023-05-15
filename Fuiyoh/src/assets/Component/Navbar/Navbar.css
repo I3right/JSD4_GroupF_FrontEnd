@@ -29,12 +29,19 @@
     align-items: center;
 }
 
+div.left-navbar a p{
+    height: 100%;
+    margin: auto;
+}
+
 /* right-navbar */
 .right-navbar {
     display: flex;
     align-items: center;
     gap: 24px;
     list-style: none;
+    height: 100%;
+    margin: auto 0;
 }
 
 .right-navbar a {

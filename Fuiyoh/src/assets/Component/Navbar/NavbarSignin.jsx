@@ -17,8 +17,8 @@ const NavbarSignin = () => {
 
       <ul className="right-navbar">
         <li>
-          <a href={"/"}>
-            <b>Home</b>
+          <a href={"/dashboard"}>
+            <b>dashboard</b>
           </a>
         </li>
         <li>
