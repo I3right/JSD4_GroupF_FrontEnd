@@ -19,6 +19,9 @@ const activitySchema = new Schema({
     type: Number,
     required: true,
   },
+  loaction: {
+    type: String,
+  },
   date: {
     type: Date,
   },
