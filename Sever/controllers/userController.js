@@ -13,12 +13,18 @@ exports.createUser = async (req, res) => {
   }
 };
 
-exports.getAlluser = async (req, res) => {
-  res.send({message:"all user"})
-};
-
 exports.getUser = async (req, res) => {
-  res.send({message:"one user"})
+  try{
+    const { userId } = req.params;
+    const returnData = await User.findOne({ _id: userId });
+    if (returnData) {
+      return res.status(201).json(returnData);
+    }
+    return res.status(404).json({ message: "user. Not found" })
+  }
+  catch(error){
+    return res.status(400).json({ message: "cannot find user" });
+  }
 };
 
 exports.deleteUser = async (req, res) => {

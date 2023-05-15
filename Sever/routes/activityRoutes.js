@@ -11,7 +11,7 @@ const {
 
 router.post("/create", createActivity);
 router.get("/all", getAllActivity);
-router.get("/single/:activityId", getActivity);
+router.get("/get/:activityId", getActivity);
 router.delete("/delete/:activityId", deleteActivity);
 router.put("/update/:activityId", updateActivity);
 
