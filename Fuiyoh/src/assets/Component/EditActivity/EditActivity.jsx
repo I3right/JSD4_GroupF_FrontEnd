@@ -53,7 +53,7 @@ const EditActivity = () => {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_APP_KEY}/activities/${activityId.activityId}`
+        `${import.meta.env.VITE_APP_KEY}/activities/single/${activityId.activityId}`
       );
       if (response) {
         const { type, title, distance, duration } = response.data;
