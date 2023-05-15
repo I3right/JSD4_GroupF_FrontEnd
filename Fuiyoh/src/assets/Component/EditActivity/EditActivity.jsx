@@ -57,7 +57,7 @@ const EditActivity = () => {
       );
       if (response) {
         const { type, title, distance, duration } = response.data;
-        let { date, description, feeling, img } = response.data;
+        let { date, description, feeling, img, location } = response.data;
 
         const today = new Date(date);
         let today_date = today.getDate();
@@ -73,6 +73,7 @@ const EditActivity = () => {
           ...activity,
           type,
           title,
+          location,
           distance,
           duration,
           date,
