@@ -21,7 +21,6 @@ const Dashboard = () => {
   };
 
   const editActivity = (id) => {
-    console.log(id);
     navigate(`/editactivity/${id}`);
   };
 
@@ -33,7 +32,7 @@ const Dashboard = () => {
       );
       const data = response.data;
       setActivityCard(data);
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.log(error);
     }

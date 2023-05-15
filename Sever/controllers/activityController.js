@@ -1,29 +1,24 @@
 const Activity = require("../models/activity.js");
 
-const validateValueMustHave = ({ type, title, distance, duration }) => {
-  const errorMessage = "";
-  if (type === "") {
-    errorMessage = "กรุณาเลือกประเภทกีฬา";
-  }
-  if (title === "") {
-    errorMessage = "กรุณาป้อนชื่อกิจกรรม";
-  }
-  if (distance === 0) {
-    errorMessage = "กรุณาป้อนระยะทาง(km)";
-  }
-  if (duration === 0) {
-    errorMessage = "กรุณาป้อนระยะเวลา(min)";
-  }
-  return errorMessage;
-};
-
 // สร้าง activity
 exports.createActivity = async (req, res) => {
-  try {
-    console.log(req.body);
-    const { type, title, distance, duration } = req.body; // get must have value
-    const { date, description, feeling, img } = req.body; // get optional value
+  const { type, title, distance, duration } = req.body; // get must have value
+  let { date, description, feeling, img } = req.body; // get optional value
+  
+  if(date===''){
+    const today = new Date
+    const today_date = today.getDate()
+    const today_month = today.getMonth()+1
+    const today_year = today.getFullYear()
+    const today_fulldate = `${today_year}-${today_month}-${today_date}`
+    date = today_fulldate 
+  }else{
+    console.log(date);
+  }
+  
+  // if(feeling===''){feeling='normal'}
 
+  try {
     const returnData = await Activity.create({
       type,
       title,
@@ -34,6 +29,7 @@ exports.createActivity = async (req, res) => {
       feeling,
       img,
     });
+
     if (returnData) {
       return res.status(201).json({ message: "บันทึกเรียบร้อย" });
     }
@@ -88,13 +84,38 @@ exports.deleteActivity = async (req, res) => {
 exports.updateActivity = async (req, res) => {
   try {
     const { activityId } = req.params;
-    const { title, distance, duration } = req.body;
+    const { type, title, distance, duration } = req.body; // get must have value
+    let { date, description, feeling, img } = req.body; // get optional value
+
+    if(date===''){
+      const today = new Date
+      const today_date = today.getDate()
+      const today_month = today.getMonth()+1
+      const today_year = today.getFullYear()
+      const today_fulldate = `${today_year}-${today_month}-${today_date}`
+      date = today_fulldate 
+    }else{
+      console.log(date);
+    }
+    
+    // if(feeling===''){feeling='normal'}
+
+
     const returnData = await Activity.findOneAndUpdate(
       { _id: activityId },
-      { title, distance, duration }
+      {
+        type,
+        title,
+        distance,
+        duration,
+        date,
+        description,
+        feeling,
+        img,
+      }
     );
     if (returnData) {
-      return res.status(201).json({ message: "Update alredy" });
+      return res.status(201).json(returnData);
     }
     return res.status(404).json({ message: "Not found activity" });
   } catch (error) {

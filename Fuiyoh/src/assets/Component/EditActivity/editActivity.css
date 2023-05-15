@@ -1,0 +1,30 @@
+div.editActivity-box,form.editActivity-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+div.editActivity-box{
+  background-color: #F6F8FC;
+  height: 100vh;
+  padding-top: 3rem;
+}
+
+form.editActivity-form{
+  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  border-radius: 8px;
+  width: 600px;
+  padding: 2rem 0;
+}
+
+form.editActivity-form h3{
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 0 0 8px 0;
+  color: #5854b0;
+}
+
+form.editActivity-form label {
+  margin-bottom: 10px;
+}

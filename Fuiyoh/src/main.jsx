@@ -37,7 +37,7 @@ const router = createBrowserRouter([
     element: <Walking />,
   },
   {
-    path: "/editactivity/:actvityId",
+    path: "/editactivity/:activityId",
     element: <EditActivity />
   }
 ]);
