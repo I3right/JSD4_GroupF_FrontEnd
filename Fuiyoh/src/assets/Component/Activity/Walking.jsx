@@ -5,6 +5,7 @@ import axios from "axios";
 import Joi from "joi";
 import "./Css/Walking.css";
 import UploadImage from "./UploadImage";
+import xmark from "./assets/xmark-solid.svg";
 
 const formSchema = Joi.object({
   type: Joi.string()
@@ -57,6 +58,14 @@ const AddActivity = () => {
       img: url,
     }));
     setIsImageUploaded(true);
+  };
+
+  const handleDeleteImage = () => {
+    setIsImageUploaded(false);
+    setActivity((prevActivity) => ({
+      ...prevActivity,
+      img: "",
+    }));
   };
 
 
@@ -253,6 +262,7 @@ const AddActivity = () => {
           {activity.img && (
             <div>
               <img src={activity.img} alt="Uploaded" />
+              <img src={xmark} onClick={handleDeleteImage} className="cursor-pointer"/>
             </div>
           )}
         </label>
