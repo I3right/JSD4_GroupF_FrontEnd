@@ -19,7 +19,7 @@ const activitySchema = new Schema({
     type: Number,
     required: true,
   },
-  loaction: {
+  location: {
     type: String,
   },
   date: {

@@ -2,20 +2,20 @@ const Activity = require("../models/activity.js");
 
 // สร้าง activity
 exports.createActivity = async (req, res) => {
+  // console.log(req.body);
   const { type, title, distance, duration } = req.body; // get must have value
-  let { date, description, feeling, img } = req.body; // get optional value
-  
-  if(date===''){
-    const today = new Date
-    const today_date = today.getDate()
-    const today_month = today.getMonth()+1
-    const today_year = today.getFullYear()
-    const today_fulldate = `${today_year}-${today_month}-${today_date}`
-    date = today_fulldate 
-  }else{
+  let { location, date, description, feeling, img } = req.body; // get optional value
+
+  if (date === "") {
+    const today = new Date();
+    const today_date = today.getDate();
+    const today_month = today.getMonth() + 1;
+    const today_year = today.getFullYear();
+    const today_fulldate = `${today_year}-${today_month}-${today_date}`;
+    date = today_fulldate;
+  } else {
     console.log(date);
   }
-  
   // if(feeling===''){feeling='normal'}
 
   try {
@@ -24,7 +24,7 @@ exports.createActivity = async (req, res) => {
       title,
       distance,
       duration,
-      date,
+      location,
       description,
       feeling,
       img,
@@ -87,19 +87,18 @@ exports.updateActivity = async (req, res) => {
     const { type, title, distance, duration } = req.body; // get must have value
     let { date, description, feeling, img } = req.body; // get optional value
 
-    if(date===''){
-      const today = new Date
-      const today_date = today.getDate()
-      const today_month = today.getMonth()+1
-      const today_year = today.getFullYear()
-      const today_fulldate = `${today_year}-${today_month}-${today_date}`
-      date = today_fulldate 
-    }else{
+    if (date === "") {
+      const today = new Date();
+      const today_date = today.getDate();
+      const today_month = today.getMonth() + 1;
+      const today_year = today.getFullYear();
+      const today_fulldate = `${today_year}-${today_month}-${today_date}`;
+      date = today_fulldate;
+    } else {
       console.log(date);
     }
-    
-    // if(feeling===''){feeling='normal'}
 
+    // if(feeling===''){feeling='normal'}
 
     const returnData = await Activity.findOneAndUpdate(
       { _id: activityId },
