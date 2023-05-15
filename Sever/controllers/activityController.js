@@ -62,7 +62,7 @@ exports.getActivity = async (req, res) => {
     }
     return res.status(404).json({ message: "Not found activity" });
   } catch (error) {
-    return res.status(400).json({ message: "cannot finduser" });
+    return res.status(400).json({ message: "cannot find activity" });
   }
 };
 
