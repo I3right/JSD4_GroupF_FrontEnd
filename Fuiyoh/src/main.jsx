@@ -7,6 +7,7 @@ import Home from "./assets/Component/Home/Home";
 import Login from "./assets/Component/Login/Login";
 import Register from "./assets/Component/Register/Register";
 import Walking from './assets/Component/Activity/Walking';
+import EditActivity from './assets/Component/EditActivity/EditActivity'
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
     path: "/activity",
     element: <Walking />,
   },
+  {
+    path: "/editactivity/:activityId",
+    element: <EditActivity />
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

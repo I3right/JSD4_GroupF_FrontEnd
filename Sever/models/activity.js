@@ -4,7 +4,7 @@ const { Schema, model } = mongoose;
 const activitySchema = new Schema({
   type: {
     type: String,
-    enum: ["walking","running", "cycling", "hiking", "swimming"],
+    enum: ["walking", "running", "cycling", "hiking", "swimming"],
     required: true,
   },
   title: {
@@ -27,6 +27,7 @@ const activitySchema = new Schema({
   },
   feeling: {
     type: String,
+    enum: ["","best", "good", "normal", "bad", "worst"],
   },
   img: {
     type: String,

@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import inputImage from "../../Picture/activity/AddPicture.svg";
-import { submitData } from "./function/handleSubmit";
-import "./Css/Walking.css";
-import { Link } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import Joi from "joi";
+import inputImage from "../../Picture/activity/AddPicture.svg";
+import "./Css/Walking.css";
 
 const formSchema = Joi.object({
   type: Joi.string()
@@ -25,19 +23,17 @@ const formSchema = Joi.object({
     }),
   distance: Joi.number().integer().required().label("distance(km)"),
   duration: Joi.number().integer().required().label("duration(min)"),
-  location: Joi.string().allow('').optional().label("location"),
-  date: Joi.date().iso().optional().label("date"),
-  description: Joi.string().max(150).optional().label("description"),
-  feeling: Joi.string()
+  location: Joi.string().allow("").optional().label("location"),
+  date: Joi.date().allow("").iso().optional().label("date"),
+  description: Joi.string().allow("").max(150).optional().label("description"),
+  feeling: Joi.string().allow("")
     .valid("best", "good", "normal", "bad", "worst")
     .optional()
     .label("feeling"),
-  img: Joi.optional().label("img"),
+  img: Joi.optional().allow("").label("img"),
 });
 
-
 const AddActivity = () => {
-  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   //เก็บข้อมูล activity เป็น object ถ้าเก็บ state ทีละตัวมันจัดการยาก
   const [activity, setActivity] = useState({
@@ -56,44 +52,68 @@ const AddActivity = () => {
     const { name, value } = event.target;
     setActivity((prevActivity) => ({
       ...prevActivity,
-      [name]: value === "" ? undefined : value,
+      [name]: value === undefined ? "" : value,
     }));
   };
+  
 
   const handleSubmit = async (event) => {
-  event.preventDefault();
+    event.preventDefault();
 
-  // Exclude empty fields from validation
-  const fieldsToValidate = Object.keys(activity).reduce((acc, key) => {
-    if (activity[key] !== "") {
-      acc[key] = activity[key];
+    // ส้ร้าง obj ใหม่ชื่อ fieldToValide เพื่อลดข้อมูลไม่ได้กรอกทิ้งเพื่อจะได้ไม่รกที่ฝั่ง DB สร้างจากการ iterate activity
+    // ใช้ reduce เพื่อที่ว่าจะได้ใช้ค่าเดิม(acc) กับค่าตัวถัดไป(key) ซึ่งถ้าค่าที่เอามาวนลูปไม่ใช่ "" ก็จะเพิ่มค่าเข้าไปใน fieldToValide
+    // const fieldsToValidate = Object.keys(activity).reduce((acc, key) => {
+    //   // เช็คว่าเป็น "" ไหมถ้าไม่ใช่ก็เพิ่มค่า
+    //   if (activity[key] !== "") {
+    //     // เพิ่มค่าด้วย key และ value ที่ตรงกับ activity
+    //     acc[key] = activity[key];
+    //   }
+    //   return acc;
+    // }, {});
+
+    // ลองเปลี่ยนเป็น fieldToValidate โดยให้เช็คค่าของ activity ถ้าค่านั้นเป็นค่าว่างให้เปลี่ยนเป็น null
+    // const fieldsToValidate = Object.keys(activity).reduce((acc, key) => {
+    //   const value = activity[key];
+    //   // Check if the value is an empty string
+    //   if (value === "") {
+    //     // Assign null instead of deleting the key
+    //     acc[key] = null;
+    //   } else {
+    //     // Add the key-value pair to the fieldsToValidate object
+    //     acc[key] = value;
+    //   }
+    //   return acc;
+    // }, {});
+
+    // const { error, value } = formSchema.validate(fieldsToValidate);
+
+    const { error, value } = formSchema.validate(activity);
+
+    if (!error) {
+      try {
+        await axios.post(
+          `${import.meta.env.VITE_APP_KEY}/activities/create`,
+          value
+        );
+        await Swal.fire({
+          icon: "success",
+          title: "Activity Created!",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        navigate("/dashboard");
+        return; // Exit the function after successful submission
+      } catch (err) {
+        console.log(err.response.data.message);
+      }
     }
-    return acc;
-  }, {});
 
-  const { error, value } = formSchema.validate(fieldsToValidate);
-
-  if (!error) {
-    try {
-      const result = await axios.post(
-        `${import.meta.env.VITE_APP_KEY}/activities/create`,
-        value
-      );
-      console.log(result.data.message);
-      navigate("/dashboard");
-      return; // Exit the function after successful submission
-    } catch (error) {
-      console.log(error.response.data.message);
-    }
+    // Handle validation errors
+  if(error){
+    console.log(error);
   }
+  };
 
-  // Handle validation errors
-  error.details.forEach((item) => {
-    Swal.fire("Error", item.message, "error");
-  });
-};
-
-  
   return (
     <div className="addActivity-form">
       <h2>Walking</h2>

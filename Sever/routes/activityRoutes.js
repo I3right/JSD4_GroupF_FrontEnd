@@ -8,11 +8,13 @@ const {
   updateActivity,
 } = require("../controllers/activityController.js");
 
+
 router.post("/create", createActivity);
 router.get("/all", getAllActivity);
-router.get("/:activityId", getActivity);
+router.get("/single/:activityId", getActivity);
 router.delete("/delete/:activityId", deleteActivity);
 router.put("/update/:activityId", updateActivity);
 
+router.get("/test", (req, res) => {res.json({ message: "works jing jing" })});
 
 module.exports = router;

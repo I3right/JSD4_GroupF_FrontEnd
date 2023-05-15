@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Walking from "../Activity/Walking";
-import EditActivity from "../EditActivity/EditActivity";
 import LayoutSignin from "../Layout/LayoutSignin";
 import settingLogo from "../../Picture/dashboard/SettingIcon.svg";
 import account from "../../Picture/dashboard/account.svg";
@@ -13,62 +11,34 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-
 const Dashboard = () => {
-  const navigate = useNavigate()
-  const [toggleAdd, setToggleAdd] = useState(false);
-  const [toggleEdit, setToggleEdit] = useState(false);
-  const [editCardId, seteditCardId] = useState("false");
-
-  const addActivity = (activity) => {
-    // หา id ของการ์ดใบสุดท้ายเพื่อมาสร้าง id ใหม่
-    const lastId = Math.max(...activityCard.map((ele) => ele.id));
-    const newId = lastId === -Infinity ? 0 : lastId + 1;
-    //นำ object ของ activityCard แล้วนำไป set id แล้ว concat ค่าใน object ที่เหลือ
-    const newActivity = { id: newId, ...activity };
-    const newActivities = [...activityCard, newActivity];
-    setActivityCard(newActivities);
-    setToggleOption(false);
-  };
-
-  const [editActivityList, setEditActivityList] = useState({
-    _id: "",
-    type: "",
-    title: "",
-    distance: "",
-    duration: "",
-    location: "",
-    date: "",
-    description: "",
-    feeling: "",
-    img: "",
-  });
-
-  const editActivity = (id) => {
-    setToggleEdit(true);
-    seteditCardId(id);
-    setEditActivityList(activityCard[--id]);
-  };
-
+  const navigate = useNavigate();
   const [activityCard, setActivityCard] = useState([]);
 
-  const handleToggleAdd = () => {
-    navigate('/AddActivity')
+  // waiting for change to LINK
+  const handleAddActivity = () => {
+    navigate("/AddActivity");
+  };
+
+  const editActivity = (id) => {
+    navigate(`/editactivity/${id}`);
+  };
+
+  //ดึงข้อมูลจาก database เพื่อนำมาโชว์ในหน้า dashboard
+  const getData = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_APP_KEY}/activities/all`
+      );
+      const data = response.data;
+      setActivityCard(data);
+      // console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
-    //ดึงข้อมูลจาก database เพื่อนำมาโชว์ในหน้า dashboard
-    const getData = async () => {
-      try {
-        const response = await axios.get(`${import.meta.env.VITE_APP_KEY}/activities/all`);
-        const data = response.data;
-        setActivityCard(data);
-        console.log(data)
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
     getData();
   }, []);
 
@@ -89,30 +59,48 @@ const Dashboard = () => {
 
   const deleteData = async (id) => {
     try {
-      const response = await axios.delete(`${import.meta.env.VITE_APP_KEY}/activities/delete/${id}`);
-      console.log(response.data);
-      setActivityCard(selectedActivity => selectedActivity.filter(activity => activity._id !== id));
+      const response = await axios.delete(
+        `${import.meta.env.VITE_APP_KEY}/activities/delete/${id}`
+      );
+      if (response) {
+        console.log(response.data);
+        Swal.fire({
+          icon: "success",
+          title: "Activity deleted!",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        getData();
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
   // add mockdata
-  
   const addMockData = async () => {
     try {
-      const mockData = 
-        { type: "walking", title: "soodlhor", distance: Math.floor(Math.random()*100), duration: Math.floor(Math.random()*100), location: "bkk", description: "test krub pom" };
-      const response = await axios.post( `${import.meta.env.VITE_APP_KEY}/activities/create`, mockData);
+      const mockData = {
+        type: "walking",
+        title: "soodlhor",
+        distance: Math.floor(Math.random() * 100),
+        duration: Math.floor(Math.random() * 100),
+        location: "bkk",
+        description: "test krub pom",
+      };
+      const response = await axios.post(
+        `${import.meta.env.VITE_APP_KEY}/activities/create`,
+        mockData
+      );
       console.log(response.data);
-      getData(); 
+      getData();
     } catch (error) {
       console.log(error.response);
     }
   };
 
   const cards = activityCard.map((card) => (
-    <div className="dasboard-card-container" key={card.id}>
+    <div className="dasboard-card-container" key={card._id}>
       <div className="activity-card-top">
         <figure>
           <img src={optionIcon} alt="activity icon" />
@@ -124,7 +112,7 @@ const Dashboard = () => {
         </div>
 
         <div className="status-card feeling">
-          <img src={card.feeling} />
+          <img src={card.feeling} alt="" />
         </div>
 
         <div className="status-card card-option">
@@ -132,7 +120,7 @@ const Dashboard = () => {
             <img
               src={EditIcon}
               alt="Edit button"
-              onClick={() => editActivity(card.id)}
+              onClick={() => editActivity(card._id)}
               className="edit-btn"
             />
             <img
@@ -162,22 +150,24 @@ const Dashboard = () => {
           </div>
           <div>
             <h6>pace</h6>
-            <h3>{(card.duration / card.distance) % 1 === 0 ? (card.duration / card.distance) : (card.duration / card.distance).toFixed(2)}</h3>
+            <h3>
+              {(card.duration / card.distance) % 1 === 0
+                ? card.duration / card.distance
+                : (card.duration / card.distance).toFixed(2)}
+            </h3>
             <small>km/mins</small>
           </div>
         </div>
       </div>
 
       <div>
-        <img src={card.img} />
+        <img src={card.img} alt="" />
       </div>
     </div>
-
   ));
 
   return (
     <LayoutSignin>
-
       {/* add mockdata */}
       <button onClick={addMockData}>Add Mock Data</button>
       <div className="dashboard container-xl">
@@ -193,23 +183,8 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <button onClick={handleToggleAdd}>Add Activity</button>
+          <button onClick={handleAddActivity}>Add Activity</button>
         </aside>
-
-        {toggleAdd && (
-          <Walking onAdd={addActivity} setToggleAdd={setToggleAdd} />
-        )}
-
-        {toggleEdit && (
-          <EditActivity
-            editActivityList={editActivityList}
-            setToggleEdit={setToggleEdit}
-            setEditActivityList={setEditActivityList}
-            activityCard={activityCard}
-            setActivityCard={setActivityCard}
-            editCardId={editCardId}
-          />
-        )}
 
         <section>
           <h4 className="quote">
