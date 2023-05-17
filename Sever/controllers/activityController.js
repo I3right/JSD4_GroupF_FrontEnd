@@ -3,16 +3,16 @@ const Activity = require("../models/activity.js");
 // สร้าง activity
 exports.createActivity = async (req, res) => {
   const { type, title, distance, duration } = req.body; // get must have value
-  let { date, description, feeling, img, location } = req.body; // get optional value
-  
-  if(date===''){
-    const today = new Date
-    const today_date = today.getDate()
-    const today_month = today.getMonth()+1
-    const today_year = today.getFullYear()
-    const today_fulldate = `${today_year}-${today_month}-${today_date}`
-    date = today_fulldate 
-  }else{
+  let { location, date, description, feeling, img } = req.body; // get optional value
+
+  if (date === "") {
+    const today = new Date();
+    const today_date = today.getDate();
+    const today_month = today.getMonth() + 1;
+    const today_year = today.getFullYear();
+    const today_fulldate = `${today_year}-${today_month}-${today_date}`;
+    date = today_fulldate;
+  } else {
     console.log(date);
   }
 
@@ -20,9 +20,9 @@ exports.createActivity = async (req, res) => {
     const returnData = await Activity.create({
       type,
       title,
-      location,
       distance,
       duration,
+      location,
       date,
       description,
       feeling,
@@ -83,30 +83,40 @@ exports.updateActivity = async (req, res) => {
   try {
     const { activityId } = req.params;
     const { type, title, distance, duration } = req.body; // get must have value
-    let { date, description, feeling, img } = req.body; // get optional value
+    let { location, date, description, feeling, img } = req.body; // get optional value
 
-    if(date===''){
-      const today = new Date
-      const today_date = today.getDate()
-      const today_month = today.getMonth()+1
-      const today_year = today.getFullYear()
-      const today_fulldate = `${today_year}-${today_month}-${today_date}`
-      date = today_fulldate 
-    }else{
+    if (date === "") {
+      const today = new Date();
+      const today_date = today.getDate();
+      const today_month = today.getMonth() + 1;
+      const today_year = today.getFullYear();
+      const today_fulldate = `${today_year}-${today_month}-${today_date}`;
+      date = today_fulldate;
+    } else {
       console.log(date);
     }
-    
-    // if(feeling===''){feeling='normal'}
 
+    console.log(
+      activityId,
+      type,
+      title,
+      distance,
+      duration,
+      location,
+      date,
+      description,
+      feeling,
+      img
+    );
 
     const returnData = await Activity.findOneAndUpdate(
       { _id: activityId },
       {
         type,
         title,
-        location,
         distance,
         duration,
+        location,
         date,
         description,
         feeling,
@@ -116,8 +126,8 @@ exports.updateActivity = async (req, res) => {
     if (returnData) {
       return res.status(201).json(returnData);
     }
-    return res.status(404).json({ message: "Not found activity" });
+    // return res.status(404).json({ message: "Not found activity" });
   } catch (error) {
-    return res.status(400).json({ message: "Cannot delete" });
+    // return res.status(400).json({ message: "Cannot delete" });
   }
 };

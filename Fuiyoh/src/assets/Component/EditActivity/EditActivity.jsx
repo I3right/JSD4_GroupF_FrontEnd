@@ -87,7 +87,6 @@ const EditActivity = () => {
     }
   };
 
-  // console.log(activity);
 
   useEffect(() => {
     getData();
@@ -100,16 +99,14 @@ const EditActivity = () => {
       [name]: value,
     }));
   };
-  console.log(activity);
+
   const handleUpdate = async (event) => {
     event.preventDefault();
     const { error, value } = formSchema.validate(activity);
     if (!error) {
       try {
         await axios.put(
-          `${import.meta.env.VITE_APP_KEY}/activities/update/${
-            activityId.activityId
-          }`,
+          `${import.meta.env.VITE_APP_KEY}/activities/update/${activityId.activityId}`,
           value
         );
         await Swal.fire({
@@ -222,9 +219,9 @@ const EditActivity = () => {
           <label className="image">
             <h3>Picture</h3>
             <div>
-              <img src={inputImage} alt="icon input for image" />
+              <img src={activity.img} alt="image" />
             </div>
-            <input type="file" value={activity.img} onChange={handleChange} />
+            <input type="file"  onChange={handleChange} />
           </label>
 
           <button type="submit" className="addActivity-btn addAct-btn">
