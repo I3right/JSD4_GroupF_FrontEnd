@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import "./Css/UploadImage.css"
 import Spinner from "./assets/Spinner.svg";
+import Swal from "sweetalert2";
 
 const UploadImage = ({ onImageUpload }) => {
     const [loading, setLoading] = useState(false);
@@ -27,10 +28,15 @@ const UploadImage = ({ onImageUpload }) => {
         setLoading(true);
         axios
             .post(`${import.meta.env.VITE_APP_KEY}/activities/uploadImage`, { image: base64 })
-            .then((res) => {
+            .then(async (res) => {
                 const imageUrl = res.data;
                 onImageUpload(imageUrl); // Pass the URL to the parent component
-                alert("Image uploaded successfully");
+                await Swal.fire({
+                    icon: "success",
+                    title: "Image uploaded!",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
             })
             .then(() => setLoading(false))
             .catch(console.log);
@@ -91,7 +97,7 @@ const UploadImage = ({ onImageUpload }) => {
     }
 
     return (
-        <div className="flex justify-center flex-col m-8 ">
+        <div className="flex justify-center flex-col ">
             <div>
                 <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">
                     Upload Photo
@@ -100,7 +106,7 @@ const UploadImage = ({ onImageUpload }) => {
             <div>
                 {loading ? (
                     <div className="flex items-center justify-center">
-                        <img src={Spinner} />                    
+                        <img src={Spinner} />
                     </div>
                 ) : (
                     <UploadInput />

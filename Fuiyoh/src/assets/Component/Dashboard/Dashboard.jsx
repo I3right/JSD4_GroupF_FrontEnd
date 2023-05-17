@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import LayoutSignin from "../Layout/LayoutSignin";
 import settingLogo from "../../Picture/dashboard/SettingIcon.svg";
 import account from "../../Picture/dashboard/account.svg";
-import optionIcon from "../../Picture/dashboard/optionIcon.svg";
 import deleteIcon from "../../Picture/dashboard/Delete.svg";
 import EditIcon from "../../Picture/dashboard/Edit.svg";
 import "./Dashboard.css";
@@ -20,7 +19,7 @@ import bad from "./assets/bad.png"
 import normal from "./assets/normal.png"
 import good from "./assets/good.png"
 import best from "./assets/best.png"
-
+import quote from "./assets/quote-img.png"
 
 
 const Dashboard = () => {
@@ -181,9 +180,11 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div>
-        <img src={card.img} alt="" />
-      </div>
+      {card.img !== "" && (
+        <div className="card-img-container">
+          <img src={card.img} alt="card-pic" />
+        </div>
+      )}
     </div>
   ));
 
@@ -210,6 +211,7 @@ const Dashboard = () => {
         <section>
           <h4 className="quote">
             “The hardest thing about exercise is start doing it”{" "}
+            <img src={quote} alt="quote" />
           </h4>
           <div className="dasboard-card-section">{cards.reverse()}</div>
         </section>

@@ -48,13 +48,23 @@ aside button {
     flex-direction: column;
     align-items: center;
     background-color: #F6F8FC;
-    padding: 0 40px;
+}
+
+.dasboard-card-section{
+    padding: 40px;
 }
 
 .quote {
-    margin: 40px 0;
-    padding: 20px 0;
-    border: 1rem double white;
+    display: flex;
+    color: white;
     width: 100%;
     text-align: center;
+    background: linear-gradient(90.93deg, rgba(88, 84, 176, 0.7) -18.71%, #5854B0 54.34%, rgba(88, 84, 176, 0.6) 117.46%);
+    align-items: center;
+    justify-content: center;
+}
+
+.quote img {
+    width: 70px;
+    height: 70px;
 }

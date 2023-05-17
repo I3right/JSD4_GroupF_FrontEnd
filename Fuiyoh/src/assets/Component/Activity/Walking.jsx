@@ -149,7 +149,7 @@ const AddActivity = () => {
   };
 
   return (
-    <div className="addActivity-form">
+    <div className="addActivity-form ">
       <h2>Walking</h2>
       <h3>Add Your detailed</h3>
       <form onSubmit={handleSubmit} className="addActivty">
@@ -179,8 +179,27 @@ const AddActivity = () => {
           <button
             type="button"
             name="distance"
+            value="1"
+            onClick={handleChange}
+            className="hover:bg-violet-100"
+          >
+            1 km
+          </button>
+          <button
+            type="button"
+            name="distance"
+            value="2"
+            onClick={handleChange}
+            className="hover:bg-violet-100"
+          >
+            2 km
+          </button>
+          <button
+            type="button"
+            name="distance"
             value="3"
             onClick={handleChange}
+            className="hover:bg-violet-100"
           >
             3 km
           </button>
@@ -189,6 +208,7 @@ const AddActivity = () => {
             name="distance"
             value="5"
             onClick={handleChange}
+            className="hover:bg-violet-100"
           >
             5 km
           </button>
@@ -197,16 +217,9 @@ const AddActivity = () => {
             name="distance"
             value="7"
             onClick={handleChange}
+            className="hover:bg-violet-100"
           >
             7 km
-          </button>
-          <button
-            type="button"
-            name="distance"
-            value="10"
-            onClick={handleChange}
-          >
-            10 km
           </button>
         </div>
 
@@ -227,6 +240,7 @@ const AddActivity = () => {
             name="duration"
             value="30"
             onClick={handleChange}
+            className="hover:bg-violet-100"
           >
             30 mins
           </button>
@@ -235,6 +249,7 @@ const AddActivity = () => {
             name="duration"
             value="60"
             onClick={handleChange}
+            className="hover:bg-violet-100"
           >
             60 mins
           </button>
@@ -243,6 +258,7 @@ const AddActivity = () => {
             name="duration"
             value="90"
             onClick={handleChange}
+            className="hover:bg-violet-100"
           >
             90 mins
           </button>
@@ -251,8 +267,18 @@ const AddActivity = () => {
             name="duration"
             value="120"
             onClick={handleChange}
+            className="hover:bg-violet-100"
           >
             120 mins
+          </button>
+          <button
+            type="button"
+            name="duration"
+            value="150"
+            onClick={handleChange}
+            className="hover:bg-violet-100"
+          >
+            150 mins
           </button>
         </div>
 
@@ -293,72 +319,62 @@ const AddActivity = () => {
 
         <div className="feeling">
           <h3>Feeling</h3>
-          <button className={"px-4 py-0.5 hover:bg-violet-100 " + (activity.feeling === "worst" ? "bg-violet-200" : "")}
-            type="button"
-            name="feeling"
-            value="worst"
-            onClick={() => handleFeelingButtonClick("worst")}
-          >
-            <img src={worst} alt="worst" />
-          </button>
-          <button className={"px-4	py-0.5 " + (activity.feeling === "bad" ? "bg-violet-200	" : "")}
-            type="button"
-            name="feeling"
-            value="bad"
-            onClick={() => handleFeelingButtonClick("bad")}
-          >
-            <img src={bad} alt="bad" />
-          </button>
-          <button className={"px-4	py-0.5 " + (activity.feeling === "normal" ? "bg-violet-200	" : "")}
-            type="button"
-            name="feeling"
-            value="normal"
-            onClick={() => handleFeelingButtonClick("normal")}
-          >
-            <img src={normal} alt="normal" />
-          </button>
-          <button className={"px-4	py-0.5 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
-            type="button"
-            name="feeling"
-            value="good"
-            onClick={() => handleFeelingButtonClick("good")}
-          >
-            <img src={good} alt="good" />
-          </button>
-          <button className={"px-4	py-0.5 " + (activity.feeling === "best" ? "bg-violet-200	p-0.5	" : "")}
-            type="button"
-            name="feeling"
-            value="best"
-            onClick={() => handleFeelingButtonClick("best")}
-          >
-            <img src={best} alt="best" />
-          </button>
+          <div className="flex justify-between">
+            <button className={"px-4 py-0.5 hover:bg-violet-100 rounded-sm " + (activity.feeling === "worst" ? "bg-violet-100" : "")}
+              type="button"
+              name="feeling"
+              value="worst"
+              onClick={() => handleFeelingButtonClick("worst")}
+            >
+              <img src={worst} alt="worst" />
+            </button>
+            <button className={"px-4 py-0.5 hover:bg-violet-100 rounded-sm " + (activity.feeling === "bad" ? "bg-violet-100	" : "")}
+              type="button"
+              name="feeling"
+              value="bad"
+              onClick={() => handleFeelingButtonClick("bad")}
+            >
+              <img src={bad} alt="bad" />
+            </button>
+            <button className={"px-4 py-0.5 hover:bg-violet-100 rounded-sm " + (activity.feeling === "normal" ? "bg-violet-100	" : "")}
+              type="button"
+              name="feeling"
+              value="normal"
+              onClick={() => handleFeelingButtonClick("normal")}
+            >
+              <img src={normal} alt="normal" />
+            </button>
+            <button className={"px-4 py-0.5 hover:bg-violet-100 rounded-sm " + (activity.feeling === "good" ? "bg-violet-100	p-0.5" : "")}
+              type="button"
+              name="feeling"
+              value="good"
+              onClick={() => handleFeelingButtonClick("good")}
+            >
+              <img src={good} alt="good" />
+            </button>
+            <button className={"px-4 py-0.5 hover:bg-violet-100 rounded-sm " + (activity.feeling === "best" ? "bg-violet-100	p-0.5	" : "")}
+              type="button"
+              name="feeling"
+              value="best"
+              onClick={() => handleFeelingButtonClick("best")}
+            >
+              <img src={best} alt="best" />
+            </button>
+          </div>
         </div>
-
-        <label className="location">
-          <h3>Location</h3>
-          <input
-            name="location"
-            type="text"
-            value={activity.location}
-            onChange={handleChange}
-            placeholder="Add Your location"
-          />
-        </label>
-
 
         <label className="image">
           <h3>Picture</h3>
           {!isImageUploaded && (
             <UploadImage onImageUpload={handleImageUpload} />
           )}
-          {activity.img && (
-            <div>
-              <img src={activity.img} alt="Uploaded" />
-              <img src={xmark} onClick={handleDeleteImage} className="cursor-pointer" />
-            </div>
-          )}
         </label>
+        {activity.img && (
+          <div className="form-image-container">
+            <img src={activity.img} alt="Uploaded" />
+            <img src={xmark} onClick={handleDeleteImage} className="xmark" />
+          </div>
+        )}
 
         <button type="submit" className="addActivity-btn addAct-btn">
           Add Activity
