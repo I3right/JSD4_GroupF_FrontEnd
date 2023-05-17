@@ -10,6 +10,18 @@ import "./Card.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Walking from "./assets/Walking.png"
+import Cycling from "./assets/Cycling.png"
+import Hiking from "./assets/Hiking.png"
+import Swimming from "./assets/Swimming.png"
+import Running from "./assets/Running.png"
+import worst from "./assets/worst.png"
+import bad from "./assets/bad.png"
+import normal from "./assets/normal.png"
+import good from "./assets/good.png"
+import best from "./assets/best.png"
+
+
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -103,7 +115,11 @@ const Dashboard = () => {
     <div className="dasboard-card-container" key={card._id}>
       <div className="activity-card-top">
         <figure>
-          <img src={optionIcon} alt="activity icon" />
+          {card.type === "walking" && <img src={Walking} alt="Walking" />}
+          {card.type === "running" && <img src={Running} alt="Running" />}
+          {card.type === "hiking" && <img src={Hiking} alt="Hiking" />}
+          {card.type === "swimming" && <img src={Swimming} alt="Swimming" />}
+          {card.type === "cycling" && <img src={Cycling} alt="Cycling" />}
         </figure>
 
         <div>
@@ -112,7 +128,11 @@ const Dashboard = () => {
         </div>
 
         <div className="status-card feeling">
-          <img src={card.feeling} alt="" />
+          {card.feeling === "worst" && <img src={worst} alt="worst" />}
+          {card.feeling === "bad" && <img src={bad} alt="bad" />}
+          {card.feeling === "normal" && <img src={normal} alt="normal" />}
+          {card.feeling === "good" && <img src={good} alt="good" />}
+          {card.feeling === "best" && <img src={best} alt="best" />}
         </div>
 
         <div className="status-card card-option">
@@ -151,6 +171,7 @@ const Dashboard = () => {
           <div>
             <h6>pace</h6>
             <h3>
+              {/* เช็คว่ามีทศนิยมหรือไม่ */}
               {(card.duration / card.distance) % 1 === 0
                 ? card.duration / card.distance
                 : (card.duration / card.distance).toFixed(2)}

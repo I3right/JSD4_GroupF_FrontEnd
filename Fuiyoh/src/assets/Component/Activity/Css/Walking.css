@@ -49,6 +49,18 @@ div.distance-preset button {
   color: #5854b0;
 }
 
+div.duration-preset{
+  display: flex;
+  gap: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+div.duration-preset button {
+  border: transparent;
+  background-color: transparent;
+  color: #5854b0;
+}
+
 form input:not(input[type="file"]) {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }

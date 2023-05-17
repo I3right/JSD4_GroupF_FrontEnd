@@ -98,16 +98,6 @@ const UploadImage = ({ onImageUpload }) => {
                 </h2>
             </div>
             <div>
-                {url && (
-                    <div>
-                        Access you file at{" "}
-                        <a href={url} target="_blank" rel="noopener noreferrer">
-                            {url}
-                        </a>
-                    </div>
-                )}
-            </div>
-            <div>
                 {loading ? (
                     <div className="flex items-center justify-center">
                         <img src={Spinner} />                    

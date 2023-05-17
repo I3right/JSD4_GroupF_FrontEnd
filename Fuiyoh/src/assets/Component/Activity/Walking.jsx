@@ -6,6 +6,12 @@ import Joi from "joi";
 import "./Css/Walking.css";
 import UploadImage from "./UploadImage";
 import xmark from "./assets/xmark-solid.svg";
+import bad from "./assets/bad.png";
+import worst from "./assets/worst.png";
+import normal from "./assets/normal.png";
+import good from "./assets/good.png";
+import best from "./assets/best.png";
+
 
 const formSchema = Joi.object({
   type: Joi.string()
@@ -61,19 +67,26 @@ const AddActivity = () => {
   };
 
   const handleDeleteImage = () => {
-    setIsImageUploaded(false);
+    setIsImageUploaded(null);
     setActivity((prevActivity) => ({
       ...prevActivity,
       img: "",
     }));
+    console.log(isImageUploaded)
   };
-
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setActivity((prevActivity) => ({
       ...prevActivity,
       [name]: value === undefined ? "" : value,
+    }));
+  };
+
+  const handleFeelingButtonClick = (value) => {
+    setActivity((prevState) => ({
+      ...prevState,
+      feeling: value,
     }));
   };
 
@@ -208,6 +221,41 @@ const AddActivity = () => {
           />
         </label>
 
+        <div className="duration-preset">
+          <button
+            type="button"
+            name="duration"
+            value="30"
+            onClick={handleChange}
+          >
+            30 mins
+          </button>
+          <button
+            type="button"
+            name="duration"
+            value="60"
+            onClick={handleChange}
+          >
+            60 mins
+          </button>
+          <button
+            type="button"
+            name="duration"
+            value="90"
+            onClick={handleChange}
+          >
+            90 mins
+          </button>
+          <button
+            type="button"
+            name="duration"
+            value="120"
+            onClick={handleChange}
+          >
+            120 mins
+          </button>
+        </div>
+
         <label className="location">
           <h3>Location</h3>
           <input
@@ -243,16 +291,61 @@ const AddActivity = () => {
           />
         </label>
 
-        <label className="feeling">
+        <div className="feeling">
           <h3>Feeling</h3>
-          <input
+          <button className={"px-4 py-0.5 hover:bg-violet-100 " + (activity.feeling === "worst" ? "bg-violet-200" : "")}
+            type="button"
             name="feeling"
+            value="worst"
+            onClick={() => handleFeelingButtonClick("worst")}
+          >
+            <img src={worst} alt="worst" />
+          </button>
+          <button className={"px-4	py-0.5 " + (activity.feeling === "bad" ? "bg-violet-200	" : "")}
+            type="button"
+            name="feeling"
+            value="bad"
+            onClick={() => handleFeelingButtonClick("bad")}
+          >
+            <img src={bad} alt="bad" />
+          </button>
+          <button className={"px-4	py-0.5 " + (activity.feeling === "normal" ? "bg-violet-200	" : "")}
+            type="button"
+            name="feeling"
+            value="normal"
+            onClick={() => handleFeelingButtonClick("normal")}
+          >
+            <img src={normal} alt="normal" />
+          </button>
+          <button className={"px-4	py-0.5 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
+            type="button"
+            name="feeling"
+            value="good"
+            onClick={() => handleFeelingButtonClick("good")}
+          >
+            <img src={good} alt="good" />
+          </button>
+          <button className={"px-4	py-0.5 " + (activity.feeling === "best" ? "bg-violet-200	p-0.5	" : "")}
+            type="button"
+            name="feeling"
+            value="best"
+            onClick={() => handleFeelingButtonClick("best")}
+          >
+            <img src={best} alt="best" />
+          </button>
+        </div>
+
+        <label className="location">
+          <h3>Location</h3>
+          <input
+            name="location"
             type="text"
-            value={activity.feeling}
+            value={activity.location}
             onChange={handleChange}
-            placeholder="Add Your feeling"
+            placeholder="Add Your location"
           />
         </label>
+
 
         <label className="image">
           <h3>Picture</h3>
@@ -262,7 +355,7 @@ const AddActivity = () => {
           {activity.img && (
             <div>
               <img src={activity.img} alt="Uploaded" />
-              <img src={xmark} onClick={handleDeleteImage} className="cursor-pointer"/>
+              <img src={xmark} onClick={handleDeleteImage} className="cursor-pointer" />
             </div>
           )}
         </label>
