@@ -73,6 +73,7 @@ const EditActivity = () => {
           ...activity,
           type,
           title,
+          location,
           distance,
           duration,
           location,

@@ -7,13 +7,18 @@ const userRoutes = require("./routes/userRoutes.js");
 const activityRoutes = require("./routes/activityRoutes.js");
 
 const app = express();
-app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
+app.use(express.json({ limit: "25mb", extended: true }));
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  next();
+});
 
 // test connection with server
 app.get("/test", (req, res) => {
-  res.json({message:"it works"});
+  res.json({ message: "it works" });
 });
 
 app.use("/users", userRoutes);
@@ -28,10 +33,9 @@ const start = async () => {
     .then(() => console.log("Connected"))
     .catch((error) => console.log(error));
 
-    app.listen(process.env.PORT, () => {
-      console.log(`SERVER is running`);
-    });
+  app.listen(process.env.PORT, () => {
+    console.log(`SERVER is running`);
+  });
 };
-
 
 start();

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
 import Joi from "joi";
-import inputImage from "../../Picture/activity/AddPicture.svg";
 import "./Css/Walking.css";
+import UploadImage from "./UploadImage";
+import xmark from "./assets/xmark-solid.svg";
 
 const formSchema = Joi.object({
   type: Joi.string()
@@ -45,6 +46,26 @@ const AddActivity = () => {
     img: "",
   });
 
+  const [isImageUploaded, setIsImageUploaded] = useState(false);
+
+
+  const handleImageUpload = (url) => {
+    setActivity((prevActivity) => ({
+      ...prevActivity,
+      img: url,
+    }));
+    setIsImageUploaded(true);
+  };
+
+  const handleDeleteImage = () => {
+    setIsImageUploaded(false);
+    setActivity((prevActivity) => ({
+      ...prevActivity,
+      img: "",
+    }));
+  };
+
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setActivity((prevActivity) => ({
@@ -52,8 +73,7 @@ const AddActivity = () => {
       [name]: value === undefined ? "" : value,
     }));
   };
-  
-  console.log(activity);
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -244,10 +264,15 @@ const AddActivity = () => {
 
         <label className="image">
           <h3>Picture</h3>
-          <div>
-            <img src={inputImage} alt="icon input for image" />
-          </div>
-          <input type="file" value={activity.value} />
+          {!isImageUploaded && (
+            <UploadImage onImageUpload={handleImageUpload} />
+          )}
+          {activity.img && (
+            <div>
+              <img src={activity.img} alt="Uploaded" />
+              <img src={xmark} onClick={handleDeleteImage} className="cursor-pointer"/>
+            </div>
+          )}
         </label>
 
         <button type="submit" className="addActivity-btn addAct-btn">

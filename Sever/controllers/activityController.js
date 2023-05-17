@@ -3,7 +3,7 @@ const Activity = require("../models/activity.js");
 // สร้าง activity
 exports.createActivity = async (req, res) => {
   const { type, title, distance, duration } = req.body; // get must have value
-  let { date, description, feeling, img } = req.body; // get optional value
+  let { date, description, feeling, img, location } = req.body; // get optional value
   
   if(date===''){
     const today = new Date
@@ -20,6 +20,7 @@ exports.createActivity = async (req, res) => {
     const returnData = await Activity.create({
       type,
       title,
+      location,
       distance,
       duration,
       date,
@@ -103,6 +104,7 @@ exports.updateActivity = async (req, res) => {
       {
         type,
         title,
+        location,
         distance,
         duration,
         date,
