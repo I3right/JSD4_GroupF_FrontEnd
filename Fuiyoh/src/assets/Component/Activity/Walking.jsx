@@ -58,11 +58,11 @@ const AddActivity = () => {
   };
 
   const handleDeleteImage = () => {
-    setIsImageUploaded(false);
     setActivity((prevActivity) => ({
       ...prevActivity,
       img: "",
     }));
+    setIsImageUploaded(false);
   };
 
 
@@ -267,7 +267,8 @@ const AddActivity = () => {
           {!isImageUploaded && (
             <UploadImage onImageUpload={handleImageUpload} />
           )}
-          {activity.img && (
+
+          {isImageUploaded && (
             <div>
               <img src={activity.img} alt="Uploaded" />
               <img src={xmark} onClick={handleDeleteImage} className="cursor-pointer"/>
