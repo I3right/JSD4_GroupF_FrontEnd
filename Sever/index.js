@@ -5,6 +5,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const userRoutes = require("./routes/userRoutes.js");
 const activityRoutes = require("./routes/activityRoutes.js");
+const authyRoutes = require("./routes/authRoutes.js");
 
 const app = express();
 app.use(cors());
@@ -23,6 +24,7 @@ app.get("/test", (req, res) => {
 
 app.use("/users", userRoutes);
 app.use("/activities", activityRoutes);
+app.use("/authen", authyRoutes);
 
 const start = async () => {
   await mongoose

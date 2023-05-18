@@ -5,6 +5,8 @@ import Swal from "sweetalert2";
 import inputImage from "../../Picture/activity/AddPicture.svg";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import LayoutSignin from "../Layout/LayoutSignin";
+import UploadImage from "../Activity/UploadImage";
+import xmark from "../Activity/assets/xmark-solid.svg";
 import "./editActivity.css";
 
 const formSchema = Joi.object({
@@ -37,6 +39,8 @@ const formSchema = Joi.object({
 
 const EditActivity = () => {
   const navigate = useNavigate();
+  const activityId = useParams();
+  const [isImageUploaded, setIsImageUploaded] = useState(false);
   const [activity, setActivity] = useState({
     type: "",
     title: "",
@@ -48,16 +52,15 @@ const EditActivity = () => {
     feeling: "",
     img: "",
   });
-  const activityId = useParams();
 
   const getData = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_APP_KEY}/activities/single/${activityId.activityId}`
+        `${import.meta.env.VITE_APP_KEY}/activities/get/${activityId.activityId}`
       );
       if (response) {
         const { type, title, distance, duration } = response.data;
-        let { date, description, feeling, img, location } = response.data;
+        let { location, date, description, feeling, img } = response.data;
 
         const today = new Date(date);
         let today_date = today.getDate();
@@ -73,9 +76,9 @@ const EditActivity = () => {
           ...activity,
           type,
           title,
-          location,
           distance,
           duration,
+          location,
           date,
           description,
           feeling,
@@ -87,7 +90,6 @@ const EditActivity = () => {
     }
   };
 
-  // console.log(activity);
 
   useEffect(() => {
     getData();
@@ -100,16 +102,14 @@ const EditActivity = () => {
       [name]: value,
     }));
   };
-  console.log(activity);
+
   const handleUpdate = async (event) => {
     event.preventDefault();
     const { error, value } = formSchema.validate(activity);
     if (!error) {
       try {
         await axios.put(
-          `${import.meta.env.VITE_APP_KEY}/activities/update/${
-            activityId.activityId
-          }`,
+          `${import.meta.env.VITE_APP_KEY}/activities/update/${activityId.activityId}`,
           value
         );
         await Swal.fire({
@@ -134,6 +134,24 @@ const EditActivity = () => {
   const handleCancle = () => {
     navigate("/dashboard");
   };
+
+  const handleImageUpload = (url) => {
+    setActivity((prevActivity) => ({
+      ...prevActivity,
+      img: url,
+    }));
+    setIsImageUploaded(true);
+  };
+
+  const handleDeleteImage = () => {
+    setActivity((prevActivity) => ({
+      ...prevActivity,
+      img: "",
+    }));
+    setIsImageUploaded(false);
+  };
+
+  console.log(activity.img);
 
   return (
     <LayoutSignin>
@@ -221,10 +239,21 @@ const EditActivity = () => {
 
           <label className="image">
             <h3>Picture</h3>
-            <div>
-              <img src={inputImage} alt="icon input for image" />
+            {/* <div>
+              <img src={activity.img} alt="image" />
             </div>
-            <input type="file" value={activity.img} onChange={handleChange} />
+            <input type="file"  onChange={handleChange} /> */}
+
+            {activity.img === '' && (
+            <UploadImage onImageUpload={handleImageUpload} />
+          )}
+
+          {activity.img !== '' && (
+            <div>
+              <img src={activity.img} alt="Uploaded" />
+              <img src={xmark} onClick={handleDeleteImage} className="cursor-pointer"/>
+            </div>
+          )}
           </label>
 
           <button type="submit" className="addActivity-btn addAct-btn">

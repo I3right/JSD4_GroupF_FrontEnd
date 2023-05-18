@@ -18,10 +18,7 @@ const formSchema = Joi.object({
     .max(20)
     .required()
     .label("title")
-    .messages({
-      "string.pattern.base":
-        "The title must contain only alphabetic characters (a-z)",
-    }),
+    .messages({"title.required":"Please fill title wtih alphabet(A-Z)"}),
   distance: Joi.number().integer().required().label("distance(km)"),
   duration: Joi.number().integer().required().label("duration(min)"),
   location: Joi.string().allow("").optional().label("location"),
@@ -61,11 +58,11 @@ const AddActivity = () => {
   };
 
   const handleDeleteImage = () => {
-    setIsImageUploaded(false);
     setActivity((prevActivity) => ({
       ...prevActivity,
       img: "",
     }));
+    setIsImageUploaded(false);
   };
 
 
@@ -125,14 +122,25 @@ const AddActivity = () => {
         navigate("/dashboard");
         return; // Exit the function after successful submission
       } catch (err) {
-        console.log(err.response.data.message);
+        await Swal.fire({
+          icon: "error",
+          title: err.response.data.message,
+          showConfirmButton: false,
+          timer: 1000,
+        });
       }
     }
 
     // Handle validation errors
-    if (error) {
-      console.log(error);
-    }
+  if(error){
+    console.log(error);
+    Swal.fire({
+      icon: "error",
+      title: error,
+      showConfirmButton: false,
+      timer: 1000,
+    });
+  }
   };
 
   return (
@@ -141,7 +149,7 @@ const AddActivity = () => {
       <h3>Add Your detailed</h3>
       <form onSubmit={handleSubmit} className="addActivty">
         <label className="title">
-          <h3>Title</h3>
+          <h3>Title*</h3>
           <input
             name="title"
             type="text"
@@ -152,7 +160,7 @@ const AddActivity = () => {
         </label>
 
         <label className="distance">
-          <h3>Distance</h3>
+          <h3>Distance*</h3>
           <input
             name="distance"
             type="number"
@@ -198,7 +206,7 @@ const AddActivity = () => {
         </div>
 
         <label className="duration">
-          <h3>Duration</h3>
+          <h3>Duration*</h3>
           <input
             name="duration"
             type="number"
@@ -259,13 +267,14 @@ const AddActivity = () => {
           {!isImageUploaded && (
             <UploadImage onImageUpload={handleImageUpload} />
           )}
-          {activity.img && (
+        </label>
+
+          {isImageUploaded && (
             <div>
               <img src={activity.img} alt="Uploaded" />
               <img src={xmark} onClick={handleDeleteImage} className="cursor-pointer"/>
             </div>
           )}
-        </label>
 
         <button type="submit" className="addActivity-btn addAct-btn">
           Add Activity
