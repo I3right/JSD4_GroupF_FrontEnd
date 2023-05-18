@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LayoutNormal from "../Layout/LayoutNormal";
 import "./Login.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import * as yup from "yup";
 import picLogin from "../../Picture/login/cycling-amico.png";
 import logo from "../../Picture/login/logoLogin.png";
+import axios from "axios";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -18,25 +20,41 @@ const Login = () => {
       .string()
       .email("**Invalid email")
       .required("**Email is required"),
-    password: yup.string().required("**Password is required"),
+    password: yup
+      .string()
+      .min(8, "**Password must be at least 8 characters")
+      .required("**Password is required"),
   });
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    schema
-      .validate({ email, password }, { abortEarly: false })
-      .then(() => {
-        // form is valid, submit it
-        console.log("Form is valid");
-      })
-      .catch((err) => {
-        // form is invalid, set the errors
-        const newErrors = {};
-        err.inner.forEach((error) => {
-          newErrors[error.path] = error.message;
-        });
-        setErrors(newErrors);
+    validatedata({ email, password });
+    console.log(errors);
+    try {
+      const loginresult = await axios.post(
+        `${import.meta.env.VITE_APP_KEY}/authen/login`,
+        { email, password }
+      );
+      if (loginresult) {
+        console.log(loginresult);
+        navigate("/dashboard");
+      }
+    } catch (err) {
+      console.log(err.response.data.message);
+    }
+  };
+
+  const validatedata = async ({ email, password }) => {
+    try {
+      await schema.validate({ email, password }, { abortEarly: false });
+      setErrors({});
+    } catch (err) {
+      const newErrors = {};
+      err.inner.forEach((error) => {
+        newErrors[error.path] = error.message;
       });
+      setErrors(newErrors);
+    }
   };
 
   return (
@@ -89,7 +107,7 @@ const Login = () => {
                       Back
                     </Link>
                     <div className="or-text">
-                      <Link to={'/dashboard'}>OR</Link>
+                      <Link to={"/dashboard"}>OR</Link>
                     </div>
                     <Link to="/Register" id="buttonRegister">
                       Register Now!
