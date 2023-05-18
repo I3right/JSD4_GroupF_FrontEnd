@@ -267,6 +267,7 @@ const AddActivity = () => {
           {!isImageUploaded && (
             <UploadImage onImageUpload={handleImageUpload} />
           )}
+        </label>
 
           {isImageUploaded && (
             <div>
@@ -274,7 +275,6 @@ const AddActivity = () => {
               <img src={xmark} onClick={handleDeleteImage} className="cursor-pointer"/>
             </div>
           )}
-        </label>
 
         <button type="submit" className="addActivity-btn addAct-btn">
           Add Activity

@@ -14,6 +14,7 @@ exports.createUser = async (req, res) => {
   }
 };
 
+
 exports.getAllUser = async (req, res) => {
   try {
     const returnData = await User.find();
@@ -56,11 +57,14 @@ exports.updateUser = async (req, res) => {
   try {
     const { userId } = req.params;
     const { username, email, password } = req.body;
-    const returnData = await User.findOneAndUpdate({ _id: userId },{username,email,password});
+    const returnData = await User.findOneAndUpdate(
+      { _id: userId },
+      { username, email, password }
+    );
     if (returnData) {
-      return res.status(201).json({ message: "User has been update"});
+      return res.status(201).json({ message: "User has been update" });
     }
   } catch (error) {
-    return res.status(400).json({ message: "cannot updatea user" })
+    return res.status(400).json({ message: "cannot updatea user" });
   }
 };
