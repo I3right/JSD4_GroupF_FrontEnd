@@ -39,7 +39,7 @@ const Dashboard = () => {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_APP_KEY}/activities/all`
+        `http://localhost:7777/activities/all`
       );
       const data = response.data;
       setActivityCard(data);
