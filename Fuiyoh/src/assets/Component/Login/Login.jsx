@@ -33,7 +33,7 @@ const Login = () => {
     try {
       const loginresult = await axios.post(
         `${import.meta.env.VITE_APP_KEY}/authen/login`,
-        { email, password }
+        { email, password } 
       );
       if (loginresult) {
         console.log(loginresult);
