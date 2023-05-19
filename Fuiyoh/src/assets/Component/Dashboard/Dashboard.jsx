@@ -25,6 +25,7 @@ import quote from "./assets/quote-img.png"
 const Dashboard = () => {
   const navigate = useNavigate();
   const [activityCard, setActivityCard] = useState([]);
+  const [pageTotal, setPageTotal] = useState(0);
 
   // waiting for change to LINK
   const handleAddActivity = () => {
@@ -49,9 +50,20 @@ const Dashboard = () => {
     }
   };
 
+  const getPageTotal = async () => {
+    let pageNo = 0;
+    let length = Object(activityCard).length
+    console.log(length);
+    // setPageTotal(pageNo)
+  };
+
   useEffect(() => {
     getData();
   }, []);
+
+  useEffect(()=>{
+    getPageTotal();
+  },[activityCard])
 
   // delete ข้อมูลใน database
   const confirmDelete = (id) => {
@@ -214,6 +226,16 @@ const Dashboard = () => {
             <img src={quote} alt="quote" />
           </h4>
           <div className="dasboard-card-section">{cards.reverse()}</div>
+          
+          <nav aria-label="Page navigation example">
+            <ul className="pagination">
+              <li className="page-item"><a className="page-link" href="#">Previous</a></li>
+              <li className="page-item"><a className="page-link" href="#">1</a></li>
+              <li className="page-item"><a className="page-link" href="#">2</a></li>
+              <li className="page-item"><a className="page-link" href="#">3</a></li>
+              <li className="page-item"><a className="page-link" href="#">Next</a></li>
+            </ul>
+          </nav>
         </section>
       </div>
     </LayoutSignin>
