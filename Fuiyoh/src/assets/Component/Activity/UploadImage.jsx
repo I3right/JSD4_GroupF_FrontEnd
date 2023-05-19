@@ -7,7 +7,6 @@ import Swal from "sweetalert2";
 
 const UploadImage = ({ onImageUpload }) => {
     const [loading, setLoading] = useState(false);
-    const [url, setUrl] = useState("");
 
     const convertBase64 = (file) => {
         return new Promise((resolve, reject) => {
