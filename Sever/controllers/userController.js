@@ -10,7 +10,7 @@ exports.createUser = async (req, res) => {
   } catch (error) {
     return res
       .status(400)
-      .json({ message: "username or Email used alredy" });
+      .json({ message: "username or email used already" });
   }
 };
 
