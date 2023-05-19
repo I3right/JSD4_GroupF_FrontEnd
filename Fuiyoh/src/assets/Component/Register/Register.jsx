@@ -5,6 +5,7 @@ import "./Register.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as yup from "yup";
 import axios from "axios" ;
+import Swal from "sweetalert2";
 
 
 const Register = () => {
@@ -74,12 +75,18 @@ const Register = () => {
           .post(`${import.meta.env.VITE_APP_KEY}/users/create`, data)
           .then((response) => {
             // Registration successful
-            console.log(response.data);
+            console.log(response);
             navigate("/Login");
           })
           .catch((error) => {
             // Registration failed
-            console.error(error);
+            console.log(error);
+            Swal.fire({
+              icon: "error",
+              title: error.response.data.message,
+              showConfirmButton: false,
+              timer: 2500,
+            });
           });
       })
       .catch((err) => {
