@@ -1,3 +1,8 @@
+div.addActivity{
+  min-height: 100vh;
+  height: 100%;
+}
+
 .addActivity h2,
 .addActivity-form h3 {
   text-align: center;
@@ -15,6 +20,7 @@
   border-radius: 8px;
   box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
   padding: 2rem 0;
+  margin-bottom: 80px;
 }
 
 form.addActivty {
@@ -22,6 +28,7 @@ form.addActivty {
   flex-direction: column;
   align-items: center;
 }
+
 form.addActivty h3 {
   color: #5854b0;
   text-align: unset;
@@ -33,20 +40,44 @@ form input {
   font-size: 0.8rem;
 }
 
-form input:focus{
+form input:focus {
   outline: none;
 }
 
-div.distance-preset{
+div.distance-preset {
   display: flex;
-  gap: 3rem;
+  width: 400px;
+  justify-content: space-between;
   margin-bottom: 0.5rem;
 }
 
 div.distance-preset button {
+
   border: transparent;
   background-color: transparent;
   color: #5854b0;
+  border-radius: 4px;
+  padding: 2px 16px;
+}
+
+div.duration-preset {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+div.duration-preset button {
+  border: transparent;
+  background-color: transparent;
+  color: #5854b0;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.feeling {
+  width: 400px;
+  margin-bottom: 10px;
 }
 
 form input:not(input[type="file"]) {
@@ -57,6 +88,11 @@ input[type="file"] {
   visibility: hidden;
 }
 
+.image{
+  width: 400px;
+  text-align: left;
+}
+
 .image div {
   width: 400px;
 }
@@ -65,9 +101,26 @@ input[type="file"] {
   margin-bottom: 10px;
 }
 
-.addAct-btn{
+div.form-image-container {
+  display: flex;
+  margin: 20px
+}
+
+div.form-image-container img {
+  max-width: 400px;
+  max-height: 350px;
+}
+
+div.form-image-container .xmark {
+  width: 12px;
+  height: 12px;
+  cursor: pointer;
+}
+
+
+.addAct-btn {
   width: 400px;
-  margin-bottom:0.5rem ;
+  margin-bottom: 0.5rem;
   padding: 5px 16px;
   border-radius: 100px;
   font-weight: bold;
@@ -76,18 +129,18 @@ input[type="file"] {
   text-align: center;
 }
 
-button.addActivity-btn{
+button.addActivity-btn {
   background-color: #5854b0;
   color: white;
 }
 
-.cancleActivity-btn{
+.cancleActivity-btn {
   background-color: white;
   color: #5854b0;
   border: 2px solid #5854b0;
   text-decoration: none;
 }
 
-.cancleActivity-btn:hover{
+.cancleActivity-btn:hover {
   color: #5854b0;
 }

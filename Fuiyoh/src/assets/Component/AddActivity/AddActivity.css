@@ -11,8 +11,9 @@ input[type='radio']{
     display: none;
 }
 
-img{
+.activity-selecter img{
     width: 100%;
+    cursor: pointer;
 }
 
 .activity-selecter label>div{
@@ -25,6 +26,7 @@ img{
     display: flex;
     justify-content: space-between;
     margin-bottom: 2rem ;
+    cursor: pointer;
 }
 
 .activity-selecter label:hover img {
