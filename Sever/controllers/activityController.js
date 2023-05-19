@@ -131,3 +131,17 @@ exports.updateActivity = async (req, res) => {
     // return res.status(400).json({ message: "Cannot delete" });
   }
 };
+
+
+// agregate activity 10 at a time
+exports.testagregate = async (req, res) => {
+  try {
+    const returnData = await Activity.find();
+    if (returnData) {
+      return res.status(200).json(returnData);
+    }
+    return res.status(500).json({ message: "ไม่มีข้อมูล" });
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+};

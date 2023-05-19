@@ -6,10 +6,12 @@ const {
   getActivity,
   deleteActivity,
   updateActivity,
+  testagregate
 } = require("../controllers/activityController.js");
 const {uploadImage} = require("../utils/cloudinary.js")
 
 
+router.get('/aggregate',testagregate)
 router.post("/create", createActivity);
 router.get("/all", getAllActivity);
 router.get("/get/:activityId", getActivity);
