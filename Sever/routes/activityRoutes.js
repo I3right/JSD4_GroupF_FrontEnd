@@ -6,12 +6,12 @@ const {
   getActivity,
   deleteActivity,
   updateActivity,
-  testagregate
+  queryActivity
 } = require("../controllers/activityController.js");
-const {uploadImage} = require("../utils/cloudinary.js")
+const { uploadImage } = require("../utils/cloudinary.js")
 
 
-router.get('/aggregate',testagregate)
+router.get('/query', queryActivity)
 router.post("/create", createActivity);
 router.get("/all", getAllActivity);
 router.get("/get/:activityId", getActivity);
@@ -23,6 +23,6 @@ router.post("/uploadImage", (req, res) => {
     .catch((err) => res.status(500).send(err));
 });
 
-router.get("/test", (req, res) => {res.json({ message: "works jing jing" })});
+router.get("/test", (req, res) => { res.json({ message: "works jing jing" }) });
 
 module.exports = router;

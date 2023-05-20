@@ -134,14 +134,14 @@ exports.updateActivity = async (req, res) => {
 
 
 // agregate activity 10 at a time
-exports.testagregate = async (req, res) => {
+exports.queryActivity = async (req, res) => {
   const page = req.query.page;
   const limit = req.query.limit;
-  console.log(page,limit);
-  
+  console.log(page, limit);
+
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit;
-  console.log(startIndex,endIndex);
+  console.log(startIndex, endIndex);
 
   try {
     const returnData = await Activity.find().skip(startIndex).limit(limit).exec();

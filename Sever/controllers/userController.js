@@ -1,18 +1,39 @@
 const User = require("../models/user.js");
+const bcrypt = require("bcrypt");
+
+
+// exports.createUser = async (req, res) => {
+//   const { username, email, password } = req.body;
+//   try {
+//     const returndata = await User.create({ username, email, password });
+//     if (returndata) {
+//       return res.status(201).json(returndata);
+//     }
+//   } catch (error) {
+//     return res
+//       .status(400)
+//       .json({ message: "username or email used already" });
+//   }
+// };
+
+
 
 exports.createUser = async (req, res) => {
   const { username, email, password } = req.body;
   try {
-    const returndata = await User.create({ username, email, password });
+    const saltRounds = 10;
+    // Hash the password using the generated salt
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    const returndata = await User.create({ username, email, password: hashedPassword });
     if (returndata) {
       return res.status(201).json(returndata);
     }
   } catch (error) {
-    return res
-      .status(400)
-      .json({ message: "username or password used alredy" });
+    return res.status(400).json({ message: "username or email used already" });
   }
 };
+
 
 
 exports.getAllUser = async (req, res) => {
