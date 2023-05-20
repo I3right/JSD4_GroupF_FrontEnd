@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-import InfiniteScroll from "react-infinite-scroller";
-import { useInfiniteQuery } from "react-query";
 
 import LayoutSignin from "../Layout/LayoutSignin";
 import settingLogo from "../../Picture/dashboard/SettingIcon.svg";
@@ -27,7 +25,6 @@ import "./Card.css";
 const Dashboard = () => {
   const navigate = useNavigate();
   const [activityCard, setActivityCard] = useState([]);
-  const [activityCard2, setActivityCard2] = useState([]);
 
   // waiting for change to LINK
   const handleAddActivity = () => {
@@ -38,48 +35,17 @@ const Dashboard = () => {
     navigate(`/editactivity/${id}`);
   };
 
-  //ดึงข้อมูลจาก database เพื่อนำมาโชว์ในหน้า dashboard
-  // const getData = async () => {
-  //   try {
-  //     const response = await axios.get(`http://localhost:7777/activities/all`);
-  //     const data = response.data;
-  //     setActivityCard(data);
-  //     // console.log(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  let starterPage = 1;
-
-  const queryData = async ({ starterPage }) => {
+  // ดึงข้อมูลจาก database เพื่อนำมาโชว์ในหน้า dashboard
+  const getData = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:7777/activities/query?page=${starterPage}&limit=4`
-      );
-      const dataQueried = response.data;
-      // console.log("res data : ", data);
-      // setActivityCard((previosData) => [...previosData, ...dataQueried]);
-
-      return { dataQueried, nextPage: starterPage + 1, totalPages: 100 };
+      const response = await axios.get(`http://localhost:7777/activities/all`);
+      const data = response.data;
+      setActivityCard(data);
+      // console.log(data);
     } catch (error) {
       console.log(error);
     }
   };
-
-  // call infinite query to shows post. deconstuct get 5 things
-  // 1. data    that queried
-  // 2. laoding screen
-  // 3. error   shows error
-  // 4. nextpage  if have next page
-  // 5. fetch
-  const { data, isLoading, isError, hasNextPage, fetchNextPage } =
-    useInfiniteQuery("Posts", queryData, {
-      getNextPageParam: (lastPage, pages) => {
-        if (lastPage.nextPage < lastPage.totalPages) return lastPage.nextPage;
-        return undefined;
-      },
-    });
 
   // delete ข้อมูลใน database
   const confirmDelete = (id) => {
@@ -140,8 +106,7 @@ const Dashboard = () => {
 
   // fetch data when in load in to page
   useEffect(() => {
-    // getData();
-    queryData(starterPage);
+    getData();
   }, []);
 
   // cards
@@ -223,7 +188,6 @@ const Dashboard = () => {
     </div>
   ));
 
-  console.log(data);
 
   // JSX
   return (
@@ -252,16 +216,7 @@ const Dashboard = () => {
             <img src={quote} alt="quote" />
           </h4>
 
-          {isLoading ? (
-            <p>Loading cards ...</p>
-          ) : isError ? (
-            <p>There was an Errors.</p>
-          ) : (
-            <InfiniteScroll hasMore={hasNextPage} loadMore={fetchNextPage}>
-              {/* {data} */}
-            </InfiniteScroll>
-          )}
-          {/* <div className="dasboard-card-section">{cards.reverse()}</div> */}
+          <div className="dasboard-card-section">{cards.reverse()}</div>
         </section>
       </div>
     </LayoutSignin>
