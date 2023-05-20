@@ -9,7 +9,13 @@ import Register from "./assets/Component/Register/Register";
 import Walking from './assets/Component/Activity/Walking';
 import EditActivity from './assets/Component/EditActivity/EditActivity'
 
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+const queryClient = new QueryClient();
+
+
 
 const router = createBrowserRouter([
   {
@@ -43,7 +49,8 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <>
+  <QueryClientProvider client={queryClient}>
     <RouterProvider router={router} />
-  </>
+    <ReactQueryDevtools />
+  </QueryClientProvider>
 );
