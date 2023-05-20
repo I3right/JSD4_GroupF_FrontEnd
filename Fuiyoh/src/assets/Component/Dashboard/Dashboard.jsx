@@ -1,31 +1,33 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
+import InfiniteScroll from "react-infinite-scroller";
+import { useInfiniteQuery } from "react-query";
+
 import LayoutSignin from "../Layout/LayoutSignin";
 import settingLogo from "../../Picture/dashboard/SettingIcon.svg";
 import account from "../../Picture/dashboard/account.svg";
 import deleteIcon from "../../Picture/dashboard/Delete.svg";
 import EditIcon from "../../Picture/dashboard/Edit.svg";
+import Walking from "./assets/Walking.png";
+import Cycling from "./assets/Cycling.png";
+import Hiking from "./assets/Hiking.png";
+import Swimming from "./assets/Swimming.png";
+import Running from "./assets/Running.png";
+import worst from "./assets/worst.png";
+import bad from "./assets/bad.png";
+import normal from "./assets/normal.png";
+import good from "./assets/good.png";
+import best from "./assets/best.png";
+import quote from "./assets/quote-img.png";
 import "./Dashboard.css";
 import "./Card.css";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import Swal from "sweetalert2";
-import Walking from "./assets/Walking.png"
-import Cycling from "./assets/Cycling.png"
-import Hiking from "./assets/Hiking.png"
-import Swimming from "./assets/Swimming.png"
-import Running from "./assets/Running.png"
-import worst from "./assets/worst.png"
-import bad from "./assets/bad.png"
-import normal from "./assets/normal.png"
-import good from "./assets/good.png"
-import best from "./assets/best.png"
-import quote from "./assets/quote-img.png"
-
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [activityCard, setActivityCard] = useState([]);
-  const [pageTotal, setPageTotal] = useState(0);
+  const [activityCard2, setActivityCard2] = useState([]);
 
   // waiting for change to LINK
   const handleAddActivity = () => {
@@ -37,33 +39,47 @@ const Dashboard = () => {
   };
 
   //ดึงข้อมูลจาก database เพื่อนำมาโชว์ในหน้า dashboard
-  const getData = async () => {
+  // const getData = async () => {
+  //   try {
+  //     const response = await axios.get(`http://localhost:7777/activities/all`);
+  //     const data = response.data;
+  //     setActivityCard(data);
+  //     // console.log(data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  let starterPage = 1;
+
+  const queryData = async ({ starterPage }) => {
     try {
       const response = await axios.get(
-        `http://localhost:7777/activities/all`
+        `http://localhost:7777/activities/query?page=${starterPage}&limit=4`
       );
-      const data = response.data;
-      setActivityCard(data);
-      // console.log(data);
+      const dataQueried = response.data;
+      // console.log("res data : ", data);
+      // setActivityCard((previosData) => [...previosData, ...dataQueried]);
+
+      return { dataQueried, nextPage: starterPage + 1, totalPages: 100 };
     } catch (error) {
       console.log(error);
     }
   };
 
-  const getPageTotal = async () => {
-    let pageNo = 0;
-    let length = Object(activityCard).length
-    console.log(length);
-    // setPageTotal(pageNo)
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  useEffect(()=>{
-    getPageTotal();
-  },[activityCard])
+  // call infinite query to shows post. deconstuct get 5 things
+  // 1. data    that queried
+  // 2. laoding screen
+  // 3. error   shows error
+  // 4. nextpage  if have next page
+  // 5. fetch
+  const { data, isLoading, isError, hasNextPage, fetchNextPage } =
+    useInfiniteQuery("Posts", queryData, {
+      getNextPageParam: (lastPage, pages) => {
+        if (lastPage.nextPage < lastPage.totalPages) return lastPage.nextPage;
+        return undefined;
+      },
+    });
 
   // delete ข้อมูลใน database
   const confirmDelete = (id) => {
@@ -100,28 +116,35 @@ const Dashboard = () => {
     }
   };
 
-  // add mockdata
-  const addMockData = async () => {
-    try {
-      const mockData = {
-        type: "walking",
-        title: "soodlhor",
-        distance: Math.floor(Math.random() * 100),
-        duration: Math.floor(Math.random() * 100),
-        location: "bkk",
-        description: "test krub pom",
-      };
-      const response = await axios.post(
-        `${import.meta.env.VITE_APP_KEY}/activities/create`,
-        mockData
-      );
-      console.log(response.data);
-      getData();
-    } catch (error) {
-      console.log(error.response);
-    }
-  };
+  // // add mockdata
+  // const addMockData = async () => {
+  //   try {
+  //     const mockData = {
+  //       type: "walking",
+  //       title: "soodlhor",
+  //       distance: Math.floor(Math.random() * 100),
+  //       duration: Math.floor(Math.random() * 100),
+  //       location: "bkk",
+  //       description: "test krub pom",
+  //     };
+  //     const response = await axios.post(
+  //       `${import.meta.env.VITE_APP_KEY}/activities/create`,
+  //       mockData
+  //     );
+  //     console.log(response.data);
+  //     getData();
+  //   } catch (error) {
+  //     console.log(error.response);
+  //   }
+  // };
 
+  // fetch data when in load in to page
+  useEffect(() => {
+    // getData();
+    queryData(starterPage);
+  }, []);
+
+  // cards
   const cards = activityCard.map((card) => (
     <div className="dasboard-card-container" key={card._id}>
       <div className="activity-card-top">
@@ -200,10 +223,13 @@ const Dashboard = () => {
     </div>
   ));
 
+  console.log(data);
+
+  // JSX
   return (
     <LayoutSignin>
       {/* add mockdata */}
-      <button onClick={addMockData}>Add Mock Data</button>
+      {/* <button onClick={addMockData}>Add Mock Data</button> */}
       <div className="dashboard container-xl">
         <aside>
           <div className="dashboard-profile">
@@ -225,17 +251,17 @@ const Dashboard = () => {
             “The hardest thing about exercise is start doing it”{" "}
             <img src={quote} alt="quote" />
           </h4>
-          <div className="dasboard-card-section">{cards.reverse()}</div>
-          
-          <nav aria-label="Page navigation example">
-            <ul className="pagination">
-              <li className="page-item"><a className="page-link" href="#">Previous</a></li>
-              <li className="page-item"><a className="page-link" href="#">1</a></li>
-              <li className="page-item"><a className="page-link" href="#">2</a></li>
-              <li className="page-item"><a className="page-link" href="#">3</a></li>
-              <li className="page-item"><a className="page-link" href="#">Next</a></li>
-            </ul>
-          </nav>
+
+          {isLoading ? (
+            <p>Loading cards ...</p>
+          ) : isError ? (
+            <p>There was an Errors.</p>
+          ) : (
+            <InfiniteScroll hasMore={hasNextPage} loadMore={fetchNextPage}>
+              {/* {data} */}
+            </InfiniteScroll>
+          )}
+          {/* <div className="dasboard-card-section">{cards.reverse()}</div> */}
         </section>
       </div>
     </LayoutSignin>
