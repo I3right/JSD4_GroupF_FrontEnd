@@ -3,10 +3,10 @@ import { useState } from "react";
 import axios from "axios";
 import "./Css/UploadImage.css";
 import Spinner from "./assets/Spinner.svg";
+import Swal from "sweetalert2";
 
 const UploadImage = ({ onImageUpload }) => {
-  const [loading, setLoading] = useState(false);
-  const [url, setUrl] = useState("");
+    const [loading, setLoading] = useState(false);
 
   const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -23,20 +23,23 @@ const UploadImage = ({ onImageUpload }) => {
     });
   };
 
-  function uploadSingleImage(base64) {
-    setLoading(true);
-    axios
-      .post(`${import.meta.env.VITE_APP_KEY}/activities/uploadImage`, {
-        image: base64,
-      })
-      .then((res) => {
-        const imageUrl = res.data;
-        onImageUpload(imageUrl); // Pass the URL to the parent component
-        alert("Image uploaded successfully");
-      })
-      .then(() => setLoading(false))
-      .catch(console.log);
-  }
+    function uploadSingleImage(base64) {
+        setLoading(true);
+        axios
+            .post(`${import.meta.env.VITE_APP_KEY}/activities/uploadImage`, { image: base64 })
+            .then(async (res) => {
+                const imageUrl = res.data;
+                onImageUpload(imageUrl); // Pass the URL to the parent component
+                await Swal.fire({
+                    icon: "success",
+                    title: "Image uploaded!",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+            })
+            .then(() => setLoading(false))
+            .catch(console.log);
+    }
 
   const uploadImage = async (event) => {
     const files = event.target.files;
@@ -92,34 +95,24 @@ const UploadImage = ({ onImageUpload }) => {
     );
   }
 
-  return (
-    <div className="flex justify-center flex-col m-8 ">
-      <div>
-        <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">
-          Upload Photo
-        </h2>
-      </div>
-      <div>
-        {url && (
-          <div>
-            Access you file at{" "}
-            <a href={url} target="_blank" rel="noopener noreferrer">
-              {url}
-            </a>
-          </div>
-        )}
-      </div>
-      <div>
-        {loading ? (
-          <div className="flex items-center justify-center">
-            <img src={Spinner} />
-          </div>
-        ) : (
-          <UploadInput />
-        )}
-      </div>
-    </div>
-  );
-};
+    return (
+        <div className="flex justify-center flex-col ">
+            <div>
+                <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">
+                    Upload Photo
+                </h2>
+            </div>
+            <div>
+                {loading ? (
+                    <div className="flex items-center justify-center">
+                        <img src={Spinner} />
+                    </div>
+                ) : (
+                    <UploadInput />
+                )}
+            </div>
+        </div>
+    );
+}
 
-export default UploadImage;
+export default  UploadImage;
