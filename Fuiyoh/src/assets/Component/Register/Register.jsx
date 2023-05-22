@@ -76,6 +76,12 @@ const Register = () => {
           .then((response) => {
             // Registration successful
             console.log(response);
+            Swal.fire({
+              icon: "success",
+              title: "Registered Successfully",
+              showConfirmButton: false,
+              timer: 2000,
+            });
             navigate("/Login");
           })
           .catch((error) => {

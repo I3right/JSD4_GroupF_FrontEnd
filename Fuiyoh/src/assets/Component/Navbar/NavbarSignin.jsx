@@ -1,7 +1,8 @@
 import "./Navbar.css";
 import mainLogo from "../../Picture/icon/logo.svg";
-import { getUserId,logout } from "../../service/authorize";
+import { getUserId, logout } from "../../service/authorize";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const NavbarSignin = () => {
   const userId = getUserId();
@@ -26,15 +27,35 @@ const NavbarSignin = () => {
           </a>
         </li>
         <li>
-          <a >
-            <button type="button" id="navbar-login-btn" onClick={() =>logout(() => navigate("/"))}>
-              <b>Log out</b>
-            </button>
-          </a>
+          <button
+            type="button"
+            id="navbar-login-btn"
+            onClick={() =>
+              Swal.fire({
+                title: "คุณต้องการ Log Out ใช่หรือไม่",
+                icon: "warning",
+                showCancelButton: true,
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  Swal.fire({
+                    icon: "success",
+                    title: "Logged Out",
+                    showConfirmButton: false,
+                    timer: 2000,
+                  });
+                  navigate("/");
+                }
+              })
+            }
+          >
+            <b>Log out</b>
+          </button>
+
         </li>
       </ul>
     </nav>
   );
 };
+
 
 export default NavbarSignin;

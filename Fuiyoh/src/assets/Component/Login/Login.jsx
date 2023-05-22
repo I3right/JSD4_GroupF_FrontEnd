@@ -9,6 +9,7 @@ import picLogin from "../../Picture/login/cycling-amico.png";
 import logo from "../../Picture/login/logoLogin.png";
 import axios from "axios";
 import { authenticate } from "../../service/authorize";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -35,6 +36,12 @@ const Login = () => {
         `${import.meta.env.VITE_APP_KEY}/authen/login`,
         { email, password }
       );
+      Swal.fire({
+        icon: "success",
+        title: "Logged In",
+        showConfirmButton: false,
+        timer: 2000,
+      });
       if (loginResult) {
         // console.log(loginResult);
         const userId = loginResult.data.userId;
