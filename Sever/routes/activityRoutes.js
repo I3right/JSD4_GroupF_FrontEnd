@@ -13,7 +13,7 @@ const { uploadImage } = require("../utils/cloudinary.js")
 
 router.get('/query', queryActivity)
 router.post("/create", createActivity);
-router.get("/all", getAllActivity);
+router.get("/user/:userId", getAllActivity);
 router.get("/get/:activityId", getActivity);
 router.delete("/delete/:activityId", deleteActivity);
 router.put("/update/:activityId", updateActivity);

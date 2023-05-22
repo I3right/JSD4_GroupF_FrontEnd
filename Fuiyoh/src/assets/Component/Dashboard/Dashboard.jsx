@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -23,6 +23,7 @@ import "./Dashboard.css";
 import "./Card.css";
 
 const Dashboard = () => {
+  const userId = useParams();
   const navigate = useNavigate();
   const [activityCard, setActivityCard] = useState([]);
 
@@ -38,7 +39,7 @@ const Dashboard = () => {
   // ดึงข้อมูลจาก database เพื่อนำมาโชว์ในหน้า dashboard
   const getData = async () => {
     try {
-      const response = await axios.get(`http://localhost:7777/activities/all`);
+      const response = await axios.get(`http://localhost:7777/activities/user/${userId.userId}`);
       const data = response.data;
       setActivityCard(data);
       // console.log(data);

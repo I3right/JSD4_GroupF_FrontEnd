@@ -11,7 +11,7 @@ import worst from "./assets/worst.png";
 import normal from "./assets/normal.png";
 import good from "./assets/good.png";
 import best from "./assets/best.png";
-
+import { getUserId } from "../../service/authorize";
 
 const formSchema = Joi.object({
   type: Joi.string()
@@ -35,10 +35,12 @@ const formSchema = Joi.object({
     .optional()
     .label("feeling"),
   img: Joi.optional().allow("").label("img"),
+  userId: Joi.string().required()
 });
 
 const AddActivity = () => {
   const navigate = useNavigate();
+  const userId = getUserId()
   //เก็บข้อมูล activity เป็น object ถ้าเก็บ state ทีละตัวมันจัดการยาก
   const [activity, setActivity] = useState({
     type: "walking",
@@ -50,7 +52,9 @@ const AddActivity = () => {
     description: "",
     feeling: "",
     img: "",
+    userId:userId
   });
+
 
   const [isImageUploaded, setIsImageUploaded] = useState(false);
 
@@ -120,6 +124,7 @@ const AddActivity = () => {
     const { error, value } = formSchema.validate(activity);
 
     if (!error) {
+      // console.log(value);
       try {
         await axios.post(
           `${import.meta.env.VITE_APP_KEY}/activities/create`,
