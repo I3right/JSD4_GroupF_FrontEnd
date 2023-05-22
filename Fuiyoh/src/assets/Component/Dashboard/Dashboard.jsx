@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import LayoutSignin from "../Layout/LayoutSignin";
-import settingLogo from "../../Picture/dashboard/SettingIcon.svg";
-import account from "../../Picture/dashboard/account.svg";
 import deleteIcon from "../../Picture/dashboard/Delete.svg";
 import EditIcon from "../../Picture/dashboard/Edit.svg";
 import "./Dashboard.css";
@@ -20,6 +18,7 @@ import normal from "./assets/normal.png"
 import good from "./assets/good.png"
 import best from "./assets/best.png"
 import quote from "./assets/quote-img.png"
+import Profile from "./Profile";
 
 
 const Dashboard = () => {
@@ -39,7 +38,7 @@ const Dashboard = () => {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:7777/activities/all`
+        `${import.meta.env.VITE_APP_KEY}/activities/all`
       );
       const data = response.data;
       setActivityCard(data);
@@ -193,20 +192,7 @@ const Dashboard = () => {
       {/* add mockdata */}
       <button onClick={addMockData}>Add Mock Data</button>
       <div className="dashboard container-xl">
-        <aside>
-          <div className="dashboard-profile">
-            <figure>
-              <img src={account} alt="Profile picture" />
-            </figure>
-            <div>
-              <span>Displayname example</span>
-              <div>
-                <img src={settingLogo} alt="Logo setting" />
-              </div>
-            </div>
-          </div>
-          <button onClick={handleAddActivity}>Add Activity</button>
-        </aside>
+        <Profile handleAddActivity={handleAddActivity}/>
 
         <section>
           <h4 className="quote">

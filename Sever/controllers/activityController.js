@@ -132,3 +132,24 @@ exports.updateActivity = async (req, res) => {
   }
 };
 
+
+exports.getSumHikingDistances = async (req, res) => {
+  try {
+    const activities = await Activity.find({ type: "hiking" });
+    const sum = activities.reduce((total, activity) => total + activity.distance, 0);
+    return res.status(200).json({ sum });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+
+exports.getSumRunningDistances = async (req, res) => {
+  try {
+    const activities = await Activity.find({ type: "running" });
+    const sum = activities.reduce((total, activity) => total + activity.distance, 0);
+    return res.status(200).json({ sum });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};

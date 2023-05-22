@@ -33,7 +33,7 @@
     width: 30px;
 }
 
-aside button {
+aside .add-activity-btn {
     height: 50px;
     border-radius: 50px;
     background-color: #7773F0;

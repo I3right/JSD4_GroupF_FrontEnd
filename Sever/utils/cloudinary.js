@@ -14,6 +14,7 @@ const opts = {
     overwrite: true,
     invalidate: true,
     resource_type: "auto",
+    file: "webp"
 };
 
 module.exports.uploadImage = (image) => {
