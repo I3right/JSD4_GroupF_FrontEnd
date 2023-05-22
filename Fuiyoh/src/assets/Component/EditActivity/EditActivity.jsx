@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Joi from "joi";
 import Swal from "sweetalert2";
-import inputImage from "../../Picture/activity/AddPicture.svg";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import LayoutSignin from "../Layout/LayoutSignin";
 import UploadImage from "../Activity/UploadImage";
@@ -146,11 +145,25 @@ const EditActivity = () => {
   };
 
   const handleDeleteImage = () => {
-    setActivity((prevActivity) => ({
-      ...prevActivity,
-      img: "",
-    }));
-    setIsImageUploaded(false);
+    Swal.fire({
+      title: "คุณต้องการลบรูปใช่หรือไม่",
+      icon: "warning",
+      showCancelButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: "success",
+          title: "Image deleted!",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        setActivity((prevActivity) => ({
+          ...prevActivity,
+          img: "",
+        }));
+        setIsImageUploaded(false);
+      }
+    });
   };
 
   console.log(activity.img);
@@ -161,7 +174,7 @@ const EditActivity = () => {
         <form className="editActivity-form" onSubmit={handleUpdate}>
           <h2>Edit Activity</h2>
           <label className="title">
-            <h3>Title</h3>
+            <h3>Title*</h3>
             <input
               name="title"
               type="text"
@@ -172,7 +185,7 @@ const EditActivity = () => {
           </label>
 
           <label className="distance">
-            <h3>Distance</h3>
+            <h3>Distance*</h3>
             <input
               name="distance"
               type="number"
@@ -183,7 +196,7 @@ const EditActivity = () => {
           </label>
 
           <label className="duration">
-            <h3>Duration</h3>
+            <h3>Duration*</h3>
             <input
               name="duration"
               type="number"
@@ -240,23 +253,18 @@ const EditActivity = () => {
           </label>
 
           <label className="image">
-            <h3>Picture</h3>
-            {/* <div>
-              <img src={activity.img} alt="image" />
-            </div>
-            <input type="file"  onChange={handleChange} /> */}
-
-            {activity.img === '' && (
+          <h3>Picture</h3>
+          {!isImageUploaded && (
             <UploadImage onImageUpload={handleImageUpload} />
           )}
+        </label>
 
-          {activity.img !== '' && (
-            <div>
+          {isImageUploaded && (
+            <div className="form-image-container">
               <img src={activity.img} alt="Uploaded" />
-              <img src={xmark} onClick={handleDeleteImage} className="cursor-pointer"/>
+              <img src={xmark} onClick={handleDeleteImage} className="xmark"/>
             </div>
           )}
-          </label>
 
           <button type="submit" className="addActivity-btn addAct-btn">
             Update

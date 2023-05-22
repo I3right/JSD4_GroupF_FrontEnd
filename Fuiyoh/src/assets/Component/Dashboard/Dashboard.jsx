@@ -1,26 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
-import Swal from "sweetalert2";
-
 import LayoutSignin from "../Layout/LayoutSignin";
-import settingLogo from "../../Picture/dashboard/SettingIcon.svg";
-import account from "../../Picture/dashboard/account.svg";
 import deleteIcon from "../../Picture/dashboard/Delete.svg";
 import EditIcon from "../../Picture/dashboard/Edit.svg";
-import Walking from "./assets/Walking.png";
-import Cycling from "./assets/Cycling.png";
-import Hiking from "./assets/Hiking.png";
-import Swimming from "./assets/Swimming.png";
-import Running from "./assets/Running.png";
-import worst from "./assets/worst.png";
-import bad from "./assets/bad.png";
-import normal from "./assets/normal.png";
-import good from "./assets/good.png";
-import best from "./assets/best.png";
-import quote from "./assets/quote-img.png";
 import "./Dashboard.css";
 import "./Card.css";
+import axios from "axios";
+import Swal from "sweetalert2";
+import Walking from "./assets/Walking.png"
+import Cycling from "./assets/Cycling.png"
+import Hiking from "./assets/Hiking.png"
+import Swimming from "./assets/Swimming.png"
+import Running from "./assets/Running.png"
+import worst from "./assets/worst.png"
+import bad from "./assets/bad.png"
+import normal from "./assets/normal.png"
+import good from "./assets/good.png"
+import best from "./assets/best.png"
+import quote from "./assets/quote-img.png"
+import Profile from "./Profile";
+
 
 const Dashboard = () => {
   const userId = useParams();
@@ -196,20 +195,7 @@ const Dashboard = () => {
       {/* add mockdata */}
       {/* <button onClick={addMockData}>Add Mock Data</button> */}
       <div className="dashboard container-xl">
-        <aside>
-          <div className="dashboard-profile">
-            <figure>
-              <img src={account} alt="Profile picture" />
-            </figure>
-            <div>
-              <span>Displayname example</span>
-              <div>
-                <img src={settingLogo} alt="Logo setting" />
-              </div>
-            </div>
-          </div>
-          <button onClick={handleAddActivity}>Add Activity</button>
-        </aside>
+        <Profile handleAddActivity={handleAddActivity}/>
 
         <section>
           <h4 className="quote">

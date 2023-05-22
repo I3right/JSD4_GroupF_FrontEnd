@@ -6,12 +6,13 @@ const {
   getActivity,
   deleteActivity,
   updateActivity,
-  queryActivity
+  getSumHikingDistances,
+  getSumRunningDistances
 } = require("../controllers/activityController.js");
 const { uploadImage } = require("../utils/cloudinary.js")
 
 
-router.get('/query', queryActivity)
+// router.get('/query', queryActivity)
 router.post("/create", createActivity);
 router.get("/user/:userId", getAllActivity);
 router.get("/get/:activityId", getActivity);
@@ -22,6 +23,10 @@ router.post("/uploadImage", (req, res) => {
     .then((url) => res.send(url))
     .catch((err) => res.status(500).send(err));
 });
+router.get("/getSumHikingDistances/:userId", getSumHikingDistances);
+router.get("/getSumRunningDistances/:userId", getSumRunningDistances);
+
+
 
 router.get("/test", (req, res) => { res.json({ message: "works jing jing" }) });
 
