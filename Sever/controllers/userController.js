@@ -10,7 +10,7 @@ const bcrypt = require("bcrypt");
 //       return res.status(201).json(returndata);
 //     }
 //   } catch (error) {
-//     return res
+//     return badge
 //       .status(400)
 //       .json({ message: "username or email used already" });
 //   }
@@ -19,13 +19,13 @@ const bcrypt = require("bcrypt");
 
 
 exports.createUser = async (req, res) => {
-  const { username, email, password, badge } = req.body;
+  const { username, email, password, height, weight } = req.body;
   try {
     const saltRounds = 10;
     // Hash the password using the generated salt
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    const returndata = await User.create({ username, email, password: hashedPassword, badge:"" });
+    const returndata = await User.create({ username, email, password: hashedPassword, height: 0, weight: 0 });
     if (returndata) {
       return res.status(201).json(returndata);
     }
