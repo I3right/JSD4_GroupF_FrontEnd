@@ -30,10 +30,15 @@ const activitySchema = new Schema({
   },
   feeling: {
     type: String,
-    enum: ["","best", "good", "normal", "bad", "worst"],
+    enum: ["", "best", "good", "normal", "bad", "worst"],
   },
   img: {
     type: String,
+  },
+  userId: {
+    type: String,
+    required: true,
+    unique: true,
   },
 });
 

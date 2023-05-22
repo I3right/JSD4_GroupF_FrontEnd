@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import LayoutSignin from "../Layout/LayoutSignin";
 import UploadImage from "../Activity/UploadImage";
+import { getUserId } from "../../service/authorize";
 import xmark from "../Activity/assets/xmark-solid.svg";
 import "./editActivity.css";
 
@@ -37,6 +38,7 @@ const formSchema = Joi.object({
 });
 
 const EditActivity = () => {
+  const userId = getUserId()
   const navigate = useNavigate();
   const activityId = useParams();
   const [isImageUploaded, setIsImageUploaded] = useState(false);
@@ -117,7 +119,7 @@ const EditActivity = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate("/dashboard");
+        navigate(`/dashboard/${userId}`);
         return; // Exit the function after successful submission
       } catch (err) {
         console.log(err);
@@ -131,7 +133,7 @@ const EditActivity = () => {
   };
 
   const handleCancle = () => {
-    navigate("/dashboard");
+    navigate(`/dashboard/${userId}`);
   };
 
   const handleImageUpload = (url) => {

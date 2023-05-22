@@ -94,6 +94,7 @@ exports.updateUser = async (req, res) => {
 exports.getUserHeight = async (req, res) => {
   try {
     const { userId } = req.params;
+    console.log(userId)
     const user = await User.findOne({ _id: userId });
     if (user) {
       const height = user.height;

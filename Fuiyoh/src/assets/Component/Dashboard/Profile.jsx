@@ -2,16 +2,18 @@ import settingLogo from "../../Picture/dashboard/SettingIcon.svg";
 import account from "../../Picture/dashboard/account.svg";
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import badgeHeart from "./assets/badge-heart.png";
+import badgeHeart from "./assets/badge-heartt.png";
 import axios from "axios";
 import badgeLuna from "./assets/badge-luna.png";
 import badgeGenTH from "./assets/badge-genth.png";
 import bmiThin from "./assets/bmi-thin.png"
 import bmiNormal from "./assets/bmi-normal.png"
 import bmiFat from "./assets/bmi-fat.png"
-
+import { useParams } from "react-router-dom";
 
 const Profile = ({ handleAddActivity }) => {
+    const userId = useParams();
+    console.log(userId.userId);
     const [quest, setQuest] = useState({
         hikingDistance: 0,
         runningDistance: 0,
@@ -26,7 +28,7 @@ const Profile = ({ handleAddActivity }) => {
 
     const getUserHeight = async () => {
         try {
-            const response = await axios.get(`${import.meta.env.VITE_APP_KEY}/users/getUserHeight/646b244a6effbee9eeaaa9c9`);
+            const response = await axios.get(`${import.meta.env.VITE_APP_KEY}/users/getUserHeight/${userId.userId}`);
             const data = response.data;
             console.log(data.height);
             if (data && data.height !== undefined) {
@@ -42,7 +44,7 @@ const Profile = ({ handleAddActivity }) => {
 
     const getUserWeight = async () => {
         try {
-            const response = await axios.get(`${import.meta.env.VITE_APP_KEY}/users/getUserWeight/646b244a6effbee9eeaaa9c9`);
+            const response = await axios.get(`${import.meta.env.VITE_APP_KEY}/users/getUserWeight/${userId.userId}`);
             const data = response.data;
             console.log(data.weight);
             if (data && data.weight !== undefined) {
@@ -58,7 +60,7 @@ const Profile = ({ handleAddActivity }) => {
 
     const getSumHiking = async () => {
         try {
-            const response = await axios.get(`${import.meta.env.VITE_APP_KEY}/activities/getSumHikingDistances`);
+            const response = await axios.get(`${import.meta.env.VITE_APP_KEY}/activities/getSumHikingDistances/${userId.userId}`);
             const data = response.data;
             if (data && data.sum !== undefined) {
                 setQuest((prevQuest) => ({ ...prevQuest, hikingDistance: data.sum }));
@@ -72,7 +74,7 @@ const Profile = ({ handleAddActivity }) => {
 
     const getSumRunning = async () => {
         try {
-            const response = await axios.get(`${import.meta.env.VITE_APP_KEY}/activities/getSumRunningDistances`);
+            const response = await axios.get(`${import.meta.env.VITE_APP_KEY}/activities/getSumRunningDistances/${userId.userId}`);
             const data = response.data;
             if (data && data.sum !== undefined) {
                 setQuest((prevQuest) => ({ ...prevQuest, runningDistance: data.sum }));
@@ -99,7 +101,7 @@ const Profile = ({ handleAddActivity }) => {
                 badge: value,
             };
             const response = await axios.put(
-                `${import.meta.env.VITE_APP_KEY}/users/addBadge/646b244a6effbee9eeaaa9c9`,
+                `${import.meta.env.VITE_APP_KEY}/users/addBadge/${userId.userId}`,
                 userBadge
             );
             console.log(response.data);
@@ -110,8 +112,8 @@ const Profile = ({ handleAddActivity }) => {
 
         if (value === "heart") {
             await Swal.fire({
-                title: 'ยินดีด้วย',
-                text: 'คุณได้หัวใจเธอ!',
+                title: 'ยินดีด้วย คุณได้รับเพื่อนเพิ่มขึ้น 1ea',
+                text: 'freindzone badge!',
                 imageUrl: badgeHeart,
                 imageWidth: 400,
                 imageHeight: 400,
@@ -146,7 +148,7 @@ const Profile = ({ handleAddActivity }) => {
 
     const getUserBadge = async () => {
         try {
-            const response = await axios.get(`${import.meta.env.VITE_APP_KEY}/users/getUserBadge/646b244a6effbee9eeaaa9c9`);
+            const response = await axios.get(`${import.meta.env.VITE_APP_KEY}/users/getUserBadge/${userId.userId}`);
             const data = response.data;
             console.log(data)
             if (data && data.badge !== undefined) {
@@ -180,8 +182,14 @@ const Profile = ({ handleAddActivity }) => {
 
         return (
             <>
-                <p>Your BMI is {roundedBMI} {result}</p>
-                <img src={img} alt="bmi" />
+                {isNaN(roundedBMI) ? (
+                    <p className="text-red-500">"Please add your height and weight"</p>
+                ) : (
+                    <>
+                        <p>Your BMI is {roundedBMI} {result}</p>
+                        <img src={img} alt="bmi" />
+                    </>
+                )}
             </>
         );
     };
@@ -190,7 +198,7 @@ const Profile = ({ handleAddActivity }) => {
     console.log(quest)
     const checkBadge = () => {
         return (
-            <div>
+            <div className="badge-container">
                 {quest.badge.includes("heart") && <img src={badgeHeart} alt="badge" />}
                 {quest.badge.includes("luna") && <img src={badgeLuna} alt="badge" />}
                 {quest.badge.includes("genth") && <img src={badgeGenTH} alt="badge" />}
@@ -198,7 +206,7 @@ const Profile = ({ handleAddActivity }) => {
         );
     };
 
-    const handleClick = () => {
+    const handleClickTwitter = () => {
         const tweetText = encodeURIComponent('I love Generation Thailand');
         const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
 
@@ -208,6 +216,7 @@ const Profile = ({ handleAddActivity }) => {
             addBadge("genth");
         }, 5000);
     };
+
 
 
     return (
@@ -225,7 +234,7 @@ const Profile = ({ handleAddActivity }) => {
                 </div>
 
             </div>
-            <div>
+            <div >
                 <h6>Height: {user.height} CM.</h6>
                 <h6>Weight: {user.weight} KG.</h6>
                 <div>
@@ -240,7 +249,7 @@ const Profile = ({ handleAddActivity }) => {
             </div>
             <div>
                 <button
-                    onClick={handleClick}
+                    onClick={handleClickTwitter}
                     className={`inline-block px-6 py-2.5 ${quest.badge.includes("genth")
                         ? "bg-gray-400 cursor-default"
                         : "bg-[#1D9BF0] hover:bg-[#177CC0]"

@@ -41,6 +41,16 @@ aside .add-activity-btn {
     color: white;
 }
 
+
+aside .badge-container {
+    display: flex;
+    column-gap: 4px;
+}
+aside .badge-container img{
+    width: 30px;
+    height: 30px;
+}
+
 .dashboard>section {
     flex: 1;
     max-width: 900px;
