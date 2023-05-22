@@ -108,7 +108,7 @@ const Login = () => {
                       Back
                     </Link>
                     <div className="or-text">
-                      <Link to={"/dashboard"}>OR</Link>
+                      OR
                     </div>
                     <Link to="/Register" id="buttonRegister">
                       Register Now!

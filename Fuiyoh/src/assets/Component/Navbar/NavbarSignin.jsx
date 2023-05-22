@@ -1,7 +1,11 @@
 import "./Navbar.css";
 import mainLogo from "../../Picture/icon/logo.svg";
+import { getUserId,logout } from "../../service/authorize";
+import { useNavigate } from "react-router-dom";
 
 const NavbarSignin = () => {
+  const userId = getUserId();
+  const navigate = useNavigate();
   return (
     <nav className="navbar">
       <div className="left-navbar">
@@ -17,13 +21,13 @@ const NavbarSignin = () => {
 
       <ul className="right-navbar">
         <li>
-          <a href={"/dashboard"}>
+          <a href={`/dashboard/${userId}`}>
             <b>dashboard</b>
           </a>
         </li>
         <li>
-          <a href={"/Login"}>
-            <button type="button" id="navbar-login-btn">
+          <a >
+            <button type="button" id="navbar-login-btn" onClick={() =>logout(() => navigate("/"))}>
               <b>Log out</b>
             </button>
           </a>

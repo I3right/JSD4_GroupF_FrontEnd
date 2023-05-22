@@ -40,7 +40,7 @@ export const logout = (next) => {
   // กำลังใช้งาน brower อยู่?
   if (window !== undefined) {
     sessionStorage.removeItem('token');
-    sessionStorage.removeItem('user');
+    sessionStorage.removeItem('userId');
   }
 
   // รอรับ action ถัดไปที่จะถูกป้อนมา
