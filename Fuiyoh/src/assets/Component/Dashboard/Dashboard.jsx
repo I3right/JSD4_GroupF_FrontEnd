@@ -25,6 +25,7 @@ import quote from "./assets/quote-img.png"
 const Dashboard = () => {
   const navigate = useNavigate();
   const [activityCard, setActivityCard] = useState([]);
+  const userId = useParams();
 
   // waiting for change to LINK
   const handleAddActivity = () => {
@@ -33,6 +34,11 @@ const Dashboard = () => {
 
   const editActivity = (id) => {
     navigate(`/editactivity/${id}`);
+  };
+
+  //link to Edit User
+  const editUser = (id) => {
+    navigate(`/edituser/${id}`);
   };
 
   //ดึงข้อมูลจาก database เพื่อนำมาโชว์ในหน้า dashboard
@@ -201,7 +207,11 @@ const Dashboard = () => {
             <div>
               <span>Displayname example</span>
               <div>
-                <img src={settingLogo} alt="Logo setting" />
+                <img 
+                  src={settingLogo} 
+                  alt="Logo setting" 
+                  onClick={editUser(userId)}
+                />
               </div>
             </div>
           </div>

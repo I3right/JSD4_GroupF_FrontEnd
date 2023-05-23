@@ -59,6 +59,7 @@ const EditActivity = () => {
         `${import.meta.env.VITE_APP_KEY}/activities/get/${activityId.activityId}`
       );
       if (response) {
+        // console.log(response)
         const { type, title, distance, duration } = response.data;
         let { location, date, description, feeling, img } = response.data;
 

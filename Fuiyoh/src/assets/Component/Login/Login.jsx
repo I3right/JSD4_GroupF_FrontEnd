@@ -37,7 +37,8 @@ const Login = () => {
       );
       if (loginresult) {
         console.log(loginresult);
-        navigate("/dashboard");
+        navigate('/dashboard');
+        // navigate(`/dashboard/${email}`);
       }
     } catch (err) {
       console.log(err.response.data.message);

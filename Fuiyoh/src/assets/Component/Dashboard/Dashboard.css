@@ -27,6 +27,7 @@
 
 .dashboard-profile>div {
     display: flex;
+    cursor: pointer;
 }
 
 .dashboard-profile>div>div {
