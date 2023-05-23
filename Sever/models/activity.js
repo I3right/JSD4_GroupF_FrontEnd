@@ -19,7 +19,7 @@ const activitySchema = new Schema({
     type: Number,
     required: true,
   },
-  loaction: {
+  location: {
     type: String,
   },
   date: {
@@ -30,10 +30,15 @@ const activitySchema = new Schema({
   },
   feeling: {
     type: String,
-    enum: ["","best", "good", "normal", "bad", "worst"],
+    enum: ["", "best", "good", "normal", "bad", "worst"],
   },
   img: {
     type: String,
+  },
+  userId: {
+    type: String,
+    required: true,
+    unique: true,
   },
 });
 

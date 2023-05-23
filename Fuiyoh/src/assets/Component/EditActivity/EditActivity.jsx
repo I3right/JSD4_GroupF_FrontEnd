@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Joi from "joi";
 import Swal from "sweetalert2";
-import inputImage from "../../Picture/activity/AddPicture.svg";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import LayoutSignin from "../Layout/LayoutSignin";
+import UploadImage from "../Activity/UploadImage";
+import { getUserId } from "../../service/authorize";
+import xmark from "../Activity/assets/xmark-solid.svg";
 import "./editActivity.css";
 
 const formSchema = Joi.object({
@@ -36,7 +38,10 @@ const formSchema = Joi.object({
 });
 
 const EditActivity = () => {
+  const userId = getUserId()
   const navigate = useNavigate();
+  const activityId = useParams();
+  const [isImageUploaded, setIsImageUploaded] = useState(false);
   const [activity, setActivity] = useState({
     type: "",
     title: "",
@@ -48,7 +53,6 @@ const EditActivity = () => {
     feeling: "",
     img: "",
   });
-  const activityId = useParams();
 
   const getData = async () => {
     try {
@@ -57,7 +61,7 @@ const EditActivity = () => {
       );
       if (response) {
         const { type, title, distance, duration } = response.data;
-        let { date, description, feeling, img } = response.data;
+        let { location, date, description, feeling, img } = response.data;
 
         const today = new Date(date);
         let today_date = today.getDate();
@@ -75,6 +79,7 @@ const EditActivity = () => {
           title,
           distance,
           duration,
+          location,
           date,
           description,
           feeling,
@@ -86,7 +91,6 @@ const EditActivity = () => {
     }
   };
 
-  // console.log(activity);
 
   useEffect(() => {
     getData();
@@ -99,16 +103,14 @@ const EditActivity = () => {
       [name]: value,
     }));
   };
-  console.log(activity);
+
   const handleUpdate = async (event) => {
     event.preventDefault();
     const { error, value } = formSchema.validate(activity);
     if (!error) {
       try {
         await axios.put(
-          `${import.meta.env.VITE_APP_KEY}/activities/update/${
-            activityId.activityId
-          }`,
+          `${import.meta.env.VITE_APP_KEY}/activities/update/${activityId.activityId}`,
           value
         );
         await Swal.fire({
@@ -117,7 +119,7 @@ const EditActivity = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate("/dashboard");
+        navigate(`/dashboard/${userId}`);
         return; // Exit the function after successful submission
       } catch (err) {
         console.log(err);
@@ -131,8 +133,40 @@ const EditActivity = () => {
   };
 
   const handleCancle = () => {
-    navigate("/dashboard");
+    navigate(`/dashboard/${userId}`);
   };
+
+  const handleImageUpload = (url) => {
+    setActivity((prevActivity) => ({
+      ...prevActivity,
+      img: url,
+    }));
+    setIsImageUploaded(true);
+  };
+
+  const handleDeleteImage = () => {
+    Swal.fire({
+      title: "คุณต้องการลบรูปใช่หรือไม่",
+      icon: "warning",
+      showCancelButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: "success",
+          title: "Image deleted!",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        setActivity((prevActivity) => ({
+          ...prevActivity,
+          img: "",
+        }));
+        setIsImageUploaded(false);
+      }
+    });
+  };
+
+  console.log(activity.img);
 
   return (
     <LayoutSignin>
@@ -140,7 +174,7 @@ const EditActivity = () => {
         <form className="editActivity-form" onSubmit={handleUpdate}>
           <h2>Edit Activity</h2>
           <label className="title">
-            <h3>Title</h3>
+            <h3>Title*</h3>
             <input
               name="title"
               type="text"
@@ -151,7 +185,7 @@ const EditActivity = () => {
           </label>
 
           <label className="distance">
-            <h3>Distance</h3>
+            <h3>Distance*</h3>
             <input
               name="distance"
               type="number"
@@ -162,7 +196,7 @@ const EditActivity = () => {
           </label>
 
           <label className="duration">
-            <h3>Duration</h3>
+            <h3>Duration*</h3>
             <input
               name="duration"
               type="number"
@@ -219,12 +253,18 @@ const EditActivity = () => {
           </label>
 
           <label className="image">
-            <h3>Picture</h3>
-            <div>
-              <img src={inputImage} alt="icon input for image" />
+          <h3>Picture</h3>
+          {!isImageUploaded && (
+            <UploadImage onImageUpload={handleImageUpload} />
+          )}
+        </label>
+
+          {isImageUploaded && (
+            <div className="form-image-container">
+              <img src={activity.img} alt="Uploaded" />
+              <img src={xmark} onClick={handleDeleteImage} className="xmark"/>
             </div>
-            <input type="file" value={activity.img} onChange={handleChange} />
-          </label>
+          )}
 
           <button type="submit" className="addActivity-btn addAct-btn">
             Update

@@ -4,6 +4,9 @@ import LayoutNormal from "../Layout/LayoutNormal";
 import "./Register.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as yup from "yup";
+import axios from "axios" ;
+import Swal from "sweetalert2";
+
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -29,6 +32,28 @@ const Register = () => {
       .required("**Confirm Password is required"),
   });
 
+  // const handleRegisterButtonClick = () => {
+  //   schema
+  //     .validate(
+  //       { username, email, password, confirmPassword },
+  //       { abortEarly: false }
+  //     )
+  //     .then(() => {
+  //       // form is valid, submit it
+  //       console.log("Form is valid");
+  //       navigate("/Login");
+  //     })
+  //     .catch((err) => {
+  //       // form is invalid, set the errors
+  //       const newErrors = {};
+  //       err.inner.forEach((error) => {
+  //         newErrors[error.path] = error.message;
+  //       });
+  //       setErrors(newErrors);
+  //     });
+  // };
+
+
   const handleRegisterButtonClick = () => {
     schema
       .validate(
@@ -36,12 +61,42 @@ const Register = () => {
         { abortEarly: false }
       )
       .then(() => {
-        // form is valid, submit it
+        // Form is valid, submit it
         console.log("Form is valid");
-        navigate("/Login");
+
+        // Send a POST request to register the user
+        const data = {
+          username,
+          email,
+          password,
+        };
+
+        axios
+          .post(`${import.meta.env.VITE_APP_KEY}/users/create`, data)
+          .then((response) => {
+            // Registration successful
+            console.log(response);
+            Swal.fire({
+              icon: "success",
+              title: "Registered Successfully",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            navigate("/Login");
+          })
+          .catch((error) => {
+            // Registration failed
+            console.log(error);
+            Swal.fire({
+              icon: "error",
+              title: error.response.data.message,
+              showConfirmButton: false,
+              timer: 2500,
+            });
+          });
       })
       .catch((err) => {
-        // form is invalid, set the errors
+        // Form is invalid, set the errors
         const newErrors = {};
         err.inner.forEach((error) => {
           newErrors[error.path] = error.message;
@@ -49,6 +104,7 @@ const Register = () => {
         setErrors(newErrors);
       });
   };
+  
 
   const handleSubmit = (event) => {
     event.preventDefault();

@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     element: <AddActivity />,
   },
   {
-    path: "/dashboard",
+    path: "/dashboard/:userId",
     element: <Dashboard />,
   },
   {
