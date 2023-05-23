@@ -13,11 +13,10 @@ import { useParams } from "react-router-dom";
 
 const Profile = ({ handleAddActivity }) => {
     const userId = useParams();
-    console.log(userId.userId);
     const [quest, setQuest] = useState({
         hikingDistance: 0,
         runningDistance: 0,
-        badge: "",
+        badge: '',
         type: "",
     });
 
@@ -30,7 +29,6 @@ const Profile = ({ handleAddActivity }) => {
         try {
             const response = await axios.get(`${import.meta.env.VITE_APP_KEY}/users/getUserHeight/${userId.userId}`);
             const data = response.data;
-            console.log(data.height);
             if (data && data.height !== undefined) {
                 setUser((prevUser) => ({ ...prevUser, height: data.height }));
             } else {
@@ -46,7 +44,6 @@ const Profile = ({ handleAddActivity }) => {
         try {
             const response = await axios.get(`${import.meta.env.VITE_APP_KEY}/users/getUserWeight/${userId.userId}`);
             const data = response.data;
-            console.log(data.weight);
             if (data && data.weight !== undefined) {
                 setUser((prevUser) => ({ ...prevUser, weight: data.weight }));
             } else {
@@ -104,10 +101,10 @@ const Profile = ({ handleAddActivity }) => {
                 `${import.meta.env.VITE_APP_KEY}/users/addBadge/${userId.userId}`,
                 userBadge
             );
-            console.log(response.data);
-            getData();
+            // console.log(response.data);
+            // getData();i
         } catch (error) {
-            console.log(error.response);
+            console.log(error);
         }
 
         if (value === "heart") {
@@ -150,7 +147,6 @@ const Profile = ({ handleAddActivity }) => {
         try {
             const response = await axios.get(`${import.meta.env.VITE_APP_KEY}/users/getUserBadge/${userId.userId}`);
             const data = response.data;
-            console.log(data)
             if (data && data.badge !== undefined) {
                 setQuest((prevQuest) => ({ ...prevQuest, badge: data.badge }));
             } else {
@@ -183,10 +179,10 @@ const Profile = ({ handleAddActivity }) => {
         return (
             <>
                 {isNaN(roundedBMI) ? (
-                    <p className="text-red-500">"Please add your height and weight"</p>
+                    <p className="text-red-500 noBMI-info">"Please add your height and weight"</p>
                 ) : (
                     <>
-                        <p>Your BMI is {roundedBMI} {result}</p>
+                        <p className="BMI-info">Your BMI is <strong>{roundedBMI} ({result})</strong></p>
                         <img src={img} alt="bmi" />
                     </>
                 )}
@@ -195,7 +191,7 @@ const Profile = ({ handleAddActivity }) => {
     };
 
 
-    console.log(quest)
+
     const checkBadge = () => {
         return (
             <div className="badge-container">
@@ -217,12 +213,9 @@ const Profile = ({ handleAddActivity }) => {
         }, 5000);
     };
 
-
-
     return (
         <aside>
             <div className="dashboard-profile">
-
                 <figure>
                     <img src={account} alt="Profile picture" />
                 </figure>
@@ -234,43 +227,43 @@ const Profile = ({ handleAddActivity }) => {
                 </div>
 
             </div>
-            <div >
-                <h6>Height: {user.height} CM.</h6>
-                <h6>Weight: {user.weight} KG.</h6>
-                <div>
-                    {calculateBMI()}
 
+            <button className="add-activity-btn" onClick={handleAddActivity}>Add Activity</button>
+
+            <div className="bmi">
+                <div className="weightAndHeight d-flex justify-content-between">
+                    <div className="height d-flex flex-column gap-2">
+                        <p>Height: </p>
+                        <h2>{user.height}<small>cm.</small></h2> 
+                    </div>
+                    <div className="weight d-flex flex-column gap-2">
+                        <p>Weight: </p>
+                        <h2>{user.weight}<small>kg.</small></h2> 
+                    </div>
+                </div>
+                <div className="bmi-result">
+                    {calculateBMI()}
                 </div>
             </div>
+
             <div className="badge">
-                <h6 className="text-violet-600">badges</h6>
+            { quest.badge.length !== 0 &&<h6 className="text-violet-600">Badges</h6>}
                 {checkBadge()}
-
             </div>
-            <div>
-                <button
-                    onClick={handleClickTwitter}
-                    className={`inline-block px-6 py-2.5 ${quest.badge.includes("genth")
-                        ? "bg-gray-400 cursor-default"
-                        : "bg-[#1D9BF0] hover:bg-[#177CC0]"
-                        } text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md`}
-                    disabled={quest.badge.includes("genth")}
-                >
-                    {quest.badge.includes("genth") ? "Tweeted" : "Tweet"}
-                </button>
 
-            </div>
-            <div>
+            <div className="quest">
                 <h6>Quests</h6>
-                <div>
+                <div className="ClimbToHerHeart mainquest">
+
+                
+                <div className="questName d-flex justify-content-between">
                     <p>ปีนไปสู่หัวใจเธอ:</p>
                     <p>{quest.hikingDistance} / ???</p>
                 </div>
-                <div className="w-full overflow-hidden bg-gray-200 mt-4">
 
-
+                <div className="questbar w-full overflow-hidden bg-gray-200 mt-4">
                     <div
-                        className="
+                    className="
                         bg-violet-400 text-xs font-medium text-violet-100 text-center p-0.5 leading-none rounded-l-full h-1 overflow-hidden"
                         style={{
                             width: (quest.hikingDistance / 10000) * 100 + "%",
@@ -278,13 +271,13 @@ const Profile = ({ handleAddActivity }) => {
                     >
                     </div>
                 </div>
-
                 <button
+            
                     onClick={() => addBadge("heart")}
                     className={`inline-block px-6 py-2.5 ${quest.hikingDistance < 10000 || quest.badge.includes("heart")
                         ? "bg-gray-400 cursor-default"
                         : "bg-violet-400 hover:bg-violet-500"
-                        } text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md`}
+                        } quest-btn text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md`}
                     disabled={quest.hikingDistance < 10000 || quest.badge.includes("heart")}
                 >
                     {
@@ -295,13 +288,15 @@ const Profile = ({ handleAddActivity }) => {
                                 : "CLAIM"
                     }
                 </button>
+                </div>
             </div>
-            <div>
-                <div>
+
+            <div className="ClimbToHerHeart mainquest">
+                <div className="questName d-flex justify-content-between">
                     <p>Run To Da Moonnnnn:</p>
                     <p>{quest.runningDistance} / 10000</p>
                 </div>
-                <div className="w-full overflow-hidden bg-gray-100 mt-4">
+                <div className="questbar w-full overflow-hidden bg-gray-200 mt-4">
 
                     <div
                         className="bg-violet-400 text-xs font-medium text-violet-100 text-center p-0.5 leading-none rounded-l-full h-1 overflow-hidden"
@@ -316,7 +311,7 @@ const Profile = ({ handleAddActivity }) => {
                     className={`inline-block px-6 py-2.5 ${quest.runningDistance < 10000 || quest.badge.includes("luna")
                         ? "bg-gray-400 cursor-default"
                         : "bg-violet-400 hover:bg-violet-500"
-                        } text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md`}
+                        } quest-btn text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md`}
                     disabled={quest.runningDistance < 10000 || quest.badge.includes("luna")}
                 >
                     {
@@ -330,7 +325,21 @@ const Profile = ({ handleAddActivity }) => {
 
 
             </div>
-            <button className="add-activity-btn" onClick={handleAddActivity}>Add Activity</button>
+            
+            <div>
+                <button
+                    onClick={handleClickTwitter}
+                    className={`inline-block px-6 py-2.5 tweetBtn ${quest.badge.includes("genth")
+                        ? "bg-gray-400 cursor-default"
+                        : "bg-[#1D9BF0] hover:bg-[#177CC0]"
+                        } text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md`}
+                    disabled={quest.badge.includes("genth")}
+                >
+                    {quest.badge.includes("genth") ? `Tweeted` : `Tweet`}
+                </button>
+
+            </div>
+
         </aside>
     );
 };
