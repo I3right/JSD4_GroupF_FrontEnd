@@ -42,6 +42,10 @@ aside .add-activity-btn {
 }
 
 /* ---------- BMI  -------------- */
+div.bmi{
+  margin-top: 1rem;
+}
+
 div.weightAndHeight div {
   background-color: #f6f8fc;
   width: 130px;
@@ -129,8 +133,8 @@ div.questbar{
 }
 
 button.quest-btn{
-    width: 50px;
-  height: 16px;
+  width: 60px;
+  height: 20px;
   font-size: 0.5rem;
   padding: 0;
   margin-top: 0.5rem;
@@ -138,7 +142,7 @@ button.quest-btn{
 
 button.tweetBtn{
   width: 100%;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 /* ---------- main section -------------- */
