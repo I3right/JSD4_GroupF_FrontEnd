@@ -1,7 +1,7 @@
 import "./Navbar.css";
 import mainLogo from "../../Picture/icon/logo.svg";
 import { getUserId, logout } from "../../service/authorize";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const NavbarSignin = () => {
@@ -11,21 +11,21 @@ const NavbarSignin = () => {
     <header>
       <nav className="navbar">
         <div className="left-navbar">
-          <a href={`/dashboard/${userId}`}>
+          <Link to={`/dashboard/${userId}`}>
             <div>
               <img src={mainLogo} alt="main Logo" />
             </div>
             <p>
               <b>YUNWHANG</b>
             </p>
-          </a>
+          </Link>
         </div>
 
         <ul className="right-navbar">
           <li>
-            <a href={`/dashboard/${userId}`}>
+            <Link to={`/dashboard/${userId}`}>
               <b>dashboard</b>
-            </a>
+            </Link>
           </li>
           <li>
             <button
