@@ -198,7 +198,7 @@ const Dashboard = () => {
 
         <section>
           <h4 className="quote">
-            “The hardest thing about exercise is start doing it”{" "}
+            “The hardest thing about exercise is to start doing it”{" "}
             <img src={quote} alt="quote" />
           </h4>
 
