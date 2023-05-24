@@ -42,12 +42,17 @@
     align-items: flex-end;
     gap: 2px;
     cursor: pointer;
+    max-width: 150px;
 }
 
 .dashboard-profile>div>span {
   display: flex;
   flex-direction: column;
-  padding-right: 20px;
+  margin-right: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 130px;
 }
 
 .dashboard-profile > div > div {

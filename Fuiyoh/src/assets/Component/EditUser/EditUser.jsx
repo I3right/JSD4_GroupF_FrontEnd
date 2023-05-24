@@ -327,6 +327,7 @@ const EditUser = () => {
                             type="radio" 
                             value="male" 
                             onChange={handleChange}
+                            checked={user.gender=="male"}
                             name="gender" 
                         />
                       Male</label>
@@ -337,6 +338,7 @@ const EditUser = () => {
                             type="radio" 
                             value="female" 
                             onChange={handleChange}
+                            checked={user.gender=="female"}
                             name="gender"
                         />
                       Female</label>
