@@ -77,10 +77,15 @@ exports.deleteUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
   try {
     const { userId } = req.params;
-    const { username, email, password } = req.body;
+    console.log(userId);
+    let { username, fullname, birthdate, gender, weight, height, location, bio, userPhoto } = req.body
+    
+    // const foundUser = await userModel.find({username})
+    
+    
     const returnData = await User.findOneAndUpdate(
       { _id: userId },
-      { username, email, password }
+      { username, fullname, birthdate, gender, weight, height, location, bio, userPhoto }
     );
     if (returnData) {
       return res.status(201).json({ message: "User has been update" });

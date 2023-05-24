@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 
 const NavbarSignin = () => {
   const userId = getUserId();
+  console.log(userId);
   const navigate = useNavigate();
   return (
     <nav className="navbar">

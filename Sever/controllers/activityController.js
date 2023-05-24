@@ -57,6 +57,7 @@ exports.getAllActivity = async (req, res) => {
 exports.getActivity = async (req, res) => {
   try {
     const { activityId } = req.params;
+    console.log(req);
     const returnData = await Activity.findOne({ _id: activityId });
     if (returnData) {
       return res.status(201).json(returnData);

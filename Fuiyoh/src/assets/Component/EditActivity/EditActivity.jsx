@@ -60,6 +60,7 @@ const EditActivity = () => {
         `${import.meta.env.VITE_APP_KEY}/activities/get/${activityId.activityId}`
       );
       if (response) {
+        // console.log(response)
         const { type, title, distance, duration } = response.data;
         let { location, date, description, feeling, img } = response.data;
 
@@ -254,12 +255,12 @@ const EditActivity = () => {
 
           <label className="image">
           <h3>Picture</h3>
-          {!isImageUploaded && (
+          {!activity.img && (
             <UploadImage onImageUpload={handleImageUpload} />
           )}
         </label>
 
-          {isImageUploaded && (
+          {activity.img && (
             <div className="form-image-container">
               <img src={activity.img} alt="Uploaded" />
               <img src={xmark} onClick={handleDeleteImage} className="xmark"/>

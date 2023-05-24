@@ -9,10 +9,15 @@ import badgeGenTH from "./assets/badge-genth.png";
 import bmiThin from "./assets/bmi-thin.png"
 import bmiNormal from "./assets/bmi-normal.png"
 import bmiFat from "./assets/bmi-fat.png"
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { getUserId } from "../../service/authorize.js";
 
 const Profile = ({ handleAddActivity }) => {
     const userId = useParams();
+    // const userToken = getUserId();
+    // console.log(userToken)
+
+    const navigate = useNavigate();
     const [quest, setQuest] = useState({
         hikingDistance: 0,
         runningDistance: 0,
@@ -24,6 +29,51 @@ const Profile = ({ handleAddActivity }) => {
         height: 0,
         weight: 0,
     });
+
+    //link to edit profile
+    const editUser = (id) => {
+        // console.log(id)
+        // console.log(userToken)
+        navigate(`/edituser/${id.userId}`);
+    };
+
+    //mini profile
+    const [userDisplay, setUserDisplay] = useState({
+        username: "",
+        fullname: "",
+        // weight: "",
+        // height: "",
+        userPhoto: "",
+      });
+
+    const getUserDisplay = async () => {
+        try {
+          const response = await axios.get(
+            `${import.meta.env.VITE_APP_KEY}/users/getuserid/${userId.userId}`
+          );
+            if (response) {
+                console.log(response)
+                const { username } = response.data;
+                let { fullname, weight, height, userPhoto } = response.data;
+                console.log(username)
+                if (userPhoto==="") {
+                    userPhoto = account;
+                }
+                setUserDisplay(()=> ({
+                    ...userDisplay,
+                    username: username,
+                    fullname: fullname,
+                    // weight: weight,
+                    // height: height,
+                    userPhoto: userPhoto,
+                }));
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+
 
     const getUserHeight = async () => {
         try {
@@ -89,6 +139,7 @@ const Profile = ({ handleAddActivity }) => {
         getUserHeight();
         getUserWeight();
         getUserBadge();
+        getUserDisplay();
     }, []);
 
 
@@ -217,13 +268,17 @@ const Profile = ({ handleAddActivity }) => {
         <aside>
             <div className="dashboard-profile">
                 <figure>
-                    <img src={account} alt="Profile picture" />
+                    <img src={userDisplay.userPhoto} alt="Profile picture" />
                 </figure>
                 <div>
-                    <span>Displayname example</span>
                     <div>
-                        <img src={settingLogo} alt="Logo setting" />
+                        <img 
+                            src={settingLogo} 
+                            alt="Logo setting" 
+                            onClick={()=>{editUser(userId)}}
+                        />
                     </div>
+                    <span>{userDisplay.username}</span>
                 </div>
 
             </div>
