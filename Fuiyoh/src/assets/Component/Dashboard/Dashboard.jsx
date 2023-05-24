@@ -35,7 +35,7 @@ const Dashboard = () => {
     navigate(`/editactivity/${id}`);
   };
 
-  // ดึงข้อมูลจาก database เพื่อนำมาโชว์ในหน้า dashboard
+  //ดึงข้อมูลจาก database เพื่อนำมาโชว์ในหน้า dashboard
   const getData = async () => {
     try {
       const response = await axios.get(`http://localhost:7777/activities/user/${userId.userId}`);
@@ -196,6 +196,7 @@ const Dashboard = () => {
       {/* <button onClick={addMockData}>Add Mock Data</button> */}
       <div className="dashboard container-xl">
         <Profile handleAddActivity={handleAddActivity}/>
+        
 
         <section>
           <h4 className="quote">
