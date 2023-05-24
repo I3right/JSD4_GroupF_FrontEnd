@@ -44,7 +44,7 @@ const NavbarSignin = () => {
                       showConfirmButton: false,
                       timer: 2000,
                     });
-                    navigate("/");
+                    logout(()=>navigate('/login'));
                   }
                 })
               }
