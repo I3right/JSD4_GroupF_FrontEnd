@@ -55,7 +55,7 @@ const Profile = ({ handleAddActivity }) => {
                 console.log(response)
                 const { username } = response.data;
                 let { fullname, weight, height, userPhoto } = response.data;
-                if (userPhoto==="" || userPhoto=== null ) {
+                if (userPhoto === "" || userPhoto === null ) {
                     userPhoto = account;
                 }
                 // console.log(userPhoto);
@@ -273,12 +273,8 @@ const Profile = ({ handleAddActivity }) => {
              
                 <div>
                     <span><b>{userDisplay.fullname? userDisplay.fullname :userDisplay.username}</b></span>
-                    <div>
-                        <img 
-                            src={settingLogo} 
-                            alt="Logo setting" 
-                            onClick={()=>{editUser(userId)}}
-                        />
+                    <div onClick={()=>{editUser(userId)}}>
+                    <i class="fa-solid fa-gear"></i>
                     </div>
                 </div>
 

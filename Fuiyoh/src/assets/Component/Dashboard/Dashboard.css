@@ -13,6 +13,7 @@
   background-color: #f6f8fc;
   padding: 0.5rem;
   border-radius: 0.5rem;
+  height: 100px;
 }
 
 .dashboard > aside {
@@ -80,6 +81,8 @@ aside .add-activity-btn:hover {
   background-color: #1e1a69;
   color: #fff;
 }
+
+
 
 /* ---------- BMI  -------------- */
 
