@@ -1,12 +1,21 @@
+header{
+    background-color: white;
+    border-bottom: 0.2px solid rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+}
+
 .navbar{
+    background-color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 8px 16px;
-    background-color: white;
-    max-width: 1200px;
+    width: 1200px;
     margin: 0 auto;
-    border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
 }
 
 /* left-navbar */

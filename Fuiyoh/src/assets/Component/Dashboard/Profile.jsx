@@ -55,16 +55,14 @@ const Profile = ({ handleAddActivity }) => {
                 console.log(response)
                 const { username } = response.data;
                 let { fullname, weight, height, userPhoto } = response.data;
-                console.log(username)
-                if (userPhoto==="") {
+                if (userPhoto==="" || userPhoto=== null ) {
                     userPhoto = account;
                 }
+                console.log(userPhoto);
                 setUserDisplay(()=> ({
                     ...userDisplay,
                     username: username,
                     fullname: fullname,
-                    // weight: weight,
-                    // height: height,
                     userPhoto: userPhoto,
                 }));
             }
@@ -267,10 +265,14 @@ const Profile = ({ handleAddActivity }) => {
     return (
         <aside>
             <div className="dashboard-profile">
+                {userDisplay.userPhoto && 
                 <figure>
                     <img src={userDisplay.userPhoto} alt="Profile picture" />
                 </figure>
+                }
+             
                 <div>
+                    <span>{userDisplay.username}</span>
                     <div>
                         <img 
                             src={settingLogo} 
@@ -278,7 +280,6 @@ const Profile = ({ handleAddActivity }) => {
                             onClick={()=>{editUser(userId)}}
                         />
                     </div>
-                    <span>{userDisplay.username}</span>
                 </div>
 
             </div>

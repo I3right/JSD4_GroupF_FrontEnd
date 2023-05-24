@@ -52,7 +52,7 @@ body{
     flex-direction: row-reverse;
     /* flex-direction: column; */
     /* justify-content: flex-end; */
-    align-items: end;
+    align-items: flex-end;
     gap: 2px;
     fill: gray;
     width: 20px;
@@ -114,7 +114,7 @@ body{
     /* color:#7773F0; */
 }
 
-form input:not(input[type="file"]) {
+form input[type="file"] {
     border-bottom: none;
 }
 

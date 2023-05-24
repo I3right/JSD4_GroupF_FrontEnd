@@ -1,5 +1,6 @@
 .body-register {
-  min-height: 100vh;
+  padding-top: 40px;
+  min-height: calc(100vh - 40px);
   height: auto;
   width: auto;
   margin: 0 auto;
@@ -17,9 +18,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: calc(100vh - 40px);
   width: 1200px;
-  margin: 80px 0;
   /* border: 50px solid rgba(36, 225, 90, 0.674); */
 }
 
@@ -138,8 +138,8 @@
 }
 
 #buttonBack:hover {
-  /* background-color: #1e1a69; */
-  color: #1e1a69;
+  background-color: #1e1a69;
+  color: #5854b0;
   border: 2px solid #1e1a69;
   font-size: 110%;
 }
