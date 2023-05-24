@@ -22,7 +22,6 @@ const formSchema = Joi.object({
   title: Joi.string()
     .regex(/^[\u0E00-\u0E7Fa-zA-Z0-9\s.\/]+$/)
     .min(1)
-    .max(20)
     .required()
     .label("title")
     .messages({
