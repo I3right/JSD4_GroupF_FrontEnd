@@ -38,7 +38,7 @@ const Dashboard = () => {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:7777/activities/user/${userId.userId}`
+        `${import.meta.env.VITE_APP_KEY}/activities/user/${userId.userId}`
       );
       const data = response.data;
       setActivityCard(data);
