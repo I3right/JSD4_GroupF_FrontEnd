@@ -125,7 +125,7 @@ const Dashboard = () => {
         <div className="activity-card-top-detail d-flex justify-content-between">
           <div>
             <h4>{card.title}</h4>
-            <p>{card.location}</p>
+            <p>{card.location? card.location: 'some where'}</p>
           </div>
           <div className="status-card-group d-flex m-0 align-items-center">
             <div className="status-card feeling">
