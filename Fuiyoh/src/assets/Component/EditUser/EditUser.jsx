@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import "./EditUser.css";
 import LayoutSignin from "../Layout/LayoutSignin";
 import account from "../../Picture/dashboard/account.svg";
+import Spinner from "../Activity/assets/Spinner.svg";
 
 const formSchema = Joi.object({
   username: Joi.string()
@@ -31,6 +32,7 @@ const formSchema = Joi.object({
 const EditUser = () => {
   const userId = useParams();
   const navigate = useNavigate();
+  
   const [user, setUser] = useState({
     username: "",
     fullname: "",
@@ -229,9 +231,11 @@ const EditUser = () => {
           
           {/* user photo */}
           <div className="edit-photo">
+          
             {user.userPhoto==="" && (
               <div className="user-photo">
-                <img src={account} alt="user-photo" />
+                {loading && <img src={Spinner} alt="user-photo" />}
+                {!loading && <img src={account} alt="user-photo" />}
               </div>
             )}
 
@@ -247,7 +251,6 @@ const EditUser = () => {
               <label
               onClick={handleDeleteImage}>
                 {user.userPhoto !== "" && <i className="user-logo-delete fa-solid fa-xmark"></i>}
-
               </label>
               </div>
 
