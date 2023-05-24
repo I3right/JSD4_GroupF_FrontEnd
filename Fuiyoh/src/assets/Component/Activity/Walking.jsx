@@ -11,7 +11,7 @@ import worst from "./assets/worst.png";
 import normal from "./assets/normal.png";
 import good from "./assets/good.png";
 import best from "./assets/best.png";
-
+import { getUserId } from "../../service/authorize";
 
 const formSchema = Joi.object({
   type: Joi.string()
@@ -24,7 +24,7 @@ const formSchema = Joi.object({
     .max(20)
     .required()
     .label("title")
-    .messages({"title.required":"Please fill title wtih alphabet(A-Z)"}),
+    .messages({ "title.required": "Please fill title wtih alphabet(A-Z)" }),
   distance: Joi.number().integer().required().label("distance(km)"),
   duration: Joi.number().integer().required().label("duration(min)"),
   location: Joi.string().allow("").optional().label("location"),
@@ -35,10 +35,12 @@ const formSchema = Joi.object({
     .optional()
     .label("feeling"),
   img: Joi.optional().allow("").label("img"),
+  userId: Joi.string().required()
 });
 
 const AddActivity = () => {
   const navigate = useNavigate();
+  const userId = getUserId()
   //เก็บข้อมูล activity เป็น object ถ้าเก็บ state ทีละตัวมันจัดการยาก
   const [activity, setActivity] = useState({
     type: "walking",
@@ -50,7 +52,9 @@ const AddActivity = () => {
     description: "",
     feeling: "",
     img: "",
+    userId:userId
   });
+
 
   const [isImageUploaded, setIsImageUploaded] = useState(false);
 
@@ -64,11 +68,25 @@ const AddActivity = () => {
   };
 
   const handleDeleteImage = () => {
-    setActivity((prevActivity) => ({
-      ...prevActivity,
-      img: "",
-    }));
-    setIsImageUploaded(false);
+    Swal.fire({
+      title: "คุณต้องการลบรูปใช่หรือไม่",
+      icon: "warning",
+      showCancelButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: "success",
+          title: "Image deleted!",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        setActivity((prevActivity) => ({
+          ...prevActivity,
+          img: "",
+        }));
+        setIsImageUploaded(false);
+      }
+    });
   };
 
   const handleChange = (event) => {
@@ -120,6 +138,7 @@ const AddActivity = () => {
     const { error, value } = formSchema.validate(activity);
 
     if (!error) {
+      // console.log(value);
       try {
         await axios.post(
           `${import.meta.env.VITE_APP_KEY}/activities/create`,
@@ -131,7 +150,7 @@ const AddActivity = () => {
           showConfirmButton: false,
           timer: 1000,
         });
-        navigate("/dashboard");
+        navigate(`/dashboard/${userId}`);
         return; // Exit the function after successful submission
       } catch (err) {
         await Swal.fire({
@@ -144,15 +163,15 @@ const AddActivity = () => {
     }
 
     // Handle validation errors
-  if(error){
-    console.log(error);
-    Swal.fire({
-      icon: "error",
-      title: error,
-      showConfirmButton: false,
-      timer: 1000,
-    });
-  }
+    if (error) {
+      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: error,
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    }
   };
 
   return (
@@ -188,7 +207,7 @@ const AddActivity = () => {
             name="distance"
             value="1"
             onClick={handleChange}
-            className="hover:bg-violet-100"
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
           >
             1 km
           </button>
@@ -197,7 +216,7 @@ const AddActivity = () => {
             name="distance"
             value="2"
             onClick={handleChange}
-            className="hover:bg-violet-100"
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
           >
             2 km
           </button>
@@ -206,7 +225,7 @@ const AddActivity = () => {
             name="distance"
             value="3"
             onClick={handleChange}
-            className="hover:bg-violet-100"
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
           >
             3 km
           </button>
@@ -215,7 +234,7 @@ const AddActivity = () => {
             name="distance"
             value="5"
             onClick={handleChange}
-            className="hover:bg-violet-100"
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
           >
             5 km
           </button>
@@ -224,7 +243,7 @@ const AddActivity = () => {
             name="distance"
             value="7"
             onClick={handleChange}
-            className="hover:bg-violet-100"
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
           >
             7 km
           </button>
@@ -247,7 +266,7 @@ const AddActivity = () => {
             name="duration"
             value="30"
             onClick={handleChange}
-            className="hover:bg-violet-100"
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
           >
             30 mins
           </button>
@@ -256,7 +275,7 @@ const AddActivity = () => {
             name="duration"
             value="60"
             onClick={handleChange}
-            className="hover:bg-violet-100"
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
           >
             60 mins
           </button>
@@ -265,7 +284,7 @@ const AddActivity = () => {
             name="duration"
             value="90"
             onClick={handleChange}
-            className="hover:bg-violet-100"
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
           >
             90 mins
           </button>
@@ -274,7 +293,7 @@ const AddActivity = () => {
             name="duration"
             value="120"
             onClick={handleChange}
-            className="hover:bg-violet-100"
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
           >
             120 mins
           </button>
@@ -283,7 +302,7 @@ const AddActivity = () => {
             name="duration"
             value="150"
             onClick={handleChange}
-            className="hover:bg-violet-100"
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
           >
             150 mins
           </button>
@@ -327,7 +346,7 @@ const AddActivity = () => {
         <div className="feeling">
           <h3>Feeling</h3>
           <div className="flex justify-between">
-            <button className={"px-4 py-0.5 hover:bg-violet-100 rounded-sm " + (activity.feeling === "worst" ? "bg-violet-100" : "")}
+            <button className={"px-4 py-0.5 hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "worst" ? "bg-violet-200" : "")}
               type="button"
               name="feeling"
               value="worst"
@@ -335,7 +354,7 @@ const AddActivity = () => {
             >
               <img src={worst} alt="worst" />
             </button>
-            <button className={"px-4 py-0.5 hover:bg-violet-100 rounded-sm " + (activity.feeling === "bad" ? "bg-violet-100	" : "")}
+            <button className={"px-4 py-0.5 hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "bad" ? "bg-violet-200	" : "")}
               type="button"
               name="feeling"
               value="bad"
@@ -343,7 +362,7 @@ const AddActivity = () => {
             >
               <img src={bad} alt="bad" />
             </button>
-            <button className={"px-4 py-0.5 hover:bg-violet-100 rounded-sm " + (activity.feeling === "normal" ? "bg-violet-100	" : "")}
+            <button className={"px-4 py-0.5 hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "normal" ? "bg-violet-200	" : "")}
               type="button"
               name="feeling"
               value="normal"
@@ -351,7 +370,7 @@ const AddActivity = () => {
             >
               <img src={normal} alt="normal" />
             </button>
-            <button className={"px-4 py-0.5 hover:bg-violet-100 rounded-sm " + (activity.feeling === "good" ? "bg-violet-100	p-0.5" : "")}
+            <button className={"px-4 py-0.5 hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
               type="button"
               name="feeling"
               value="good"
@@ -359,7 +378,7 @@ const AddActivity = () => {
             >
               <img src={good} alt="good" />
             </button>
-            <button className={"px-4 py-0.5 hover:bg-violet-100 rounded-sm " + (activity.feeling === "best" ? "bg-violet-100	p-0.5	" : "")}
+            <button className={"px-4 py-0.5 hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "best" ? "bg-violet-200	p-0.5	" : "")}
               type="button"
               name="feeling"
               value="best"
@@ -377,18 +396,19 @@ const AddActivity = () => {
           )}
         </label>
 
-          {isImageUploaded && (
-            <div className="form-image-container">
-              <img src={activity.img} alt="Uploaded" />
-              <img src={xmark} onClick={handleDeleteImage} className="xmark"/>
-            </div>
-          )}
+        {isImageUploaded && (
+          <div className="form-image-container">
+            <img src={activity.img} alt="Uploaded" />
+            <img src={xmark} onClick={handleDeleteImage} className="xmark"/>
+          </div>
+        )}
+
 
         <button type="submit" className="addActivity-btn addAct-btn">
           Add Activity
         </button>
         <Link
-          to={"/dashboard"}
+          to={`/dashboard/${userId}`}
           type="button"
           className="cancleActivity-btn  addAct-btn"
         >

@@ -1,28 +1,28 @@
 .dashboard {
-    display: flex;
-    min-height: 100vh;
-    height: 100%;
+  display: flex;
+  min-height: 100vh;
+  height: 100%;
 }
 
 .dashboard-profile {
-    display: flex;
-    gap: 1.5rem;
+  display: flex;
+  gap: 1.5rem;
 }
 
-.dashboard>aside {
-    padding: 40px;
-    width: 350px;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+.dashboard > aside {
+  padding: 40px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .dashboard-profile img {
-    width: 100%;
+  width: 100%;
 }
 
-.dashboard-profile>figure {
-    width: 90px;
+.dashboard-profile > figure {
+  width: 90px;
 }
 
 .dashboard-profile>div {
@@ -30,42 +30,148 @@
     cursor: pointer;
 }
 
-.dashboard-profile>div>div {
-    width: 30px;
+.dashboard-profile > div > div {
+  width: 30px;
 }
 
-aside button {
-    height: 50px;
-    border-radius: 50px;
-    background-color: #7773F0;
-    border: transparent;
-    color: white;
+aside .add-activity-btn {
+  height: 50px;
+  border-radius: 50px;
+  background-color: #7773f0;
+  border: transparent;
+  color: white;
 }
 
-.dashboard>section {
-    flex: 1;
-    max-width: 900px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #F6F8FC;
+/* ---------- BMI  -------------- */
+div.weightAndHeight div {
+  background-color: #f6f8fc;
+  width: 130px;
+  height: 80px;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
 }
 
-.dasboard-card-section{
-    padding: 40px;
+div.weightAndHeight p {
+  margin: 0;
+}
+
+div.weightAndHeight div h2 {
+  text-align: end;
+}
+
+div.weightAndHeight div h2 small {
+  margin-left: 0.5rem;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+p.noBMI-info {
+  margin-top: 1rem;
+  font-size: small;
+  text-align: center;
+}
+
+p.BMI-info {
+  margin-top: 1rem;
+}
+
+p.BMI-info strong {
+  font-size: 1.3rem;
+  margin-left: 6px;
+}
+
+p.BMI-info ~ img {
+  border-radius: 1rem;
+  padding: 0.5rem;
+}
+
+/* ---------- badge  -------------- */
+div.badge {
+  padding: 0;
+}
+
+div.badge h6 {
+  text-align: start;
+}
+
+aside .badge-container {
+  display: flex;
+  column-gap: 4px;
+}
+aside .badge-container img {
+  width: 30px;
+  height: 30px;
+}
+
+/* ---------- Quest -------------- */
+
+div.mainquest{
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+div.quest h6{
+  color:rgb(124 58 237 );
+}
+
+div.questName{
+  width: 100%;
+}
+
+
+div.questName *{
+  font-size: 12px;
+  margin-bottom: 0.5rem ;
+}
+
+div.questbar{
+  margin: 0 !important;
+}
+
+button.quest-btn{
+    width: 50px;
+  height: 16px;
+  font-size: 0.5rem;
+  padding: 0;
+  margin-top: 0.5rem;
+}
+
+button.tweetBtn{
+  width: 100%;
+  margin-top: 40px;
+}
+
+/* ---------- main section -------------- */
+.dashboard > section {
+  flex: 1;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f6f8fc;
+}
+
+.dasboard-card-section {
+  padding: 40px;
 }
 
 .quote {
-    display: flex;
-    color: white;
-    width: 100%;
-    text-align: center;
-    background: linear-gradient(90.93deg, rgba(88, 84, 176, 0.7) -18.71%, #5854B0 54.34%, rgba(88, 84, 176, 0.6) 117.46%);
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  color: white;
+  width: 100%;
+  text-align: center;
+  background: linear-gradient(
+    90.93deg,
+    rgba(88, 84, 176, 0.7) -18.71%,
+    #5854b0 54.34%,
+    rgba(88, 84, 176, 0.6) 117.46%
+  );
+  align-items: center;
+  justify-content: center;
 }
 
 .quote img {
-    width: 70px;
-    height: 70px;
+  width: 70px;
+  height: 70px;
 }

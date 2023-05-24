@@ -31,8 +31,8 @@ const Home = () => {
 
   }
 
-  const cards = Object.values(cardInfo).map((card) => (
-    <div className="card-container">
+  const cards = Object.values(cardInfo).map((card, cardindex) => (
+    <div className="card-container" key={cardindex}>
       <div>
         <img src={card.img} alt={card.header} />
         <h4>{card.header}</h4>

@@ -2,12 +2,14 @@ import React, { useEffect } from "react";
 import LayoutNormal from "../Layout/LayoutNormal";
 import "./Login.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Await, Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import * as yup from "yup";
 import picLogin from "../../Picture/login/cycling-amico.png";
 import logo from "../../Picture/login/logoLogin.png";
 import axios from "axios";
+import { authenticate } from "../../service/authorize";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -29,16 +31,21 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     validatedata({ email, password });
-    console.log(errors);
     try {
-      const loginresult = await axios.post(
+      const loginResult = await axios.post(
         `${import.meta.env.VITE_APP_KEY}/authen/login`,
-        { email, password } 
+        { email, password }
       );
-      if (loginresult) {
-        console.log(loginresult);
-        navigate('/dashboard');
-        // navigate(`/dashboard/${email}`);
+      Swal.fire({
+        icon: "success",
+        title: "Logged In",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      if (loginResult) {
+        // console.log(loginResult);
+        const userId = loginResult.data.userId;
+        authenticate(loginResult, () => navigate(`/dashboard/${userId}`));
       }
     } catch (err) {
       console.log(err.response.data.message);
@@ -108,7 +115,7 @@ const Login = () => {
                       Back
                     </Link>
                     <div className="or-text">
-                      <Link to={"/dashboard"}>OR</Link>
+                      OR
                     </div>
                     <Link to="/Register" id="buttonRegister">
                       Register Now!

@@ -76,8 +76,7 @@ const UploadImage = ({ onImageUpload }) => {
               ></path>
             </svg>
             <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-              <span className="font-semibold">Click to upload</span> or drag and
-              drop
+              <span className="font-semibold">Click to upload</span>
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-400">
               SVG, PNG, JPG or GIF (MAX. 800x400px)
@@ -97,11 +96,6 @@ const UploadImage = ({ onImageUpload }) => {
 
     return (
         <div className="flex justify-center flex-col ">
-            <div>
-                <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">
-                    Upload Photo
-                </h2>
-            </div>
             <div>
                 {loading ? (
                     <div className="flex items-center justify-center">

@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import LayoutSignin from "../Layout/LayoutSignin";
-import settingLogo from "../../Picture/dashboard/SettingIcon.svg";
-import account from "../../Picture/dashboard/account.svg";
 import deleteIcon from "../../Picture/dashboard/Delete.svg";
 import EditIcon from "../../Picture/dashboard/Edit.svg";
 import "./Dashboard.css";
 import "./Card.css";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Walking from "./assets/Walking.png"
@@ -20,9 +18,11 @@ import normal from "./assets/normal.png"
 import good from "./assets/good.png"
 import best from "./assets/best.png"
 import quote from "./assets/quote-img.png"
+import Profile from "./Profile";
 
 
 const Dashboard = () => {
+  const userId = useParams();
   const navigate = useNavigate();
   const [activityCard, setActivityCard] = useState([]);
   const userId = useParams();
@@ -44,9 +44,7 @@ const Dashboard = () => {
   //ดึงข้อมูลจาก database เพื่อนำมาโชว์ในหน้า dashboard
   const getData = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:7777/activities/all`
-      );
+      const response = await axios.get(`http://localhost:7777/activities/user/${userId.userId}`);
       const data = response.data;
       setActivityCard(data);
       // console.log(data);
@@ -54,10 +52,6 @@ const Dashboard = () => {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    getData();
-  }, []);
 
   // delete ข้อมูลใน database
   const confirmDelete = (id) => {
@@ -94,28 +88,34 @@ const Dashboard = () => {
     }
   };
 
-  // add mockdata
-  const addMockData = async () => {
-    try {
-      const mockData = {
-        type: "walking",
-        title: "soodlhor",
-        distance: Math.floor(Math.random() * 100),
-        duration: Math.floor(Math.random() * 100),
-        location: "bkk",
-        description: "test krub pom",
-      };
-      const response = await axios.post(
-        `${import.meta.env.VITE_APP_KEY}/activities/create`,
-        mockData
-      );
-      console.log(response.data);
-      getData();
-    } catch (error) {
-      console.log(error.response);
-    }
-  };
+  // // add mockdata
+  // const addMockData = async () => {
+  //   try {
+  //     const mockData = {
+  //       type: "walking",
+  //       title: "soodlhor",
+  //       distance: Math.floor(Math.random() * 100),
+  //       duration: Math.floor(Math.random() * 100),
+  //       location: "bkk",
+  //       description: "test krub pom",
+  //     };
+  //     const response = await axios.post(
+  //       `${import.meta.env.VITE_APP_KEY}/activities/create`,
+  //       mockData
+  //     );
+  //     console.log(response.data);
+  //     getData();
+  //   } catch (error) {
+  //     console.log(error.response);
+  //   }
+  // };
 
+  // fetch data when in load in to page
+  useEffect(() => {
+    getData();
+  }, []);
+
+  // cards
   const cards = activityCard.map((card) => (
     <div className="dasboard-card-container" key={card._id}>
       <div className="activity-card-top">
@@ -194,35 +194,22 @@ const Dashboard = () => {
     </div>
   ));
 
+
+  // JSX
   return (
     <LayoutSignin>
       {/* add mockdata */}
-      <button onClick={addMockData}>Add Mock Data</button>
+      {/* <button onClick={addMockData}>Add Mock Data</button> */}
       <div className="dashboard container-xl">
-        <aside>
-          <div className="dashboard-profile">
-            <figure>
-              <img src={account} alt="Profile picture" />
-            </figure>
-            <div>
-              <span>Displayname example</span>
-              <div>
-                <img 
-                  src={settingLogo} 
-                  alt="Logo setting" 
-                  onClick={editUser(userId)}
-                />
-              </div>
-            </div>
-          </div>
-          <button onClick={handleAddActivity}>Add Activity</button>
-        </aside>
+        <Profile handleAddActivity={handleAddActivity}/>
+        
 
         <section>
           <h4 className="quote">
             “The hardest thing about exercise is start doing it”{" "}
             <img src={quote} alt="quote" />
           </h4>
+
           <div className="dasboard-card-section">{cards.reverse()}</div>
         </section>
       </div>
