@@ -29,20 +29,34 @@ a:hover {
 
 /* Section main content */
 #maincontent {
-  background-image: url(../../Picture/icon/Home/content_main.png);
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
   margin: 0 auto;
   height: 800px;
-  width: 1320px;
-  background-repeat: no-repeat, repeat;
-  position: relative;
-  margin-bottom: 70px;
+  max-width: 1200px;
+  width: 100%;
 }
+
+#maincontent-picture {
+  /* border: 1px solid red; */
+  position: relative;
+  background-image: url(../../Picture/icon/Home/content_main.png);
+  background-repeat: no-repeat, repeat;
+  width: 1200px;
+}
+
 #textcontent {
   display: flex;
   flex-direction: row;
+  width: 600px;
+  position: absolute;
+  left: 60%;
+  top: 200px;
 }
+
 #textcontent1 {
-  padding-top: 120px;
+  /* padding-top: 120px; */
 }
 
 #textcontent1 h5 {
@@ -107,42 +121,41 @@ a:hover {
 }
 
 /* card section */
-.section2-container{
+.section2-container {
   display: flex;
   flex: 1;
-  background-color: #F6F8FC;
+  background-color: #f6f8fc;
   padding: 40px 0;
   justify-content: center;
 }
 
-.card-container{
+.card-container {
   width: 300px;
   background-color: #fff;
   margin: 0 20px;
   padding: 40px 20px;
-  border-radius: 4px ;
+  border-radius: 4px;
   border: solid 1px ghostwhite;
 }
 
-.card-container:hover{
-  border: 1px solid #7773F0 ;
+.card-container:hover {
+  border: 1px solid #7773f0;
 }
 
-.card-container div{
+.card-container div {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.card-container div img{
+.card-container div img {
   width: 100px;
   height: 100px;
 }
 
-.card-container div h4{
+.card-container div h4 {
   margin: 10px 0;
 }
-
 
 /* contect section */
 
