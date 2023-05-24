@@ -10,7 +10,9 @@
   display: flex;
   /* gap: 1.5rem; */
   justify-content:space-between;
-  /* padding: 0.4rem; */
+  background-color: #f6f8fc;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
 }
 
 .dashboard > aside {
@@ -29,6 +31,7 @@
   width: 90px;
   /* height: 90px; */
   border-radius: 50%;
+  margin: 0;
 }
 
 .dashboard-profile > figure > img {
@@ -62,18 +65,23 @@ div.dashboard aside{
   background-color: white;
 }
 
-aside .add-activity-btn {
+aside button.add-activity-btn {
   height: 50px;
   border-radius: 50px;
-  background-color: #7773f0;
+  background-color: #5854b0;
+  transition: all 0.3s ease;
   border: transparent;
+  font-weight: bold;
   color: white;
+  margin: 5px 0;
+}
+
+aside .add-activity-btn:hover {
+  background-color: #1e1a69;
+  color: #fff;
 }
 
 /* ---------- BMI  -------------- */
-div.bmi{
-  margin-top: 1rem;
-}
 
 div.weightAndHeight div {
   background-color: #f6f8fc;
@@ -172,7 +180,9 @@ button.quest-btn{
 button.tweetBtn{
   width: 100%;
   margin-top: 20px;
+  transition: all 0.2s ease;
 }
+
 
 /* ---------- main section -------------- */
 .dashboard > section {

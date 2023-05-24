@@ -25,7 +25,7 @@ exports.createUser = async (req, res) => {
     // Hash the password using the generated salt
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    const returndata = await User.create({ username, email, password: hashedPassword, height: 0, weight: 0 ,userPhoto:"" });
+    const returndata = await User.create({ username, email, password: hashedPassword, height: 0, weight: 0,fullname : "", gender: "", location: "", bio: "", userPhoto :"" });
     if (returndata) {
       return res.status(201).json(returndata);
     }

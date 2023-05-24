@@ -54,7 +54,7 @@ a:hover {
   background-color: #5854b0;
   padding: 10px 16px;
   border-radius: 100px;
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
   font-weight: bold;
   cursor: pointer;
   align-items: center;
@@ -73,11 +73,11 @@ a:hover {
 #buttonRegister {
   border: 2px solid #5854b0 !important;
   display: flex;
-  color: #5854b0 !important;
+  color: #5854b0;
   background-color: transparent !important;
   padding: 10px 16px;
   border-radius: 100px;
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
   font-weight: bold;
   cursor: pointer;
   align-items: center;
@@ -90,7 +90,7 @@ a:hover {
 
 #buttonRegister:hover {
   background-color: #1e1a69;
-  color: #fff;
+  color: #fff ;
   font-size: 105%;
 }
 

@@ -1,92 +1,114 @@
 .dasboard-card-section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    row-gap: 3rem;
-    margin-bottom: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  row-gap: 3rem;
+  margin-bottom: 3rem;
 }
 
 .dasboard-card-container {
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    width: 360px;
-    height: 450px;
-    margin: 0 20px;
-    border-radius: 6px;
-    box-shadow: 0 0 5px 2px rgba(0,0,0,.1);
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  width: 360px;
+  height: 450px;
+  margin: 0 20px;
+  border-radius: 6px;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
 }
 
 .activity-card-top {
-    display: flex;
-    justify-content: space-between;
-    height: 70px;
-    padding: 5px 10px;
-    border-bottom: 1px solid #e8e8ea;
+  display: flex;
+  gap: 10px;
+  height: 70px;
+  padding: 5px 10px;
+  border-bottom: 1px solid #e8e8ea;
 }
 
-.activity-card-top>figure {
-    margin: auto 0;
-    width: 45px;
+.status-card-group{
+    gap: 10px;
 }
-.activity-card-top>figure img {
-    width: 45px;
-    height: 45px;
+
+.activity-card-top > figure {
+  margin: auto 0;
+  width: 45px;
+}
+.activity-card-top > figure img {
+  width: 45px;
+  height: 45px;
+}
+
+div.activity-card-top-detail{
+    flex: 1;
 }
 
 .status-card {
-    width: 24px;
+  width: 24px;
 }
 
 .activity-card-info {
-    height: 330px;
-    padding: 10px;
+  height: 330px;
+  padding: 10px;
 }
 
 .activity-description-box {
-    height: 80px;
+  height: 80px;
 }
 
 .activity-card-detail {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
-
-.card-button{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
+.card-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  height: 100%;
+  
 }
 
-.card-img-container{
-    overflow: hidden;
-        border-radius: 0px 0px 4px 6px;
-        position: relative;
-
+.card-button * {
+  transition: all 0.2s ease;
+  font-size: 14px;
 }
 
-.card-img-container img{
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-.card-img-container img::after{
-    background-size: cover;
-    background-position: center;
-    position: absolute;
-    z-index: 1;
-    top: 0; 
-    left: 0;
-    width: 100%;
-    height: 100%;
+.card-edit:hover {
+  color: #5854b0;
+  font-size: 16px;
 }
 
-
-.delete-btn:hover{
-    box-shadow: 0 0 5px 5px rgba(0,0,0,.1);
+.card-delete:hover {
+  color: red;
+  font-size: 16px;
 }
-.edit-btn:hover{
-    box-shadow: 0 0 5px 5px rgba(0,0,0,.1);
+
+.card-img-container {
+  overflow: hidden;
+  border-radius: 0px 0px 4px 6px;
+  position: relative;
+}
+
+.card-img-container img {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.card-img-container img::after {
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.delete-btn:hover {
+  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
+}
+.edit-btn:hover {
+  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
 }

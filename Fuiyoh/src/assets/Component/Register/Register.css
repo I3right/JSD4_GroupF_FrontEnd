@@ -103,7 +103,7 @@
   background-color: #5854b0;
   padding: 10px 16px;
   border-radius: 100px;
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
   font-weight: bold;
   cursor: pointer;
   align-items: center;
@@ -116,7 +116,7 @@
 #buttonRegister-register:hover {
   background-color: #1e1a69;
   color: #fff;
-  font-size: 110%;
+  font-size: 105%;
 }
 
 #buttonBack {
@@ -126,7 +126,7 @@
   /* background-color: #5854b0; */
   padding: 10px 16px;
   border-radius: 100px;
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
   font-weight: bold;
   cursor: pointer;
   align-items: center;
@@ -139,7 +139,7 @@
 
 #buttonBack:hover {
   background-color: #1e1a69;
-  color: #5854b0;
+  color: white;
   border: 2px solid #1e1a69;
   font-size: 110%;
 }

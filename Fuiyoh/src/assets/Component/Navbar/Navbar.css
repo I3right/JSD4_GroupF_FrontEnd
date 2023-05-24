@@ -35,6 +35,11 @@ header{
 div.left-navbar a p{
     height: 100%;
     margin: auto;
+    transition: all 0.3s ease;
+}
+
+div.left-navbar a p:hover{
+    color: #7773F0;
 }
 
 /* right-navbar */
@@ -50,6 +55,7 @@ div.left-navbar a p{
 .right-navbar a {
     text-decoration: none;
     color: black;
+    transition: all 0.3s ease;
 }
 
 .right-navbar a:hover, .right-navbar a:active {
@@ -58,6 +64,7 @@ div.left-navbar a p{
 
 #navbar-login-btn {
     background-color: #7773F0;
+    transition: all 0.3s ease;
     color: white;
     width: 80px;
     height: 32px;
@@ -68,5 +75,5 @@ div.left-navbar a p{
 }
 
 #navbar-login-btn:hover, #navbar-login-btn:active {
-    background-color: #C1AEFC;
+    background-color: #1e1a69;
 }

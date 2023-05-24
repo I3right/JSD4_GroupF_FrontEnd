@@ -7,19 +7,18 @@ import "./Dashboard.css";
 import "./Card.css";
 import axios from "axios";
 import Swal from "sweetalert2";
-import Walking from "./assets/Walking.png"
-import Cycling from "./assets/Cycling.png"
-import Hiking from "./assets/Hiking.png"
-import Swimming from "./assets/Swimming.png"
-import Running from "./assets/Running.png"
-import worst from "./assets/worst.png"
-import bad from "./assets/bad.png"
-import normal from "./assets/normal.png"
-import good from "./assets/good.png"
-import best from "./assets/best.png"
-import quote from "./assets/quote-img.png"
+import Walking from "./assets/Walking.png";
+import Cycling from "./assets/Cycling.png";
+import Hiking from "./assets/Hiking.png";
+import Swimming from "./assets/Swimming.png";
+import Running from "./assets/Running.png";
+import worst from "./assets/worst.png";
+import bad from "./assets/bad.png";
+import normal from "./assets/normal.png";
+import good from "./assets/good.png";
+import best from "./assets/best.png";
+import quote from "./assets/quote-img.png";
 import Profile from "./Profile";
-
 
 const Dashboard = () => {
   const userId = useParams();
@@ -38,7 +37,9 @@ const Dashboard = () => {
   //ดึงข้อมูลจาก database เพื่อนำมาโชว์ในหน้า dashboard
   const getData = async () => {
     try {
-      const response = await axios.get(`http://localhost:7777/activities/user/${userId.userId}`);
+      const response = await axios.get(
+        `http://localhost:7777/activities/user/${userId.userId}`
+      );
       const data = response.data;
       setActivityCard(data);
       // console.log(data);
@@ -50,7 +51,7 @@ const Dashboard = () => {
   // delete ข้อมูลใน database
   const confirmDelete = (id) => {
     Swal.fire({
-      title: "คุณต้องการลบการ์ดเหี้ยนี่ใช่หรือไม่",
+      title: "คุณต้องการลบการ์ดนี้ใช่หรือไม่",
       icon: "warning",
       showCancelButton: true,
     }).then((result) => {
@@ -121,33 +122,32 @@ const Dashboard = () => {
           {card.type === "cycling" && <img src={Cycling} alt="Cycling" />}
         </figure>
 
-        <div>
-          <h4>{card.title}</h4>
-          <p>{card.location}</p>
-        </div>
+        <div className="activity-card-top-detail d-flex justify-content-between">
+          <div>
+            <h4>{card.title}</h4>
+            <p>{card.location}</p>
+          </div>
+          <div className="status-card-group d-flex m-0 align-items-center">
+            <div className="status-card feeling">
+              {card.feeling === "worst" && <img src={worst} alt="worst" />}
+              {card.feeling === "bad" && <img src={bad} alt="bad" />}
+              {card.feeling === "normal" && <img src={normal} alt="normal" />}
+              {card.feeling === "good" && <img src={good} alt="good" />}
+              {card.feeling === "best" && <img src={best} alt="best" />}
+            </div>
 
-        <div className="status-card feeling">
-          {card.feeling === "worst" && <img src={worst} alt="worst" />}
-          {card.feeling === "bad" && <img src={bad} alt="bad" />}
-          {card.feeling === "normal" && <img src={normal} alt="normal" />}
-          {card.feeling === "good" && <img src={good} alt="good" />}
-          {card.feeling === "best" && <img src={best} alt="best" />}
-        </div>
-
-        <div className="status-card card-option">
-          <div className="card-button">
-            <img
-              src={EditIcon}
-              alt="Edit button"
-              onClick={() => editActivity(card._id)}
-              className="edit-btn"
-            />
-            <img
-              src={deleteIcon}
-              alt="delete button"
-              onClick={() => confirmDelete(card._id)}
-              className="delete-btn"
-            />
+            <div className="status-card card-option">
+              <div className="card-button">
+                <i
+                  className="card-edit fas fa-edit"
+                  onClick={() => editActivity(card._id)}
+                ></i>
+                <i
+                  className="card-delete fa-solid fa-xmark"
+                  onClick={() => confirmDelete(card._id)}
+                ></i>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -188,15 +188,13 @@ const Dashboard = () => {
     </div>
   ));
 
-
   // JSX
   return (
     <LayoutSignin>
       {/* add mockdata */}
       {/* <button onClick={addMockData}>Add Mock Data</button> */}
       <div className="dashboard container-xl">
-        <Profile handleAddActivity={handleAddActivity}/>
-        
+        <Profile handleAddActivity={handleAddActivity} />
 
         <section>
           <h4 className="quote">

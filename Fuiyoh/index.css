@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Mitr:wght@400;500;700&display=swap");
+@import '/node_modules/@fortawesome/fontawesome-free/css/all.min.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -27,4 +28,12 @@ span,
 button,
 div {
   font-family: "Mitr", sans-serif;
+}
+
+#require-info{
+  color: red !important;
+}
+
+#root{
+  background-color: #fafafa;
 }

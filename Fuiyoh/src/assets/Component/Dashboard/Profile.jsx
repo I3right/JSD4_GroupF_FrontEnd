@@ -272,7 +272,7 @@ const Profile = ({ handleAddActivity }) => {
                 }
              
                 <div>
-                    <span>{userDisplay.username}</span>
+                    <span><b>{userDisplay.fullname? userDisplay.fullname :userDisplay.username}</b></span>
                     <div>
                         <img 
                             src={settingLogo} 
