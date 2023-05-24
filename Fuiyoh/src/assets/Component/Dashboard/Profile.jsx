@@ -310,7 +310,7 @@ const Profile = ({ handleAddActivity }) => {
                 
                 <div className="questName d-flex justify-content-between">
                     <p>ปีนไปสู่หัวใจเธอ (Hiking):</p>
-                    <p>{quest.hikingDistance} / ???</p>
+                    <p>{quest.hikingDistance} / 10,000km</p>
                 </div>
 
                 <div className="questbar w-full overflow-hidden bg-gray-200 mt-4">
@@ -345,8 +345,8 @@ const Profile = ({ handleAddActivity }) => {
 
             <div className="runToDamoon mainquest">
                 <div className="questName d-flex justify-content-between">
-                    <p>Run To Da Moonnnnn (running):</p>
-                    <p>{quest.runningDistance} / 10000</p>
+                    <p>Run To Da Moonnnnn <br/>(running):</p>
+                    <p>{quest.runningDistance} / 10,000km</p>
                 </div>
                 <div className="questbar w-full overflow-hidden bg-gray-200 mt-4">
 
