@@ -8,8 +8,9 @@ import * as yup from "yup";
 import picLogin from "../../Picture/login/cycling-amico.png";
 import logo from "../../Picture/login/logoLogin.png";
 import axios from "axios";
-import { authenticate } from "../../service/authorize";
+import { authenticate, getToken } from "../../service/authorize";
 import Swal from "sweetalert2";
+import { getUserId } from "../../service/authorize";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ const Login = () => {
         `${import.meta.env.VITE_APP_KEY}/authen/login`,
         { email, password }
       );
-      Swal.fire({
+      await Swal.fire({
         icon: "success",
         title: "Logged In",
         showConfirmButton: false,
@@ -48,7 +49,12 @@ const Login = () => {
         authenticate(loginResult, () => navigate(`/dashboard/${userId}`));
       }
     } catch (err) {
-      console.log(err.response.data.message);
+      Swal.fire({
+        icon: "error",
+        title: err.response.data.message,
+        showConfirmButton: false,
+        timer: 2500,
+      });
     }
   };
 
@@ -64,6 +70,15 @@ const Login = () => {
       setErrors(newErrors);
     }
   };
+
+  useEffect(()=>{
+    if(getToken()){
+      const userId = getUserId();
+      navigate(`/dashboard/${userId}`)
+    }
+
+
+  },[])
 
   return (
     <LayoutNormal>

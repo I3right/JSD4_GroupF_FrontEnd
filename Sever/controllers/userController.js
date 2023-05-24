@@ -19,7 +19,7 @@ const bcrypt = require("bcrypt");
 
 
 exports.createUser = async (req, res) => {
-  const { username, email, password, height, weight } = req.body;
+  const { username, email, password } = req.body;
   try {
     const saltRounds = 10;
     // Hash the password using the generated salt

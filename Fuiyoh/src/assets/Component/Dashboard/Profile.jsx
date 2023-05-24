@@ -52,7 +52,7 @@ const Profile = ({ handleAddActivity }) => {
             `${import.meta.env.VITE_APP_KEY}/users/getuserid/${userId.userId}`
           );
             if (response) {
-                console.log(response)
+                // console.log(response)
                 const { username } = response.data;
                 let { fullname, weight, height, userPhoto } = response.data;
                 if (userPhoto === "" || userPhoto === null ) {
