@@ -124,7 +124,7 @@ const Dashboard = () => {
 
         <div className="activity-card-top-detail d-flex justify-content-between">
           <div>
-            <h4>{card.title}</h4>
+            <h4>{card.title.length<15? card.title: card.title.substring(0,18)+"..."}</h4>
             <p>{card.location? card.location: 'some where'}</p>
           </div>
           <div className="status-card-group d-flex m-0 align-items-center">
@@ -154,7 +154,7 @@ const Dashboard = () => {
 
       <div className="activity-card-info">
         <div className="activity-description-box">
-          <small>{card.description}</small>
+          <small>{card.description.length<150? card.description: card.description.substring(0,150)+"..."}</small>
         </div>
         <div className="activity-card-detail">
           <div>
