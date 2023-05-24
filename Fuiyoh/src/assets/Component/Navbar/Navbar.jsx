@@ -23,7 +23,7 @@ const Navbar = () => {
           </a>
         </li>
         <li>
-          <a href={"/Login"}>
+          <a href={"/login"}>
             <button type="button" id="navbar-login-btn">
               <b>Log In</b>
             </button>
