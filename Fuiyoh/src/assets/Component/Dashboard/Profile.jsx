@@ -52,19 +52,17 @@ const Profile = ({ handleAddActivity }) => {
             `${import.meta.env.VITE_APP_KEY}/users/getuserid/${userId.userId}`
           );
             if (response) {
-                console.log(response)
+                // console.log(response)
                 const { username } = response.data;
                 let { fullname, weight, height, userPhoto } = response.data;
-                console.log(username)
-                if (userPhoto==="") {
+                if (userPhoto === "" || userPhoto === null ) {
                     userPhoto = account;
                 }
+                // console.log(userPhoto);
                 setUserDisplay(()=> ({
                     ...userDisplay,
                     username: username,
                     fullname: fullname,
-                    // weight: weight,
-                    // height: height,
                     userPhoto: userPhoto,
                 }));
             }
@@ -267,18 +265,17 @@ const Profile = ({ handleAddActivity }) => {
     return (
         <aside>
             <div className="dashboard-profile">
+                {userDisplay.userPhoto && 
                 <figure>
                     <img src={userDisplay.userPhoto} alt="Profile picture" />
                 </figure>
+                }
+             
                 <div>
-                    <div>
-                        <img 
-                            src={settingLogo} 
-                            alt="Logo setting" 
-                            onClick={()=>{editUser(userId)}}
-                        />
+                    <span><b>{userDisplay.fullname? userDisplay.fullname :userDisplay.username}</b></span>
+                    <div onClick={()=>{editUser(userId)}}>
+                    <i className="spinning fa-solid fa-gear" ></i>
                     </div>
-                    <span>{userDisplay.username}</span>
                 </div>
 
             </div>
@@ -312,8 +309,8 @@ const Profile = ({ handleAddActivity }) => {
 
                 
                 <div className="questName d-flex justify-content-between">
-                    <p>ปีนไปสู่หัวใจเธอ:</p>
-                    <p>{quest.hikingDistance} / ???</p>
+                    <p>ปีนไปสู่หัวใจเธอ (Hiking):</p>
+                    <p>{quest.hikingDistance} / 10,000km</p>
                 </div>
 
                 <div className="questbar w-full overflow-hidden bg-gray-200 mt-4">
@@ -346,10 +343,10 @@ const Profile = ({ handleAddActivity }) => {
                 </div>
             </div>
 
-            <div className="ClimbToHerHeart mainquest">
+            <div className="runToDamoon mainquest">
                 <div className="questName d-flex justify-content-between">
-                    <p>Run To Da Moonnnnn:</p>
-                    <p>{quest.runningDistance} / 10000</p>
+                    <p>Run To Da Moonnnnn <br/>(running):</p>
+                    <p>{quest.runningDistance} / 10,000km</p>
                 </div>
                 <div className="questbar w-full overflow-hidden bg-gray-200 mt-4">
 
@@ -381,7 +378,7 @@ const Profile = ({ handleAddActivity }) => {
 
             </div>
             
-            <div>
+            <div className="tweetbtn-class">
                 <button
                     onClick={handleClickTwitter}
                     className={`inline-block px-6 py-2.5 tweetBtn ${quest.badge.includes("genth")
@@ -392,6 +389,7 @@ const Profile = ({ handleAddActivity }) => {
                 >
                     {quest.badge.includes("genth") ? `Tweeted` : `Tweet`}
                 </button>
+                {!quest.badge.includes("genth")? <small>Tweet to earn badge</small>: null}
 
             </div>
 

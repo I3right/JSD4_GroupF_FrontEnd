@@ -44,7 +44,7 @@ const Home = () => {
   return (
     <LayoutNormal>
       <div id="maincontent" className="row">
-        <div className="col-6"></div>
+        <div id="maincontent-picture" className="col-6"></div>
         <div id="textcontent" className="col-6">
           <div id="textcontent1" className="card-body">
             <h5 className="card-title">YUNWHANG</h5>

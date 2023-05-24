@@ -19,13 +19,13 @@ const bcrypt = require("bcrypt");
 
 
 exports.createUser = async (req, res) => {
-  const { username, email, password, height, weight } = req.body;
+  const { username, email, password } = req.body;
   try {
     const saltRounds = 10;
     // Hash the password using the generated salt
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    const returndata = await User.create({ username, email, password: hashedPassword, height: 0, weight: 0 });
+    const returndata = await User.create({ username, email, password: hashedPassword, height: 0, weight: 0,fullname : "", gender: "", location: "", bio: "", userPhoto :"" });
     if (returndata) {
       return res.status(201).json(returndata);
     }

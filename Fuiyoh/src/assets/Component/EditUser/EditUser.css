@@ -1,16 +1,11 @@
-body{
-    margin: 0;
-    padding: 0;
-    background-color: #F6F8FC;
-    /* max-width: 1200px; */
-    /* display: flex; */
-}
-
 .body-edit-profile {
+    background-color:#F6F8FC ;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-top: 80px;
 }
 
 .edit-profile {
@@ -19,19 +14,14 @@ body{
     justify-content: center;
     align-items: center;
     background-color: white;
-    width: 500px;
-    margin: 5.5rem 2rem 2rem 2rem;
+    width: 600px;
     padding: 3rem 0;
-    gap: 2rem;
+    border-radius: 0.5rem;
 }
 
 /* user photo */
 .edit-photo {
     display: flex;
-    /* justify-content: center;
-    align-items: center; */
-    /* flex-direction: row; */
-    /* width: 100%; */
 }
 
 .user-photo img {
@@ -52,7 +42,7 @@ body{
     flex-direction: row-reverse;
     /* flex-direction: column; */
     /* justify-content: flex-end; */
-    align-items: end;
+    align-items: flex-end;
     gap: 2px;
     fill: gray;
     width: 20px;
@@ -61,42 +51,34 @@ body{
 .user-logo-edit {
     width: 20px;
     height: 20px;
+    color: #C1AEFC;
+    transition: all 0.1s ease;
 }
 
-.user-logo-delete svg, .user-logo-edit svg {
-    width: 20px;
-    height: 20px;
-    fill: gray;
-    cursor: pointer;
+.user-logo-edit :hover {
+    color:#1e1a69;
+    font-size: 17px;
 }
 
 .user-logo-delete {
-    stroke: gray;
-}
-
-.user-logo-edit svg :hover {
-    fill:#C1AEFC;
+    color: gray;
+    transition: all 0.1s ease;
 }
 
 .user-logo-delete :hover {
-    stroke: rgb(252, 107, 107);
+    color: rgb(252, 107, 107);
+    font-size: 17px;
 }
 
 /* user data */
 .edit-information {
     display: flex;
     flex-direction: column;
-    width: 70%;
-    font-size: 0.8rem;
+    width: 400px;
 }
 
-.input-information {
-    border-bottom: 2px solid lightgray;
-    padding: 1rem 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
+.input-information{
+    margin-bottom: 10px;
 }
 
 .input-information >p {
@@ -106,21 +88,29 @@ body{
 }
 
 .input-information input {
-    width: 60%;
+    width: 100%;
+    max-width: 420px;
     outline: none;
     border: none;
     border-bottom: none;
-    /* border-bottom: 1px solid lightgrey; */
-    /* color:#7773F0; */
+    font-size: 0.8rem;
 }
 
-form input:not(input[type="file"]) {
+div.input-information label p{
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #5854b0;;
+    margin-bottom: 4px;
+}
+
+div.input-information label{
+    width: 100%;
+}
+
+form input[type="file"] {
     border-bottom: none;
 }
 
-.input-information label {
-    font-weight: bold;
-}
 
 .input-gender input[type='radio']{
     display: unset;
@@ -129,7 +119,7 @@ form input:not(input[type="file"]) {
 .input-gender {
     display: flex;
     justify-content: space-around;
-    width: 60%;
+    width: 100%;
 }
 
 .select-gender {
@@ -150,35 +140,41 @@ form input:not(input[type="file"]) {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 70%;
     gap: 0.5rem;
+    margin-top: 1rem;
+    width: 400px;
 }
 
 .profile-button button {
     height: 2rem;
-    width: 200px;
+    width: 100%;
     border-radius: 3rem;
     cursor: pointer;
 }
 
 #saveBtn {
     border: none;
-    background-color: #7773F0;
+    background-color: #5854b0;
+    transition: all 0.3s ease;
     color: white;
 }
 
-#saveBtn:hover, #saveBtn:active {
-    background-color: #C1AEFC;
+#saveBtn:hover{
+    background-color: #1e1a69;
+    font-size: 105%;
 }
 
 #cancleBtn {
     background-color: white;
-    border: 2px solid #7773F0;
-    color: #7773F0;
+    border: 2px solid #5854b0;
+    color: #5854b0;
+    transition: all 0.3s ease;
 }
 
-#cancleBtn:hover, #cancleBtn:active {
-    background-color:#C1AEFC;
+#cancleBtn:hover{
+    background-color: #1e1a69 ;
     border: 2px solid #C1AEFC;
     color: white;
+    font-size: 105%;
 }
+

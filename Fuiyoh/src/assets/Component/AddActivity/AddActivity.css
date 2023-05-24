@@ -1,36 +1,72 @@
-.addActivity{
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #F6F8FC;
+.addActivity {
+  padding-top: 60px;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f6f8fc;
 }
 
-input[type='radio']{
-    display: none;
+input[type="radio"] {
+  display: none;
 }
 
-.activity-selecter img{
-    width: 100%;
-    cursor: pointer;
+.activity-selecter img {
+  width: 100%;
+  cursor: pointer;
 }
 
-.activity-selecter label>div{
-    width: 60px;
+.activity-selecter label > div {
+  width: 60px;
 }
 
-
-.activity-selecter{
-    width: 500px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2rem ;
-    cursor: pointer;
+.activity-selecter {
+  width: 500px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  cursor: pointer;
 }
 
 .activity-selecter label:hover img {
-    border:2px solid gray;
-    border-radius: 50%;
+  border: 2px solid gray;
+  border-radius: 50%;
 }
 
+.addAct-btn {
+  width: 400px;
+  margin-bottom: 0.5rem;
+  padding: 5px 16px;
+  border-radius: 100px;
+  font-weight: bold;
+  cursor: pointer;
+  border: transparent;
+  text-align: center;
+}
+
+.addActivity-btn {
+  color: white;
+  background-color: #5854b0;
+  transition: all 0.3s ease;
+  border: solid #5854b0;
+}
+
+.addActivity-btn:hover {
+  background-color: #1e1a69;
+  color: #fff;
+}
+
+.cancleActivity-btn {
+  border: solid #5854b0;
+  color: #5854b0;
+  background-color: white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.cancleActivity-btn:hover {
+  color: #5854b0;
+  background-color: #1e1a69;
+  color: #fff;
+}

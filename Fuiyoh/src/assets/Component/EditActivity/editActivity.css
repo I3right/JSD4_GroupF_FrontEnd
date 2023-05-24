@@ -1,4 +1,3 @@
-
 div.editActivity-box,form.editActivity-form{
   display: flex;
   flex-direction: column;
@@ -9,7 +8,7 @@ div.editActivity-box,form.editActivity-form{
 div.editActivity-box{
   background-color: #F6F8FC;
   height: 100vh;
-  padding-top: 3rem;
+  padding-top: 5rem;
   min-height: 100vh;
   height: 100%;
 }

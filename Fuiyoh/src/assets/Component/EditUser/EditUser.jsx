@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link, useParams } from "react-router-dom";
+import { useNavigate,  useParams } from "react-router-dom";
 import axios from "axios";
 import Joi from "joi";
 import Swal from "sweetalert2";
 import "./EditUser.css";
 import LayoutSignin from "../Layout/LayoutSignin";
-import xmark from "../Activity/assets/xmark-solid.svg";
 import account from "../../Picture/dashboard/account.svg";
+import Spinner from "../Activity/assets/Spinner.svg";
 
 const formSchema = Joi.object({
   username: Joi.string()
     .alphanum()
     .required(),
-  fullname: Joi.string(),
-  birthdate: Joi.date(),
-  gender: Joi.string()
+  fullname: Joi.string().allow(''),
+  birthdate: Joi.date().allow(''),
+  gender: Joi.string().allow('')
     .valid("male", "female"),
   weight: Joi.number()
     .integer(),
   height: Joi.number()
     .integer(),
-  location: Joi.string(),
-  bio: Joi.string()
+  location: Joi.string().allow(""),
+  bio: Joi.string().allow("")
     .max(300),
   userPhoto: Joi.optional()
     .allow("")
@@ -31,8 +31,8 @@ const formSchema = Joi.object({
 
 const EditUser = () => {
   const userId = useParams();
-  console.log(userId.userId);
   const navigate = useNavigate();
+  
   const [user, setUser] = useState({
     username: "",
     fullname: "",
@@ -44,6 +44,7 @@ const EditUser = () => {
     bio: "",
     userPhoto: "",
   });
+  console.log(user);
 
   const getUser = async () => {
     try {
@@ -53,21 +54,28 @@ const EditUser = () => {
       
       // ถ้ามีข้อมูลอยู่แล้ว ให้แสดงข้อมูลเดิม
       if (response) {
-        // console.log(response)
+        // fist time
         const { username } = response.data;
-        let { fullname, birthdate, gender, weight, height, location, bio, userPhoto } = response.data;
+        let { weight, height} = response.data;
         
-        const today = new Date(birthdate);
-        let today_date = today.getDate();
-        let today_month = today.getMonth() + 1;
-        if (today_month < 10) {
-          today_month = "0" + `${today_month}`;
+        // get data after edit user
+        let { fullname, birthdate, gender, location, bio, userPhoto } = response.data;
+        
+        if(birthdate === undefined || birthdate === null){
+          birthdate = ""
+        } else {
+          const today = new Date(birthdate);
+          let today_date = today.getDate();
+          let today_month = today.getMonth() + 1;
+          if (today_month < 10) {
+            today_month = "0" + `${today_month}`;
+          }
+          let today_year = today.getFullYear();
+          const today_fulldate = `${today_year}-${today_month}-${today_date}`;
+          birthdate = today_fulldate;
         }
-        let today_year = today.getFullYear();
-        const today_fulldate = `${today_year}-${today_month}-${today_date}`;
-        birthdate = today_fulldate;
-
-        // console.log(user)
+          
+          // console.log(user)
         setUser(()=> ({
           ...user,
           username: username,
@@ -123,9 +131,9 @@ const EditUser = () => {
           console.log(error);
       }
     }
-    // error.details.forEach((item) => {
-    //   Swal.fire("Error", item.message, "error");
-    // });
+    error.details.forEach((item) => {
+      Swal.fire("Error", item.message, "error");
+    });
   };
 
   const handleCancle = () => {
@@ -190,7 +198,6 @@ const EditUser = () => {
     setIsImageUploaded(true);
   };
 
-  console.log(user.userPhoto)
 
   
   const handleDeleteImage = () => {
@@ -216,16 +223,19 @@ const EditUser = () => {
   };
 
 
-
   return (
     <LayoutSignin>
       <section className="body-edit-profile">
         <form onSubmit={handleSubmit} className="edit-profile">
+          <h2>Edit User Information</h2>
+          
           {/* user photo */}
           <div className="edit-photo">
+          
             {user.userPhoto==="" && (
               <div className="user-photo">
-                <img src={account} alt="user-photo" />
+                {loading && <img src={Spinner} alt="user-photo" />}
+                {!loading && <img src={account} alt="user-photo" />}
               </div>
             )}
 
@@ -237,45 +247,16 @@ const EditUser = () => {
 
             {/* edit logo */}
             <div className="edit-photo-logo">
-              <div className="user-logo-delete">
-                {/* <img src={xmark} onClick={handleDeleteImage} className="xmark"/> */}
-                {/* <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools --> */}
-                <svg 
-                  width="800px" 
-                  height="800px" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  xmlns="http://www.w3.org/2000/svg"
-                  onClick={handleDeleteImage}
-                >
-                  <path 
-                    d="M19 5L4.99998 19M5.00001 5L19 19" 
-                    // stroke="#000000" 
-                    stroke-width="2" 
-                    stroke-linecap="round" 
-                    stroke-linejoin="round"
-                    // fill=""
-                    // fill-rule="evenodd"
-                    // clip-rule="evenodd"
-                  />
-                </svg>
+              <div className="user-logo-delete" >
+              <label
+              onClick={handleDeleteImage}>
+                {user.userPhoto !== "" && <i className="user-logo-delete fa-solid fa-xmark"></i>}
+              </label>
               </div>
+
               <label className="user-logo-edit">
                 {/* <?xml version="1.0" encoding="utf-8"? /> */}
-                <svg
-                  width="800px"
-                  height="800px"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M21.1213 2.70705C19.9497 1.53548 18.0503 1.53547 16.8787 2.70705L15.1989 4.38685L7.29289 12.2928C7.16473 12.421 7.07382 12.5816 7.02986 12.7574L6.02986 16.7574C5.94466 17.0982 6.04451 17.4587 6.29289 17.707C6.54127 17.9554 6.90176 18.0553 7.24254 17.9701L11.2425 16.9701C11.4184 16.9261 11.5789 16.8352 11.7071 16.707L19.5556 8.85857L21.2929 7.12126C22.4645 5.94969 22.4645 4.05019 21.2929 2.87862L21.1213 2.70705ZM18.2929 4.12126C18.6834 3.73074 19.3166 3.73074 19.7071 4.12126L19.8787 4.29283C20.2692 4.68336 20.2692 5.31653 19.8787 5.70705L18.8622 6.72357L17.3068 5.10738L18.2929 4.12126ZM15.8923 6.52185L17.4477 8.13804L10.4888 15.097L8.37437 15.6256L8.90296 13.5112L15.8923 6.52185ZM4 7.99994C4 7.44766 4.44772 6.99994 5 6.99994H10C10.5523 6.99994 11 6.55223 11 5.99994C11 5.44766 10.5523 4.99994 10 4.99994H5C3.34315 4.99994 2 6.34309 2 7.99994V18.9999C2 20.6568 3.34315 21.9999 5 21.9999H16C17.6569 21.9999 19 20.6568 19 18.9999V13.9999C19 13.4477 18.5523 12.9999 18 12.9999C17.4477 12.9999 17 13.4477 17 13.9999V18.9999C17 19.5522 16.5523 19.9999 16 19.9999H5C4.44772 19.9999 4 19.5522 4 18.9999V7.99994Z"
-                    fill=""
-                  />
-                </svg>
+                {user.userPhoto === "" && <i className="user-logo-edit fas fa-edit"></i> }
                 <input
                   type="file"
                   onChange={uploadImage} />
@@ -286,7 +267,8 @@ const EditUser = () => {
           {/* user data */}
           <div className="edit-information">
             <div className="input-information">
-                <label for="">Username</label>
+                <label clasName="editUser-subject">
+                <p>Username<span id="require-info">*</span></p>
                 <input 
                     name="username" 
                     type="text" 
@@ -294,10 +276,11 @@ const EditUser = () => {
                     onChange={handleChange}
                     placeholder="Username" 
                 />
+                </label>
             </div>
 
             <div className="input-information">
-                <label for="">Name</label>
+                <label clasName="editUser-subject"><p>Name</p>
                 <input 
                     name="fullname" 
                     type="text" 
@@ -305,24 +288,28 @@ const EditUser = () => {
                     onChange={handleChange}
                     placeholder="Fullname" 
                 />
+                </label>
             </div>
             <div className="input-information">
-                <label for="">Birthdate</label>
+                <label clasName="editUser-subject"><p>Birthdate</p>
                 <input 
                     name="birthdate" 
-                    type="date" 
+                    type="text" 
                     value={user.birthdate}
                     onChange={handleChange}
-                    placeholder="Birthdate" 
+                    placeholder="add Your birthdate" 
+                    onFocus={(e) => (e.target.type = "date")}
+                    onBlur={(e) => (e.target.type = "text")}
                 />
+                </label>
             </div>
             <div className="input-information">
-                <p>
-                    <b>Gender</b>
-                </p>
+                <label clasName="editUser-subject">
+                    <p>Gender</p>
+                </label>
                 <div className="input-gender">
                     <div className="select-gender">
-                      <label for="male">
+                      <label>
                         <input 
                             type="radio" 
                             value="male" 
@@ -333,7 +320,7 @@ const EditUser = () => {
                       Male</label>
                     </div>
                     <div className="select-gender">
-                      <label for="female">
+                      <label  clasName="editUser-subject">
                         <input 
                             type="radio" 
                             value="female" 
@@ -346,16 +333,17 @@ const EditUser = () => {
                 </div>
             </div>
             <div className="input-information">
-                <label for="">Weight</label>
+                <label clasName="editUser-subject"><p>Weight</p>
                 <input name="weight" 
                     type="number" 
                     value={user.weight}
                     onChange={handleChange}
                     placeholder="Weight (kg)" 
                 />
+                </label>
             </div>
             <div className="input-information">
-                <label for="">Height</label>
+                <label clasName="editUser-subject"><p>Height</p>
                 <input 
                     name="height" 
                     type="number" 
@@ -363,9 +351,10 @@ const EditUser = () => {
                     onChange={handleChange}
                     placeholder="Height (cm)"
                 />
+                </label>
             </div>
             <div className="input-information">
-                <label for="">Location</label>
+                <label clasName="editUser-subject"><p>Location</p>
                 <input 
                     name="location" 
                     type="text" 
@@ -373,9 +362,10 @@ const EditUser = () => {
                     onChange={handleChange}
                     placeholder="Location" 
                 />
+                </label>
             </div>
             <div className="input-information">
-                <label for="">Bio</label>
+                <label clasName="editUser-subject"><p>Bio</p>
                 <input 
                     name="bio" 
                     type="text" 
@@ -383,6 +373,7 @@ const EditUser = () => {
                     onChange={handleChange}
                     placeholder="Biography" 
                 />
+                </label>
             </div>
           </div>
 

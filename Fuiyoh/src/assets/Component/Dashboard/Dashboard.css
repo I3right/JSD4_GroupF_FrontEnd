@@ -1,5 +1,7 @@
 .dashboard {
+  padding-top: 55px;
   display: flex;
+  justify-content: center;
   min-height: 100vh;
   height: 100%;
 }
@@ -8,7 +10,10 @@
   display: flex;
   /* gap: 1.5rem; */
   justify-content:space-between;
-  /* padding: 0.4rem; */
+  background-color: #f6f8fc;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  height: 100px;
 }
 
 .dashboard > aside {
@@ -27,6 +32,7 @@
   width: 90px;
   /* height: 90px; */
   border-radius: 50%;
+  margin: 0;
 }
 
 .dashboard-profile > figure > img {
@@ -37,8 +43,6 @@
 
 .dashboard-profile>div {
     display: flex;
-    flex-direction: column;
-    align-items: end;
     gap: 2px;
     cursor: pointer;
     max-width: 150px;
@@ -58,15 +62,52 @@
   width: 20px;
 }
 
-aside .add-activity-btn {
-  height: 50px;
-  border-radius: 50px;
-  background-color: #7773f0;
-  border: transparent;
-  color: white;
+div.dashboard aside{
+  background-color: white;
 }
 
+aside button.add-activity-btn {
+  height: 50px;
+  border-radius: 50px;
+  background-color: #5854b0;
+  transition: all 0.3s ease;
+  border: transparent;
+  font-weight: bold;
+  color: white;
+  margin: 5px 0;
+}
+
+aside .add-activity-btn:hover {
+  background-color: #1e1a69;
+  color: #fff;
+}
+
+.spinning:hover{
+  color: #5854b0;
+  -webkit-animation:spin 1s linear infinite;
+  -moz-animation:spin 1s linear infinite;
+  animation:spin 1s linear infinite;
+}
+@-moz-keyframes spin {
+  100% {
+      -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  100% {
+      -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+      -webkit-transform: rotate(360deg);
+      transform:rotate(360deg);
+  }
+}
+
+
 /* ---------- BMI  -------------- */
+
 div.weightAndHeight div {
   background-color: #f6f8fc;
   width: 130px;
@@ -154,8 +195,8 @@ div.questbar{
 }
 
 button.quest-btn{
-    width: 50px;
-  height: 16px;
+  width: 60px;
+  height: 20px;
   font-size: 0.5rem;
   padding: 0;
   margin-top: 0.5rem;
@@ -163,7 +204,13 @@ button.quest-btn{
 
 button.tweetBtn{
   width: 100%;
-  margin-top: 40px;
+  margin-top: 20px;
+  transition: all 0.2s ease;
+}
+
+div.tweetbtn-class small{
+  font-size: 10px;
+  color: #1D9BF0;
 }
 
 /* ---------- main section -------------- */
