@@ -274,7 +274,7 @@ const Profile = ({ handleAddActivity }) => {
                 <div>
                     <span><b>{userDisplay.fullname? userDisplay.fullname :userDisplay.username}</b></span>
                     <div onClick={()=>{editUser(userId)}}>
-                    <i class="fa-solid fa-gear"></i>
+                    <i className="spinning fa-solid fa-gear" ></i>
                     </div>
                 </div>
 
