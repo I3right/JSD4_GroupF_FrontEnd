@@ -11,7 +11,7 @@ const NavbarSignin = () => {
     <header>
       <nav className="navbar">
         <div className="left-navbar">
-          <a href={"/"}>
+          <a href={`/dashboard/${userId}`}>
             <div>
               <img src={mainLogo} alt="main Logo" />
             </div>
