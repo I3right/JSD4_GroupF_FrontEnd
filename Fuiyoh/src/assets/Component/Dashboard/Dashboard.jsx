@@ -25,7 +25,6 @@ const Dashboard = () => {
   const userId = useParams();
   const navigate = useNavigate();
   const [activityCard, setActivityCard] = useState([]);
-  const userId = useParams();
 
   // waiting for change to LINK
   const handleAddActivity = () => {
@@ -34,11 +33,6 @@ const Dashboard = () => {
 
   const editActivity = (id) => {
     navigate(`/editactivity/${id}`);
-  };
-
-  //link to Edit User
-  const editUser = (id) => {
-    navigate(`/edituser/${id}`);
   };
 
   //ดึงข้อมูลจาก database เพื่อนำมาโชว์ในหน้า dashboard

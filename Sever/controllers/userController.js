@@ -84,8 +84,7 @@ exports.updateUser = async (req, res) => {
     
     
     const returnData = await User.findOneAndUpdate(
-      // { _id: userId },
-      { email: userId },
+      { _id: userId },
       { username, fullname, birthdate, gender, weight, height, location, bio, userPhoto }
     );
     if (returnData) {

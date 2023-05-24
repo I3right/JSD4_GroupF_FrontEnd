@@ -255,12 +255,12 @@ const EditActivity = () => {
 
           <label className="image">
           <h3>Picture</h3>
-          {!isImageUploaded && (
+          {!activity.img && (
             <UploadImage onImageUpload={handleImageUpload} />
           )}
         </label>
 
-          {isImageUploaded && (
+          {activity.img && (
             <div className="form-image-container">
               <img src={activity.img} alt="Uploaded" />
               <img src={xmark} onClick={handleDeleteImage} className="xmark"/>

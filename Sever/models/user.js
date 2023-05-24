@@ -17,15 +17,6 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    height: {
-      type: Number,
-    },
-    weight: {
-      type: Number,
-    },
-    badge: {
-      type: Array,
-    }
     fullname: {
       type: String,
     },
@@ -41,6 +32,9 @@ const userSchema = new Schema(
     },
     height: {
         type: Number,
+    },
+    badge: {
+      type: Array,
     },
     location: {
         type: String,
