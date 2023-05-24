@@ -208,6 +208,10 @@ button.tweetBtn{
   transition: all 0.2s ease;
 }
 
+div.tweetbtn-class small{
+  font-size: 10px;
+  color: #1D9BF0;
+}
 
 /* ---------- main section -------------- */
 .dashboard > section {

@@ -378,7 +378,7 @@ const Profile = ({ handleAddActivity }) => {
 
             </div>
             
-            <div>
+            <div className="tweetbtn-class">
                 <button
                     onClick={handleClickTwitter}
                     className={`inline-block px-6 py-2.5 tweetBtn ${quest.badge.includes("genth")
@@ -389,6 +389,7 @@ const Profile = ({ handleAddActivity }) => {
                 >
                     {quest.badge.includes("genth") ? `Tweeted` : `Tweet`}
                 </button>
+                {!quest.badge.includes("genth")? <small>Tweet to earn badge</small>: null}
 
             </div>
 
