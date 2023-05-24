@@ -58,7 +58,7 @@ const Profile = ({ handleAddActivity }) => {
                 if (userPhoto==="" || userPhoto=== null ) {
                     userPhoto = account;
                 }
-                console.log(userPhoto);
+                // console.log(userPhoto);
                 setUserDisplay(()=> ({
                     ...userDisplay,
                     username: username,

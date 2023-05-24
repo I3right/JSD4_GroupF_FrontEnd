@@ -175,7 +175,7 @@ const Dashboard = () => {
                 ? card.duration / card.distance
                 : (card.duration / card.distance).toFixed(2)}
             </h3>
-            <small>km/mins</small>
+            <small>mins/km</small>
           </div>
         </div>
       </div>

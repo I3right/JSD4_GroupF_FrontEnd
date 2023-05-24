@@ -7,6 +7,11 @@ import LayoutSignin from "../Layout/LayoutSignin";
 import UploadImage from "../Activity/UploadImage";
 import { getUserId } from "../../service/authorize";
 import xmark from "../Activity/assets/xmark-solid.svg";
+import bad from "../Activity/assets/bad.png";
+import worst from "../Activity/assets/worst.png";
+import normal from "../Activity/assets/normal.png";
+import good from "../Activity/assets/good.png";
+import best from "../Activity/assets/best.png";
 import "./editActivity.css";
 
 const formSchema = Joi.object({
@@ -15,7 +20,7 @@ const formSchema = Joi.object({
     .required()
     .label("type"),
   title: Joi.string()
-    .regex(/^[A-Za-z\s]+$/)
+    .regex(/^[\u0E00-\u0E7Fa-zA-Z0-9\s.\/]+$/)
     .min(1)
     .max(20)
     .required()
@@ -24,10 +29,10 @@ const formSchema = Joi.object({
       "string.pattern.base":
         "The title must contain only alphabetic characters (a-z)",
     }),
-  distance: Joi.number().integer().required().label("distance(km)"),
-  duration: Joi.number().integer().required().label("duration(min)"),
+  distance: Joi.number().greater(0).less(Infinity).precision(3).required().label("distance(km)"),
+  duration: Joi.number().greater(0).less(Infinity).integer().required().label("duration(min)"),
   location: Joi.string().allow("").optional().label("location"),
-  date: Joi.date().allow("").iso().optional().label("date"),
+  date: Joi.date().allow("").optional().label("date"),
   description: Joi.string().allow("").max(150).optional().label("description"),
   feeling: Joi.string()
     .allow("")
@@ -167,7 +172,14 @@ const EditActivity = () => {
     });
   };
 
-  console.log(activity.img);
+  const handleFeelingButtonClick = (value) => {
+    setActivity((prevState) => ({
+      ...prevState,
+      feeling: value,
+    }));
+  };
+
+  // console.log(activity.img);
 
   return (
     <LayoutSignin>
@@ -175,7 +187,7 @@ const EditActivity = () => {
         <form className="editActivity-form" onSubmit={handleUpdate}>
           <h2>Edit Activity</h2>
           <label className="title">
-            <h3>Title*</h3>
+            <h3>Title<span id="require-info">*</span></h3>
             <input
               name="title"
               type="text"
@@ -186,7 +198,7 @@ const EditActivity = () => {
           </label>
 
           <label className="distance">
-            <h3>Distance*</h3>
+            <h3>Distance<small>(km)</small><span id="require-info">*</span></h3>
             <input
               name="distance"
               type="number"
@@ -197,7 +209,7 @@ const EditActivity = () => {
           </label>
 
           <label className="duration">
-            <h3>Duration*</h3>
+            <h3>Duration<small>(mins)</small><span id="require-info">*</span></h3>
             <input
               name="duration"
               type="number"
@@ -242,16 +254,53 @@ const EditActivity = () => {
             />
           </label>
 
-          <label className="feeling">
-            <h3>Feeling</h3>
-            <input
+        
+          <div className="feeling">
+          <h3>Feeling</h3>
+          <div className="flex justify-between">
+            <button className={"px-4 py-0.5 hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "worst" ? "bg-violet-200" : "")}
+              type="button"
               name="feeling"
-              type="text"
-              value={activity.feeling}
-              onChange={handleChange}
-              placeholder="Add Your feeling"
-            />
-          </label>
+              value="worst"
+              onClick={() => handleFeelingButtonClick("worst")}
+            >
+              <img src={worst} alt="worst" />
+            </button>
+            <button className={"px-4 py-0.5 hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "bad" ? "bg-violet-200	" : "")}
+              type="button"
+              name="feeling"
+              value="bad"
+              onClick={() => handleFeelingButtonClick("bad")}
+            >
+              <img src={bad} alt="bad" />
+            </button>
+            <button className={"px-4 py-0.5 hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "normal" ? "bg-violet-200	" : "")}
+              type="button"
+              name="feeling"
+              value="normal"
+              onClick={() => handleFeelingButtonClick("normal")}
+            >
+              <img src={normal} alt="normal" />
+            </button>
+            <button className={"px-4 py-0.5 hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
+              type="button"
+              name="feeling"
+              value="good"
+              onClick={() => handleFeelingButtonClick("good")}
+            >
+              <img src={good} alt="good" />
+            </button>
+            <button className={"px-4 py-0.5 hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "best" ? "bg-violet-200	p-0.5	" : "")}
+              type="button"
+              name="feeling"
+              value="best"
+              onClick={() => handleFeelingButtonClick("best")}
+            >
+              <img src={best} alt="best" />
+            </button>
+          </div>
+        </div>
+         
 
           <label className="image">
           <h3>Picture</h3>

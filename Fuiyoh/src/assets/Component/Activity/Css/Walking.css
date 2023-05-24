@@ -108,30 +108,3 @@ div.form-image-container .xmark {
   cursor: pointer;
 }
 
-
-.addAct-btn {
-  width: 400px;
-  margin-bottom: 0.5rem;
-  padding: 5px 16px;
-  border-radius: 100px;
-  font-weight: bold;
-  cursor: pointer;
-  border: transparent;
-  text-align: center;
-}
-
-button.addActivity-btn {
-  background-color: #5854b0;
-  color: white;
-}
-
-.cancleActivity-btn {
-  background-color: white;
-  color: #5854b0;
-  border: 2px solid #5854b0;
-  text-decoration: none;
-}
-
-.cancleActivity-btn:hover {
-  color: #5854b0;
-}
