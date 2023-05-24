@@ -3,6 +3,7 @@ import mainLogo from "../../Picture/icon/logo.svg";
 
 const Navbar = () => {
   return (
+    <header>
     <nav className="navbar">
       <div className="left-navbar">
         <a href={"/"}>
@@ -30,6 +31,7 @@ const Navbar = () => {
         </li>
       </ul>
     </nav>
+    </header>
   );
 };
 

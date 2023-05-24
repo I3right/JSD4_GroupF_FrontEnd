@@ -9,10 +9,15 @@ import badgeGenTH from "./assets/badge-genth.png";
 import bmiThin from "./assets/bmi-thin.png"
 import bmiNormal from "./assets/bmi-normal.png"
 import bmiFat from "./assets/bmi-fat.png"
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { getUserId } from "../../service/authorize.js";
 
 const Profile = ({ handleAddActivity }) => {
     const userId = useParams();
+    // const userToken = getUserId();
+    // console.log(userToken)
+
+    const navigate = useNavigate();
     const [quest, setQuest] = useState({
         hikingDistance: 0,
         runningDistance: 0,
@@ -24,6 +29,49 @@ const Profile = ({ handleAddActivity }) => {
         height: 0,
         weight: 0,
     });
+
+    //link to edit profile
+    const editUser = (id) => {
+        // console.log(id)
+        // console.log(userToken)
+        navigate(`/edituser/${id.userId}`);
+    };
+
+    //mini profile
+    const [userDisplay, setUserDisplay] = useState({
+        username: "",
+        fullname: "",
+        // weight: "",
+        // height: "",
+        userPhoto: "",
+      });
+
+    const getUserDisplay = async () => {
+        try {
+          const response = await axios.get(
+            `${import.meta.env.VITE_APP_KEY}/users/getuserid/${userId.userId}`
+          );
+            if (response) {
+                // console.log(response)
+                const { username } = response.data;
+                let { fullname, weight, height, userPhoto } = response.data;
+                if (userPhoto === "" || userPhoto === null ) {
+                    userPhoto = account;
+                }
+                // console.log(userPhoto);
+                setUserDisplay(()=> ({
+                    ...userDisplay,
+                    username: username,
+                    fullname: fullname,
+                    userPhoto: userPhoto,
+                }));
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+
 
     const getUserHeight = async () => {
         try {
@@ -89,6 +137,7 @@ const Profile = ({ handleAddActivity }) => {
         getUserHeight();
         getUserWeight();
         getUserBadge();
+        getUserDisplay();
     }, []);
 
 
@@ -216,13 +265,16 @@ const Profile = ({ handleAddActivity }) => {
     return (
         <aside>
             <div className="dashboard-profile">
+                {userDisplay.userPhoto && 
                 <figure>
-                    <img src={account} alt="Profile picture" />
+                    <img src={userDisplay.userPhoto} alt="Profile picture" />
                 </figure>
+                }
+             
                 <div>
-                    <span>Displayname example</span>
-                    <div>
-                        <img src={settingLogo} alt="Logo setting" />
+                    <span><b>{userDisplay.fullname? userDisplay.fullname :userDisplay.username}</b></span>
+                    <div onClick={()=>{editUser(userId)}}>
+                    <i className="spinning fa-solid fa-gear" ></i>
                     </div>
                 </div>
 
@@ -257,8 +309,8 @@ const Profile = ({ handleAddActivity }) => {
 
                 
                 <div className="questName d-flex justify-content-between">
-                    <p>ปีนไปสู่หัวใจเธอ:</p>
-                    <p>{quest.hikingDistance} / ???</p>
+                    <p>ปีนไปสู่หัวใจเธอ (Hiking):</p>
+                    <p>{quest.hikingDistance} / 10,000km</p>
                 </div>
 
                 <div className="questbar w-full overflow-hidden bg-gray-200 mt-4">
@@ -291,10 +343,10 @@ const Profile = ({ handleAddActivity }) => {
                 </div>
             </div>
 
-            <div className="ClimbToHerHeart mainquest">
+            <div className="runToDamoon mainquest">
                 <div className="questName d-flex justify-content-between">
-                    <p>Run To Da Moonnnnn:</p>
-                    <p>{quest.runningDistance} / 10000</p>
+                    <p>Run To Da Moonnnnn <br/>(running):</p>
+                    <p>{quest.runningDistance} / 10,000km</p>
                 </div>
                 <div className="questbar w-full overflow-hidden bg-gray-200 mt-4">
 
@@ -326,7 +378,7 @@ const Profile = ({ handleAddActivity }) => {
 
             </div>
             
-            <div>
+            <div className="tweetbtn-class">
                 <button
                     onClick={handleClickTwitter}
                     className={`inline-block px-6 py-2.5 tweetBtn ${quest.badge.includes("genth")
@@ -337,6 +389,7 @@ const Profile = ({ handleAddActivity }) => {
                 >
                     {quest.badge.includes("genth") ? `Tweeted` : `Tweet`}
                 </button>
+                {!quest.badge.includes("genth")? <small>Tweet to earn badge</small>: null}
 
             </div>
 

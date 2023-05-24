@@ -1,17 +1,20 @@
-* {
-    margin: 0;
-    padding: 0;
-    /* box-sizing: border-box; */
+header{
+    background-color: white;
+    border-bottom: 0.2px solid rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    z-index: 999;
+    width: 100%;
 }
 
-
 .navbar{
+    background-color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 8px 16px;
-    background-color: white;
-    max-width: 1200px;
+    width: 1200px;
     margin: 0 auto;
 }
 
@@ -32,6 +35,11 @@
 div.left-navbar a p{
     height: 100%;
     margin: auto;
+    transition: all 0.3s ease;
+}
+
+div.left-navbar a p:hover{
+    color: #7773F0;
 }
 
 /* right-navbar */
@@ -47,6 +55,7 @@ div.left-navbar a p{
 .right-navbar a {
     text-decoration: none;
     color: black;
+    transition: all 0.3s ease;
 }
 
 .right-navbar a:hover, .right-navbar a:active {
@@ -55,6 +64,7 @@ div.left-navbar a p{
 
 #navbar-login-btn {
     background-color: #7773F0;
+    transition: all 0.3s ease;
     color: white;
     width: 80px;
     height: 32px;
@@ -65,5 +75,5 @@ div.left-navbar a p{
 }
 
 #navbar-login-btn:hover, #navbar-login-btn:active {
-    background-color: #C1AEFC;
+    background-color: #1e1a69;
 }

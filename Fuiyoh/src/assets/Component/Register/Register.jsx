@@ -17,7 +17,7 @@ const Register = () => {
   const navigate = useNavigate();
 
   const schema = yup.object().shape({
-    username: yup.string().required("**Username is required"),
+    username: yup.string().max(15, "**username maximum 15 characters").required("**Username is required"),
     email: yup
       .string()
       .email("**Invalid email")

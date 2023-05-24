@@ -17,15 +17,34 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    height: {
-      type: Number,
+    fullname: {
+      type: String,
+    },
+    birthdate: {
+        type: Date,
+    },
+    gender: {
+        type: String,
+        enum: ["","male", "female"]
     },
     weight: {
-      type: Number,
+        type: Number,
+    },
+    height: {
+        type: Number,
     },
     badge: {
       type: Array,
-    }
+    },
+    location: {
+        type: String,
+    },
+    bio: {
+        type: String,
+    },
+    userPhoto: {
+        type: String,
+    },
   },
   { timestamps: true }
 );

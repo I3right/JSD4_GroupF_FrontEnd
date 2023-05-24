@@ -19,14 +19,13 @@ const formSchema = Joi.object({
     .required()
     .label("type"),
   title: Joi.string()
-    .regex(/^[A-Za-z\s]+$/)
+  .regex(/^[\u0E00-\u0E7Fa-zA-Z0-9\s.\/]+$/)
     .min(1)
-    .max(20)
     .required()
     .label("title")
     .messages({ "title.required": "Please fill title wtih alphabet(A-Z)" }),
-  distance: Joi.number().integer().required().label("distance(km)"),
-  duration: Joi.number().integer().required().label("duration(min)"),
+  distance: Joi.number().greater(0).less(Infinity).precision(3).required().label("distance(km)"),
+  duration: Joi.number().greater(0).less(Infinity).integer().required().label("duration(min)"),
   location: Joi.string().allow("").optional().label("location"),
   date: Joi.date().allow("").iso().optional().label("date"),
   description: Joi.string().allow("").max(150).optional().label("description"),
@@ -153,7 +152,7 @@ const AddActivity = () => {
       <h3>Add Your detailed</h3>
       <form onSubmit={handleSubmit} className="addActivty">
         <label className="title">
-          <h3>Title*</h3>
+          <h3>Title<span id="require-info">*</span></h3>
           <input
             name="title"
             type="text"
@@ -164,7 +163,7 @@ const AddActivity = () => {
         </label>
 
         <label className="distance">
-          <h3>Distance*</h3>
+          <h3>Distance<small>(km)</small><span id="require-info">*</span></h3>
           <input
             name="distance"
             type="number"
@@ -223,7 +222,7 @@ const AddActivity = () => {
         </div>
 
         <label className="duration">
-          <h3>Duration*</h3>
+          <h3>Duration<small>(mins)</small><span id="require-info">*</span></h3>
           <input
             name="duration"
             type="number"
