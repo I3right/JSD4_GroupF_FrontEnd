@@ -215,13 +215,13 @@ const Profile = ({ handleAddActivity }) => {
         let img = "";
 
         if (roundedBMI < 18.5) {
-            result = "Thin";
+            result = "Underweight";
             img = bmiThin;
         } else if (roundedBMI >= 18.5 && roundedBMI <= 24.9) {
             result = "Normal";
             img = bmiNormal;
         } else {
-            result = "Fat";
+            result = "Overweight";
             img = bmiFat;
         }
 
