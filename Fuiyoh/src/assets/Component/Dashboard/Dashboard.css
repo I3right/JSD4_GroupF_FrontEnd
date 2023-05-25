@@ -44,7 +44,7 @@
 .dashboard-profile>div {
     display: flex;
     gap: 2px;
-    cursor: pointer;
+    /* cursor: pointer; */
     max-width: 150px;
 }
 
@@ -70,7 +70,7 @@ aside button.add-activity-btn {
   height: 50px;
   border-radius: 50px;
   background-color: #5854b0;
-  transition: all 0.3s ease;
+  /* transition: all 0.3s ease; */
   border: transparent;
   font-weight: bold;
   color: white;
@@ -83,6 +83,7 @@ aside .add-activity-btn:hover {
 }
 
 .spinning:hover{
+  cursor: pointer;
   color: #5854b0;
   -webkit-animation:spin 1s linear infinite;
   -moz-animation:spin 1s linear infinite;
@@ -205,7 +206,7 @@ button.quest-btn{
 button.tweetBtn{
   width: 100%;
   margin-top: 20px;
-  transition: all 0.2s ease;
+  /* transition: all 0.2s ease; */
 }
 
 div.tweetbtn-class small{

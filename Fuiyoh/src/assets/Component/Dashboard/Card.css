@@ -74,18 +74,20 @@ div.activity-card-top-detail h4{
 }
 
 .card-button * {
-  transition: all 0.2s ease;
+  /* transition: all 0.2s ease; */
   font-size: 14px;
 }
 
 .card-edit:hover {
   color: #5854b0;
   font-size: 16px;
+  cursor: pointer;
 }
 
 .card-delete:hover {
   color: red;
   font-size: 16px;
+  cursor: pointer;
 }
 
 .card-img-container {

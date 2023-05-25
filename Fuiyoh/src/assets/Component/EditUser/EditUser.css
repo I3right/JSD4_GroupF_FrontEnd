@@ -52,7 +52,8 @@
     width: 20px;
     height: 20px;
     color: #C1AEFC;
-    transition: all 0.1s ease;
+    cursor: pointer;
+    /* transition: all 0.1s ease; */
 }
 
 .user-logo-edit :hover {
@@ -62,12 +63,13 @@
 
 .user-logo-delete {
     color: gray;
-    transition: all 0.1s ease;
+    /* transition: all 0.1s ease; */
 }
 
 .user-logo-delete :hover {
     color: rgb(252, 107, 107);
     font-size: 17px;
+    cursor: pointer;
 }
 
 /* user data */
@@ -155,26 +157,26 @@ form input[type="file"] {
 #saveBtn {
     border: none;
     background-color: #5854b0;
-    transition: all 0.3s ease;
+    /* transition: all 0.3s ease; */
     color: white;
 }
 
 #saveBtn:hover{
     background-color: #1e1a69;
-    font-size: 105%;
+    /* font-size: 105%; */
 }
 
 #cancleBtn {
     background-color: white;
     border: 2px solid #5854b0;
     color: #5854b0;
-    transition: all 0.3s ease;
+    /* transition: all 0.3s ease; */
 }
 
 #cancleBtn:hover{
     background-color: #1e1a69 ;
     border: 2px solid #C1AEFC;
     color: white;
-    font-size: 105%;
+    /* font-size: 105%; */
 }
 

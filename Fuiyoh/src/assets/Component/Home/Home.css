@@ -53,7 +53,7 @@ a:hover {
   background-color: #5854b0;
   padding: 10px 16px;
   border-radius: 100px;
-  transition: all 0.3s ease;
+  /* transition: all 0.3s ease; */
   font-weight: bold;
   cursor: pointer;
   align-items: center;
@@ -66,7 +66,7 @@ a:hover {
 #buttonGetStart:hover {
   background-color: #1e1a69;
   color: #fff;
-  font-size: 105%;
+  /* font-size: 105%; */
 }
 
 #buttonRegister {
@@ -76,7 +76,7 @@ a:hover {
   background-color: transparent !important;
   padding: 10px 16px;
   border-radius: 100px;
-  transition: all 0.3s ease;
+  /* transition: all 0.3s ease; */
   font-weight: bold;
   cursor: pointer;
   align-items: center;
@@ -90,7 +90,7 @@ a:hover {
 #buttonRegister:hover {
   background-color: #1e1a69;
   color: #fff ;
-  font-size: 105%;
+  /* font-size: 105%; */
 }
 
 /* card section */
@@ -137,6 +137,7 @@ a:hover {
   /* border: 10px solid red; */
   margin: 0 auto;
   display: flex;
+  background-color: #fff;
 }
 
 .map {
@@ -167,4 +168,5 @@ a:hover {
   width: 1320px;
   text-align: right;
   padding: 25px;
+  background-color: #fff;
 }
