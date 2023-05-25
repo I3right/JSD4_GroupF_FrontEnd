@@ -42,9 +42,9 @@ const Dashboard = () => {
       );
       const data = response.data;
       setActivityCard(data);
-      // console.log(data);
     } catch (error) {
-      console.log(error);
+      const err = error.response.data.message;
+      Swal.fire("Error", err, "error");
     }
   };
 
@@ -69,7 +69,6 @@ const Dashboard = () => {
         `${import.meta.env.VITE_APP_KEY}/activities/delete/${id}`
       );
       if (response) {
-        console.log(response.data);
         Swal.fire({
           icon: "success",
           title: "Activity deleted!",
@@ -79,7 +78,9 @@ const Dashboard = () => {
         getData();
       }
     } catch (error) {
-      console.log(error);
+      const err = error.response.data.message;
+      Swal.fire("Error", err, "error");
+
     }
   };
 
@@ -98,10 +99,8 @@ const Dashboard = () => {
   //       `${import.meta.env.VITE_APP_KEY}/activities/create`,
   //       mockData
   //     );
-  //     console.log(response.data);
   //     getData();
   //   } catch (error) {
-  //     console.log(error.response);
   //   }
   // };
 
@@ -124,8 +123,12 @@ const Dashboard = () => {
 
         <div className="activity-card-top-detail d-flex justify-content-between">
           <div>
-            <h4>{card.title.length<15? card.title: card.title.substring(0,18)+"..."}</h4>
-            <p>{card.location? card.location: 'some where'}</p>
+            <h4>
+              {card.title.length < 15
+                ? card.title
+                : card.title.substring(0, 18) + "..."}
+            </h4>
+            <p>{card.location ? card.location : "some where"}</p>
           </div>
           <div className="status-card-group d-flex m-0 align-items-center">
             <div className="status-card feeling">
@@ -154,7 +157,11 @@ const Dashboard = () => {
 
       <div className="activity-card-info">
         <div className="activity-description-box">
-          <small>{card.description.length<150? card.description: card.description.substring(0,150)+"..."}</small>
+          <small>
+            {card.description.length < 150
+              ? card.description
+              : card.description.substring(0, 150) + "..."}
+          </small>
         </div>
         <div className="activity-card-detail">
           <div>

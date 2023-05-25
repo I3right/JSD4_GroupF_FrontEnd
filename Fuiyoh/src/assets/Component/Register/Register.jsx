@@ -40,7 +40,6 @@ const Register = () => {
   //     )
   //     .then(() => {
   //       // form is valid, submit it
-  //       console.log("Form is valid");
   //       navigate("/Login");
   //     })
   //     .catch((err) => {
@@ -61,9 +60,6 @@ const Register = () => {
         { abortEarly: false }
       )
       .then(() => {
-        // Form is valid, submit it
-        console.log("Form is valid");
-
         // Send a POST request to register the user
         const data = {
           username,
@@ -75,7 +71,6 @@ const Register = () => {
           .post(`${import.meta.env.VITE_APP_KEY}/users/create`, data)
           .then((response) => {
             // Registration successful
-            console.log(response);
             Swal.fire({
               icon: "success",
               title: "Registered Successfully",
@@ -86,7 +81,6 @@ const Register = () => {
           })
           .catch((error) => {
             // Registration failed
-            console.log(error);
             Swal.fire({
               icon: "error",
               title: error.response.data.message,

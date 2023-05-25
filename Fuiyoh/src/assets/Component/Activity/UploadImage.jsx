@@ -38,7 +38,6 @@ const UploadImage = ({ onImageUpload }) => {
                 });
             })
             .then(() => setLoading(false))
-            .catch(console.log);
     }
 
   const uploadImage = async (event) => {
