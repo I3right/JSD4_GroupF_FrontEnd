@@ -133,11 +133,15 @@ a:hover {
 /* contect section */
 
 #contact {
-  width: 1320px;
+  width: 100%;
   /* border: 10px solid red; */
   margin: 0 auto;
   display: flex;
   background-color: #fff;
+}
+
+#contact-sub{
+  width: 1320px;
 }
 
 .map {
@@ -162,11 +166,14 @@ a:hover {
 }
 
 /* Footer section */
+#maincontent~footer{
+  width: 100%;
+  background-color: #fff;
+}
 
-.footer {
+p.footer {
   margin: 0 auto;
   width: 1320px;
   text-align: right;
   padding: 25px;
-  background-color: #fff;
 }
