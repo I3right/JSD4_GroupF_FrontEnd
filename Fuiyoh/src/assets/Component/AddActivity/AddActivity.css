@@ -48,7 +48,7 @@ input[type="radio"] {
 .addActivity-btn {
   color: white;
   background-color: #5854b0;
-  transition: all 0.3s ease;
+  /* transition: all 0.3s ease; */
   border: solid #5854b0;
 }
 
@@ -62,7 +62,7 @@ input[type="radio"] {
   color: #5854b0;
   background-color: white;
   text-decoration: none;
-  transition: all 0.3s ease;
+  /* transition: all 0.3s ease; */
 }
 
 .cancleActivity-btn:hover {

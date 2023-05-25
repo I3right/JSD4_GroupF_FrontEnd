@@ -2,6 +2,7 @@
   height: 100vh;
   width: auto;
   margin: 0 auto;
+  padding-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -85,7 +86,7 @@
   display: flex;
   color: white;
   background-color: #5854b0;
-  transition: all 0.3s ease;
+  /* transition: all 0.3s ease; */
   padding: 10px 16px;
   border-radius: 100px;
   font-weight: bold;
@@ -99,7 +100,7 @@
 #buttonLogin:hover {
   background-color: #1e1a69;
   color: #fff;
-  font-size: 110%;
+  /* font-size: 110%; */
 }
 
 /* source : https://www.youtube.com/watch?v=57JeRBZMbiE */

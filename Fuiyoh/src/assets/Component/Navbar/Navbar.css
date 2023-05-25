@@ -35,7 +35,7 @@ header{
 div.left-navbar a p{
     height: 100%;
     margin: auto;
-    transition: all 0.3s ease;
+    /* transition: all 0.3s ease; */
 }
 
 div.left-navbar a p:hover{
@@ -55,7 +55,7 @@ div.left-navbar a p:hover{
 .right-navbar a {
     text-decoration: none;
     color: black;
-    transition: all 0.3s ease;
+    /* transition: all 0.3s ease; */
 }
 
 .right-navbar a:hover, .right-navbar a:active {
@@ -64,7 +64,7 @@ div.left-navbar a p:hover{
 
 #navbar-login-btn {
     background-color: #7773F0;
-    transition: all 0.3s ease;
+    /* transition: all 0.3s ease; */
     color: white;
     width: 80px;
     height: 32px;
