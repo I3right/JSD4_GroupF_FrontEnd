@@ -207,6 +207,54 @@ const EditActivity = () => {
             />
           </label>
 
+          <div className="distance-preset">
+          <button
+            type="button"
+            name="distance"
+            value="1"
+            onClick={handleChange}
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
+          >
+            1 km
+          </button>
+          <button
+            type="button"
+            name="distance"
+            value="2"
+            onClick={handleChange}
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
+          >
+            2 km
+          </button>
+          <button
+            type="button"
+            name="distance"
+            value="3"
+            onClick={handleChange}
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
+          >
+            3 km
+          </button>
+          <button
+            type="button"
+            name="distance"
+            value="5"
+            onClick={handleChange}
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
+          >
+            5 km
+          </button>
+          <button
+            type="button"
+            name="distance"
+            value="7"
+            onClick={handleChange}
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
+          >
+            7 km
+          </button>
+        </div>
+
           <label className="duration">
             <h3>Duration<small>(mins)</small><span id="require-info">*</span></h3>
             <input
@@ -217,6 +265,54 @@ const EditActivity = () => {
               placeholder="Add Your duration(minutes)"
             />
           </label>
+
+          <div className="duration-preset">
+          <button
+            type="button"
+            name="duration"
+            value="30"
+            onClick={handleChange}
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
+          >
+            30 mins
+          </button>
+          <button
+            type="button"
+            name="duration"
+            value="60"
+            onClick={handleChange}
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
+          >
+            60 mins
+          </button>
+          <button
+            type="button"
+            name="duration"
+            value="90"
+            onClick={handleChange}
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
+          >
+            90 mins
+          </button>
+          <button
+            type="button"
+            name="duration"
+            value="120"
+            onClick={handleChange}
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
+          >
+            120 mins
+          </button>
+          <button
+            type="button"
+            name="duration"
+            value="150"
+            onClick={handleChange}
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
+          >
+            150 mins
+          </button>
+        </div>
 
           <label className="location">
             <h3>Location</h3>
