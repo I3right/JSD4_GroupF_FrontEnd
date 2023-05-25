@@ -45,6 +45,8 @@ const EditUser = () => {
     userPhoto: "",
   });
 
+  console.log(user);
+
   const getUser = async () => {
     try {
       const response = await axios.get(

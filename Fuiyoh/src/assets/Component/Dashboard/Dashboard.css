@@ -13,7 +13,7 @@
   background-color: #f6f8fc;
   padding: 0.5rem;
   border-radius: 0.5rem;
-  height: 100px;
+  height: 105px;
 }
 
 .dashboard > aside {
@@ -43,9 +43,10 @@
 
 .dashboard-profile>div {
     display: flex;
+    justify-content: space-between;
     gap: 2px;
     /* cursor: pointer; */
-    max-width: 150px;
+    width: 150px;
 }
 
 .dashboard-profile>div>span {
@@ -58,9 +59,7 @@
   width: 130px;
 }
 
-.dashboard-profile > div > div {
-  width: 20px;
-}
+
 
 div.dashboard aside{
   background-color: white;

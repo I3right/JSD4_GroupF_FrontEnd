@@ -38,6 +38,7 @@ const Profile = ({ handleAddActivity }) => {
         username: "",
         fullname: "",
         userPhoto: "",
+        userbio: ""
       });
 
     const getUserDisplay = async () => {
@@ -47,7 +48,7 @@ const Profile = ({ handleAddActivity }) => {
           );
             if (response) {
                 const { username } = response.data;
-                let { fullname, weight, height, userPhoto } = response.data;
+                let { fullname, weight, height, userPhoto,bio } = response.data;
                 if (userPhoto === "" || userPhoto === null ) {
                     userPhoto = account;
                 }
@@ -56,6 +57,7 @@ const Profile = ({ handleAddActivity }) => {
                     username: username,
                     fullname: fullname,
                     userPhoto: userPhoto,
+                    userbio:bio
                 }));
             }
         }
@@ -259,6 +261,8 @@ const Profile = ({ handleAddActivity }) => {
         }, 5000);
     };
 
+    console.log(userDisplay.userbio.length);
+
     return (
         <aside>
             <div className="dashboard-profile">
@@ -269,7 +273,10 @@ const Profile = ({ handleAddActivity }) => {
                 }
              
                 <div>
+                    <div>
                     <span><b>{userDisplay.fullname? userDisplay.fullname :userDisplay.username}</b></span>
+                    <p>{userDisplay.userbio.length < 40 ? userDisplay.userbio :userDisplay.userbio.substring(0, 40) + "..."}</p>
+                    </div>
                     <div onClick={()=>{editUser(userId)}}>
                     <i className="spinning fa-solid fa-gear" ></i>
                     </div>
