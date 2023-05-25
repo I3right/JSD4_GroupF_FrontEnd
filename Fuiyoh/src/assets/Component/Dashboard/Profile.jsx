@@ -14,8 +14,6 @@ import { getUserId } from "../../service/authorize.js";
 
 const Profile = ({ handleAddActivity }) => {
     const userId = useParams();
-    // const userToken = getUserId();
-    // console.log(userToken)
 
     const navigate = useNavigate();
     const [quest, setQuest] = useState({
@@ -32,8 +30,6 @@ const Profile = ({ handleAddActivity }) => {
 
     //link to edit profile
     const editUser = (id) => {
-        // console.log(id)
-        // console.log(userToken)
         navigate(`/edituser/${id.userId}`);
     };
 
@@ -41,8 +37,6 @@ const Profile = ({ handleAddActivity }) => {
     const [userDisplay, setUserDisplay] = useState({
         username: "",
         fullname: "",
-        // weight: "",
-        // height: "",
         userPhoto: "",
       });
 
@@ -52,13 +46,11 @@ const Profile = ({ handleAddActivity }) => {
             `${import.meta.env.VITE_APP_KEY}/users/getuserid/${userId.userId}`
           );
             if (response) {
-                // console.log(response)
                 const { username } = response.data;
                 let { fullname, weight, height, userPhoto } = response.data;
                 if (userPhoto === "" || userPhoto === null ) {
                     userPhoto = account;
                 }
-                // console.log(userPhoto);
                 setUserDisplay(()=> ({
                     ...userDisplay,
                     username: username,
@@ -68,7 +60,8 @@ const Profile = ({ handleAddActivity }) => {
             }
         }
         catch (error) {
-            console.log(error);
+            const err = error.response.data.message;
+            Swal.fire("Error", err, "error");
         }
     }
 
@@ -83,7 +76,8 @@ const Profile = ({ handleAddActivity }) => {
                 throw new Error("Invalid response data");
             }
         } catch (error) {
-            console.log(error);
+            const err = error.response.data.message;
+            Swal.fire("Error", err, "error");
         }
     };
 
@@ -98,7 +92,8 @@ const Profile = ({ handleAddActivity }) => {
                 throw new Error("Invalid response data");
             }
         } catch (error) {
-            console.log(error);
+            const err = error.response.data.message;
+            Swal.fire("Error", err, "error");
         }
     };
 
@@ -113,7 +108,8 @@ const Profile = ({ handleAddActivity }) => {
                 throw new Error("Invalid response data");
             }
         } catch (error) {
-            console.log(error);
+            const err = error.response.data.message;
+            Swal.fire("Error", err, "error");
         }
     };
 
@@ -127,7 +123,8 @@ const Profile = ({ handleAddActivity }) => {
                 throw new Error("Invalid response data");
             }
         } catch (error) {
-            console.log(error);
+            const err = error.response.data.message;
+            Swal.fire("Error", err, "error");
         }
     };
 
@@ -150,10 +147,9 @@ const Profile = ({ handleAddActivity }) => {
                 `${import.meta.env.VITE_APP_KEY}/users/addBadge/${userId.userId}`,
                 userBadge
             );
-            // console.log(response.data);
-            // getData();i
         } catch (error) {
-            console.log(error);
+            const err = error.response.data.message;
+            Swal.fire("Error", err, "error");
         }
 
         if (value === "heart") {
@@ -202,7 +198,8 @@ const Profile = ({ handleAddActivity }) => {
                 throw new Error("Invalid response data");
             }
         } catch (error) {
-            console.log(error);
+            const err = error.response.data.message;
+            Swal.fire("Error", err, "error");
         }
     };
 

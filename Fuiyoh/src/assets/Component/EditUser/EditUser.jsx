@@ -44,7 +44,6 @@ const EditUser = () => {
     bio: "",
     userPhoto: "",
   });
-  console.log(user);
 
   const getUser = async () => {
     try {
@@ -75,7 +74,6 @@ const EditUser = () => {
           birthdate = today_fulldate;
         }
           
-          // console.log(user)
         setUser(()=> ({
           ...user,
           username: username,
@@ -91,7 +89,8 @@ const EditUser = () => {
       }
     }
     catch (error) {
-      console.log(error);
+      const err = error.response.data.message;
+      Swal.fire("Error", err, "error");
     } 
   }
 
@@ -110,7 +109,6 @@ const EditUser = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { error, value } = formSchema.validate(user);
-    // console.log(user)
     if (!error) {
       try {
           const response = await axios.put(
@@ -128,7 +126,9 @@ const EditUser = () => {
           return;
       }
       catch (error) {
-          console.log(error);
+        const err = error.response.data.message;
+        Swal.fire("Error", err, "error");
+
       }
     }
     error.details.forEach((item) => {
@@ -164,7 +164,6 @@ const EditUser = () => {
             .post(`${import.meta.env.VITE_APP_KEY}/activities/uploadImage`, { image: base64 })
             .then(async (res) => {
                 const imageUrl = res.data;
-                console.log(res)
                 onImageUpload(imageUrl); // Pass the URL to the parent component
                 await Swal.fire({
                     icon: "success",
@@ -174,12 +173,10 @@ const EditUser = () => {
                 });
             })
             .then(() => setLoading(false))
-            .catch(console.log);
     }
 
   const uploadImage = async (event) => {
     const files = event.target.files;
-    console.log(files.length);
 
     if (files.length === 1) {
       const base64 = await convertBase64(files[0]);
@@ -267,7 +264,7 @@ const EditUser = () => {
           {/* user data */}
           <div className="edit-information">
             <div className="input-information">
-                <label clasName="editUser-subject">
+                <label className="editUser-subject">
                 <p>Username<span id="require-info">*</span></p>
                 <input 
                     name="username" 
@@ -280,7 +277,7 @@ const EditUser = () => {
             </div>
 
             <div className="input-information">
-                <label clasName="editUser-subject"><p>Name</p>
+                <label className="editUser-subject"><p>Name</p>
                 <input 
                     name="fullname" 
                     type="text" 
@@ -291,7 +288,7 @@ const EditUser = () => {
                 </label>
             </div>
             <div className="input-information">
-                <label clasName="editUser-subject"><p>Birthdate</p>
+                <label className="editUser-subject"><p>Birthdate</p>
                 <input 
                     name="birthdate" 
                     type="text" 
@@ -304,7 +301,7 @@ const EditUser = () => {
                 </label>
             </div>
             <div className="input-information">
-                <label clasName="editUser-subject">
+                <label className="editUser-subject">
                     <p>Gender</p>
                 </label>
                 <div className="input-gender">
@@ -320,7 +317,7 @@ const EditUser = () => {
                       Male</label>
                     </div>
                     <div className="select-gender">
-                      <label  clasName="editUser-subject">
+                      <label  className="editUser-subject">
                         <input 
                             type="radio" 
                             value="female" 
@@ -333,7 +330,7 @@ const EditUser = () => {
                 </div>
             </div>
             <div className="input-information">
-                <label clasName="editUser-subject"><p>Weight</p>
+                <label className="editUser-subject"><p>Weight</p>
                 <input name="weight" 
                     type="number" 
                     value={user.weight}
@@ -343,7 +340,7 @@ const EditUser = () => {
                 </label>
             </div>
             <div className="input-information">
-                <label clasName="editUser-subject"><p>Height</p>
+                <label className="editUser-subject"><p>Height</p>
                 <input 
                     name="height" 
                     type="number" 
@@ -354,7 +351,7 @@ const EditUser = () => {
                 </label>
             </div>
             <div className="input-information">
-                <label clasName="editUser-subject"><p>Location</p>
+                <label className="editUser-subject"><p>Location</p>
                 <input 
                     name="location" 
                     type="text" 
@@ -365,7 +362,7 @@ const EditUser = () => {
                 </label>
             </div>
             <div className="input-information">
-                <label clasName="editUser-subject"><p>Bio</p>
+                <label className="editUser-subject"><p>Bio</p>
                 <input 
                     name="bio" 
                     type="text" 

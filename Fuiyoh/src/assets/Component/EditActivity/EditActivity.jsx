@@ -64,7 +64,6 @@ const EditActivity = () => {
         `${import.meta.env.VITE_APP_KEY}/activities/get/${activityId.activityId}`
       );
       if (response) {
-        // console.log(response)
         const { type, title, distance, duration } = response.data;
         let { location, date, description, feeling, img } = response.data;
 
@@ -92,7 +91,8 @@ const EditActivity = () => {
         });
       }
     } catch (error) {
-      console.log(error);
+      const err = error.response.data.message;
+      Swal.fire("Error", err, "error");
     }
   };
 
@@ -126,8 +126,9 @@ const EditActivity = () => {
         });
         navigate(`/dashboard/${userId}`);
         return; // Exit the function after successful submission
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        const err = error.response.data.message;
+        Swal.fire("Error", err, "error");
       }
     }
 
@@ -178,7 +179,6 @@ const EditActivity = () => {
     }));
   };
 
-  // console.log(activity.img);
 
   return (
     <LayoutSignin>

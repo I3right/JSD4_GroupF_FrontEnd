@@ -44,7 +44,6 @@ const Login = () => {
         timer: 2000,
       });
       if (loginResult) {
-        // console.log(loginResult);
         const userId = loginResult.data.userId;
         authenticate(loginResult, () => navigate(`/dashboard/${userId}`));
       }

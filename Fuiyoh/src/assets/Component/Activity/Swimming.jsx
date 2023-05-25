@@ -163,7 +163,7 @@ const AddActivity = () => {
 
     // Handle validation errors
     if (error) {
-      console.log(error);
+      // console.log(error);
       Swal.fire({
         icon: "error",
         title: error,
