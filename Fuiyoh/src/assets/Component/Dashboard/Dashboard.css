@@ -1,3 +1,5 @@
+
+
 .dashboard {
   display: flex;
   min-height: 100vh;
@@ -38,7 +40,7 @@
 .dashboard-profile>div {
     display: flex;
     flex-direction: column;
-    align-items: end;
+    align-items: flex-end;
     gap: 2px;
     cursor: pointer;
     max-width: 150px;
@@ -54,9 +56,20 @@
   width: 130px;
 }
 
-.dashboard-profile > div > div {
+.dashboard-profile > div > div > svg {
   width: 20px;
+  height: 20px;
+  fill: gray;
 }
+
+.dashboard-profile > div > div > svg :hover {
+  fill: #C1AEFC;
+}
+
+/* .dashboard-profile > div > div > path {
+  fill: gray;
+  width: 20px;
+} */
 
 aside .add-activity-btn {
   height: 50px;

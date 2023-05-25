@@ -1,7 +1,9 @@
-body{
+body {
     margin: 0;
     padding: 0;
     background-color: #F6F8FC;
+    width: 1200;
+    background-size: 1200;
     /* max-width: 1200px; */
     /* display: flex; */
 }
@@ -52,7 +54,7 @@ body{
     flex-direction: row-reverse;
     /* flex-direction: column; */
     /* justify-content: flex-end; */
-    align-items: end;
+    align-items: flex-end;
     gap: 2px;
     fill: gray;
     width: 20px;

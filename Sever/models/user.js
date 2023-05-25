@@ -21,29 +21,31 @@ const userSchema = new Schema(
       type: String,
     },
     birthdate: {
-        type: Date,
+      type: Date,
     },
     gender: {
-        type: String,
-        enum: ["male", "female"]
+      type: String,
+      enum: ["male", "female"]
     },
     weight: {
-        type: Number,
+      type: Number,
+      default: 0,
     },
     height: {
-        type: Number,
+      type: Number,
+      default: 0,
     },
     badge: {
       type: Array,
     },
     location: {
-        type: String,
+      type: String,
     },
     bio: {
-        type: String,
+      type: String,
     },
     userPhoto: {
-        type: String,
+      type: String,
     },
   },
   { timestamps: true }

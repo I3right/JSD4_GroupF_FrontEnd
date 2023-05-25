@@ -11,27 +11,57 @@ import account from "../../Picture/dashboard/account.svg";
 const formSchema = Joi.object({
   username: Joi.string()
     .alphanum()
-    .required(),
-  fullname: Joi.string(),
-  birthdate: Joi.date(),
+    .label("Username")
+    .required()
+    ,
+  fullname: Joi.string()
+    .allow("")
+    .optional()
+    .label("Fullname"),
+  birthdate: Joi.date()
+    .allow("")
+    .iso()
+    .optional()
+    .max("now")
+    .label("Birthdate"),
   gender: Joi.string()
-    .valid("male", "female"),
+    .valid("male", "female")
+    .allow("")
+    .optional()
+    .label("Gender"),
   weight: Joi.number()
-    .integer(),
+    .integer()
+    .allow("", null)
+    .optional()
+    .default(0)
+    .min(0)
+    .label("Weight (kg)"),
   height: Joi.number()
-    .integer(),
-  location: Joi.string(),
+    .integer()
+    .allow("", null)
+    .optional()
+    .default(0)
+    .min(0)
+    .label("Height (cm)"),
+  location: Joi.string()
+    .allow("")
+    .optional()
+    .max(100)
+    .label("Location"),
   bio: Joi.string()
-    .max(300),
+    .max(300)
+    .allow("")
+    .optional()
+    .label("Bio"),
   userPhoto: Joi.optional()
     .allow("")
-    .label("img"),
+    .label("Photo"),
   
 })
 
 const EditUser = () => {
   const userId = useParams();
-  console.log(userId.userId);
+  // console.log(userId.userId);
   const navigate = useNavigate();
   const [user, setUser] = useState({
     username: "",
@@ -102,7 +132,8 @@ const EditUser = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { error, value } = formSchema.validate(user);
-    // console.log(user)
+    console.log(value);
+
     if (!error) {
       try {
           const response = await axios.put(
@@ -123,9 +154,10 @@ const EditUser = () => {
           console.log(error);
       }
     }
-    // error.details.forEach((item) => {
-    //   Swal.fire("Error", item.message, "error");
-    // });
+    error.details.forEach((item) => {
+      Swal.fire("Error", item.message, "error");
+    });
+    console.log(value);
   };
 
   const handleCancle = () => {
@@ -190,7 +222,7 @@ const EditUser = () => {
     setIsImageUploaded(true);
   };
 
-  console.log(user.userPhoto)
+  // console.log(user.userPhoto)
 
   
   const handleDeleteImage = () => {
@@ -286,7 +318,7 @@ const EditUser = () => {
           {/* user data */}
           <div className="edit-information">
             <div className="input-information">
-                <label for="">Username</label>
+                <label>Username</label>
                 <input 
                     name="username" 
                     type="text" 
@@ -297,7 +329,7 @@ const EditUser = () => {
             </div>
 
             <div className="input-information">
-                <label for="">Name</label>
+                <label>Name</label>
                 <input 
                     name="fullname" 
                     type="text" 
@@ -307,7 +339,7 @@ const EditUser = () => {
                 />
             </div>
             <div className="input-information">
-                <label for="">Birthdate</label>
+                <label>Birthdate</label>
                 <input 
                     name="birthdate" 
                     type="date" 
@@ -322,7 +354,7 @@ const EditUser = () => {
                 </p>
                 <div className="input-gender">
                     <div className="select-gender">
-                      <label for="male">
+                      <label>
                         <input 
                             type="radio" 
                             value="male" 
@@ -333,7 +365,7 @@ const EditUser = () => {
                       Male</label>
                     </div>
                     <div className="select-gender">
-                      <label for="female">
+                      <label>
                         <input 
                             type="radio" 
                             value="female" 
@@ -346,7 +378,7 @@ const EditUser = () => {
                 </div>
             </div>
             <div className="input-information">
-                <label for="">Weight</label>
+                <label>Weight (kg)</label>
                 <input name="weight" 
                     type="number" 
                     value={user.weight}
@@ -355,7 +387,7 @@ const EditUser = () => {
                 />
             </div>
             <div className="input-information">
-                <label for="">Height</label>
+                <label>Height (cm)</label>
                 <input 
                     name="height" 
                     type="number" 
@@ -365,7 +397,7 @@ const EditUser = () => {
                 />
             </div>
             <div className="input-information">
-                <label for="">Location</label>
+                <label>Location</label>
                 <input 
                     name="location" 
                     type="text" 
@@ -375,7 +407,7 @@ const EditUser = () => {
                 />
             </div>
             <div className="input-information">
-                <label for="">Bio</label>
+                <label>Bio</label>
                 <input 
                     name="bio" 
                     type="text" 
