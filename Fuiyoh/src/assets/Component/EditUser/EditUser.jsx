@@ -16,9 +16,9 @@ const formSchema = Joi.object({
   birthdate: Joi.date().allow(''),
   gender: Joi.string().allow('')
     .valid("male", "female"),
-  weight: Joi.number()
+  weight: Joi.number().greater(0).less(Infinity)
     .integer(),
-  height: Joi.number()
+  height: Joi.number().greater(0).less(Infinity)
     .integer(),
   location: Joi.string().allow(""),
   bio: Joi.string().allow("")
