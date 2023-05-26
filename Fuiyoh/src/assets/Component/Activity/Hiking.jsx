@@ -27,7 +27,7 @@ const formSchema = Joi.object({
   distance: Joi.number().greater(0).less(Infinity).precision(3).required().label("distance(km)"),
   duration: Joi.number().greater(0).less(Infinity).integer().required().label("duration(min)"),
   location: Joi.string().allow("").optional().label("location"),
-  date: Joi.date().allow("").iso().optional().label("date"),
+  date: Joi.date().allow("").max("now").iso().optional().label("date"),
   description: Joi.string().allow("").max(150).optional().label("description"),
   feeling: Joi.string().allow("")
     .valid("best", "good", "normal", "bad", "worst")
