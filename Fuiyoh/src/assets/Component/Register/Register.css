@@ -28,9 +28,13 @@
   /* border: 10px solid red; */
   margin: 0 auto;
   width: 580px;
-  height: 630px;
+  /* height: 630px; */
   background-color: white;
   border-radius: 10px;
+}
+
+div.from-container form{
+  padding-bottom: 40px;
 }
 
 .from-container h1 {
