@@ -13,16 +13,16 @@ const formSchema = Joi.object({
     .alphanum()
     .required(),
   fullname: Joi.string().allow(''),
-  birthdate: Joi.date().allow(''),
+  birthdate: Joi.date().iso().allow('').max("now"),
   gender: Joi.string().allow('')
     .valid("male", "female"),
   weight: Joi.number().greater(0).less(Infinity)
     .integer(),
   height: Joi.number().greater(0).less(Infinity)
     .integer(),
-  location: Joi.string().allow(""),
+  location: Joi.string().max(50).allow(""),
   bio: Joi.string().allow("")
-    .max(300),
+    .max(100),
   userPhoto: Joi.optional()
     .allow("")
     .label("img"),
