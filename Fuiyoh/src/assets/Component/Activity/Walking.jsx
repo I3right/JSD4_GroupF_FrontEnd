@@ -206,7 +206,7 @@ const AddActivity = () => {
             name="distance"
             value="1"
             onClick={handleChange}
-            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 "}
           >
             1 km
           </button>
@@ -215,7 +215,7 @@ const AddActivity = () => {
             name="distance"
             value="2"
             onClick={handleChange}
-            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " }
           >
             2 km
           </button>
@@ -224,7 +224,7 @@ const AddActivity = () => {
             name="distance"
             value="3"
             onClick={handleChange}
-            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " }
           >
             3 km
           </button>
@@ -233,7 +233,7 @@ const AddActivity = () => {
             name="distance"
             value="5"
             onClick={handleChange}
-            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " }
           >
             5 km
           </button>
@@ -242,7 +242,7 @@ const AddActivity = () => {
             name="distance"
             value="7"
             onClick={handleChange}
-            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " }
           >
             7 km
           </button>
@@ -265,7 +265,7 @@ const AddActivity = () => {
             name="duration"
             value="30"
             onClick={handleChange}
-            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " }
           >
             30 mins
           </button>
@@ -274,7 +274,7 @@ const AddActivity = () => {
             name="duration"
             value="60"
             onClick={handleChange}
-            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " }
           >
             60 mins
           </button>
@@ -283,7 +283,7 @@ const AddActivity = () => {
             name="duration"
             value="90"
             onClick={handleChange}
-            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " }
           >
             90 mins
           </button>
@@ -292,7 +292,7 @@ const AddActivity = () => {
             name="duration"
             value="120"
             onClick={handleChange}
-            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " }
           >
             120 mins
           </button>
@@ -301,7 +301,7 @@ const AddActivity = () => {
             name="duration"
             value="150"
             onClick={handleChange}
-            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " + (activity.feeling === "good" ? "bg-violet-200	p-0.5" : "")}
+            className={" hover:bg-violet-200 rounded-sm bg-violet-100 " }
           >
             150 mins
           </button>
